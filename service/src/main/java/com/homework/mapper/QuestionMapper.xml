@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.homework.mapper.QuestionMapper">
+    <resultMap id="questionResultMap" type="Question">
+        <id property="id" column="id" />
+        <result property="homeworkId" column="homeworkId"/>
+        <result property="type" column="type"/>
+        <result property="title" column="title"/>
+        <result property="seq" column="seq"/>
+        <result property="answer" column="answer"/>
+        <result property="created" column="created"/>
+        <result property="updated" column="updated"/>
+    </resultMap>
+
+    <sql id="questionList">
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="homeworkId != null">
+                and homeworkId = #{homeworkId}
+            </if>
+        </trim>
+    </sql>
+
+    <select id="selectQuestionList" parameterType="com.homework.data.QuestionParam" resultType="Question">
+        <bind name="orderSql" value="@com.homework.util.Pretreatment@getOrder(order)"/>
+        select * from question
+        <include refid="questionList" />
+        <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(orderSql)">
+            order by
+            #{orderSql}
+        </if>
+        <if test="isPage">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="count" parameterType="com.homework.data.QuestionParam" resultType="Long">
+        select count(id) from question
+        <include refid="questionList" />
+    </select>
+
+    <update id="updateQuestion" parameterType="Question">
+        <bind name="sysDate" value="@com.homework.util.Pretreatment@now()"></bind>
+        update question
+        <trim prefix="set" suffixOverrides="," suffix=" where id = #{id} ">
+            updated = #{sysDate}
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(title)">
+                title=#{title},
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(answer)">
+                answer=#{answer},
+            </if>
+        </trim>
+    </update>
+
+    <insert id="insertQuestion" parameterType="com.homework.model.Question">
+        <bind name="sysDate" value="@com.homework.util.Pretreatment@now()" />
+        <bind name="nextId" value="@com.homework.util.Pretreatment@nextId()" />
+        insert into question
+        (id,homeworkId,type,title,seq,answer,created, updated)
+        values(#{nextId},#{homeworkId},   #{type},#{title},#{seq},#{answer},#{sysDate},#{sysDate})
+    </insert>
+
+</mapper>

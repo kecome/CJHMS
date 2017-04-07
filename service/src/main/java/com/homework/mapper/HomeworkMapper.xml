@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.homework.mapper.HomeworkMapper">
+    <resultMap id="homeworkResultMap" type="Homework">
+        <id property="id" column="id" />
+        <result property="teacherId" column="teacherId"/>
+        <result property="subjectId" column="subjectId"/>
+        <result property="title" column="title"/>
+        <result property="knowledge" column="knowledge"/>
+        <result property="spentTime" column="spentTime"/>
+        <result property="status" column="status"/>
+        <result property="publicTime" column="publicTime"/>
+        <result property="endTime" column="endTime"/>
+        <result property="created" column="created"/>
+        <result property="updated" column="updated"/>
+    </resultMap>
+
+    <sql id="homeworkList">
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="teacherId != null">
+                and teacherId = #{teacherId}
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(title)">
+                and title = #{title}
+            </if>
+        </trim>
+    </sql>
+
+    <select id="selectHomeworkList" parameterType="com.homework.data.HomeworkParam" resultType="Homework">
+        <bind name="orderSql" value="@com.homework.util.Pretreatment@getOrder(order)"/>
+        select * from homework
+        <include refid="homeworkList" />
+        <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(orderSql)">
+            order by
+             #{orderSql}
+        </if>
+        <if test="isPage">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="count" parameterType="com.homework.data.HomeworkParam" resultType="Long">
+        select count(id) from homework
+        <include refid="homeworkList" />
+    </select>
+
+    <update id="updateHomework" parameterType="Homework">
+        <bind name="sysDate" value="@com.homework.util.Pretreatment@now()"></bind>
+        update homework
+        <trim prefix="set" suffixOverrides="," suffix=" where id = #{id} ">
+            updated = #{sysDate}
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(title)">
+                title=#{title},
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(knowledge)">
+                knowledge=#{knowledge},
+            </if>
+        </trim>
+    </update>
+
+    <insert id="insertHomework" parameterType="com.homework.model.Homework">
+        <bind name="sysDate" value="@com.homework.util.Pretreatment@now()" />
+        <bind name="nextId" value="@com.homework.util.Pretreatment@nextId()" />
+        insert into homework
+              (id,teacherId,subjectId,title,knowledge,spentTime,status,publicTime,endTime, created, updated)
+        values(#{nextId},#{teacherId},#{subjectId},#{title},#{knowledge},#{spentTime},#{status},#{publicTime},#{endTime},#{sysDate},#{sysDate})
+    </insert>
+
+</mapper>
