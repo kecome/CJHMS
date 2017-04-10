@@ -28,6 +28,11 @@ public class Question extends BaseModel {
      */
     private String answer;
 
+    /**
+     * 答案选项
+     */
+    private String item;
+
     public Long getHomeworkId() {
         return homeworkId;
     }
@@ -66,5 +71,13 @@ public class Question extends BaseModel {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+
+    public String getItem() {
+        return item;
+    }
+
+    public void setItem(String item) {
+        this.item = item;
     }
 }

@@ -16,7 +16,7 @@ public class HomeworkClassService {
     @Autowired
     private HomeworkClassMapper homeworkClassMapper;
 
-    public int insertHomeworkClass(HomeworkClass homeworkClass) {
+    public Long insertHomeworkClass(HomeworkClass homeworkClass) {
         return homeworkClassMapper.insertHomeworkClass(homeworkClass);
     }
 }

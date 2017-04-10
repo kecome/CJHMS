@@ -1,12 +1,12 @@
 package com.homework.mapper;
 
-import com.homework.data.QuestionParam;
+import com.homework.param.QuestionParam;
 import com.homework.model.Question;
 
 import java.util.List;
 
 /**
- * Created by Administrator on 2017/4/7 0007.
+ * Created by xuke on 2017/4/7 0007.
  */
 public interface QuestionMapper {
     int insertQuestion(Question question);

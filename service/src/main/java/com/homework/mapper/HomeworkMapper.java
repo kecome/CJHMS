@@ -1,6 +1,6 @@
 package com.homework.mapper;
 
-import com.homework.data.HomeworkParam;
+import com.homework.param.HomeworkParam;
 import com.homework.model.Homework;
 import org.apache.ibatis.annotations.Select;
 
@@ -20,4 +20,6 @@ public interface HomeworkMapper {
     int insertHomework(Homework homework);
 
     int updateHomework(Homework homework);
+
+    int updateStatus();
 }

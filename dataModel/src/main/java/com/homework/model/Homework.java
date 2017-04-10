@@ -44,10 +44,6 @@ public class Homework extends BaseModel {
     @NotNull(message = "状态不能为空")
     private Integer status;
     /**
-     * 作业批次号
-     */
-    private Long batchNum;
-    /**
      * 预约发布时间
      */
     @JsonFormat(pattern="yyyy-MM-dd HH:mm")
@@ -122,14 +118,6 @@ public class Homework extends BaseModel {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
-    }
-
-    public Long getBatchNum() {
-        return batchNum;
-    }
-
-    public void setBatchNum(Long batchNum) {
-        this.batchNum = batchNum;
     }
 
 }

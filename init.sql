@@ -32,6 +32,7 @@ create table `question` (
     `title` text not null comment '题干',
     `seq` int comment '题目序号，作业展示时用于排序',
     `answer` text not null comment '题目答案',
+    `item` varchar(128) not null comment '答案选项',
     `created` datetime not null comment '创建时间',
     `updated` datetime not null comment '修改时间',
      primary key (`id`)
@@ -42,8 +43,8 @@ create table `studentwork` (
     `id` bigint unsigned not null comment 'id号',
     `homeworkId` bigint unsigned not null comment '作业id',
     `studentId` bigint unsigned not null comment '学生id号',
-    `submit` tinyint not null comment '学生是否提交：【0：未提交；1：已提交】',
-    `mark` tinyint not null comment '老师是否批阅：【0：未批阅；1：已批阅】',
+    `submit` tinyint not null default 0 comment '学生是否提交：【0：未提交；1：已提交】',
+    `mark` tinyint not null default 0 comment '老师是否批阅：【0：未批阅；1：已批阅】',
     `created` datetime not null comment '创建时间',
     `updated` datetime not null comment '修改时间',
      primary key (`id`)
@@ -69,7 +70,7 @@ create table `message` (
     `teacherId` bigint unsigned not null comment '消息发送者id号，老师',
     `type` tinyint not null comment '消息类型：【0：作业批阅消息】',
     `content` text comment '消息内容',
-    `isRead` tinyint not null comment '是否查看：【0：未查看；1：已查看】',
+    `isRead` tinyint not null default 0 comment '是否查看：【0：未查看；1：已查看】',
     `created` datetime not null comment '创建时间',
     `updated` datetime not null comment '修改时间',
      primary key (`id`)

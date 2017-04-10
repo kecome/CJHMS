@@ -21,8 +21,8 @@ public class HttpUtil {
 
     public static String POST = "post";
 
-    public static String send(String url, Map<String, Object> param, String Method) {
-        if(Method == null || Method.equals("")) {
+    public static String send(String url, Map<String, Object> param, String method) {
+        if(method == null || method.equals("")) {
             return null;
         }
         StringBuilder builder = new StringBuilder();
@@ -33,9 +33,9 @@ public class HttpUtil {
             builder.deleteCharAt(builder.length()-1);
         }
         String result = "";
-        if(Method.equals("get")) {
+        if(method.equals("get")) {
             result = sendGet(url, builder.toString());
-        }else if(Method.equals("post")) {
+        }else if(method.equals("post")) {
             result = sendPost(url, builder.toString());
         }
         return result;

@@ -1,4 +1,4 @@
-package com.homework.data;
+package com.homework.param;
 
 /**
  * 作业查询参数类
