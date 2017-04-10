@@ -66,4 +66,8 @@
         values(#{id},#{homeworkId}, #{type},#{title},#{seq},#{answer},#{item},#{sysDate},#{sysDate})
     </insert>
 
+    <select id="">
+
+    </select>
+
 </mapper>

@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/question")
 public class QuestionController {
-
     @Autowired
     private QuestionService questionService;
 
@@ -36,6 +35,15 @@ public class QuestionController {
         Page<Question> page = questionService.selectQuestionList(param);
         ResponseMsg msg = new ResponseMsg();
         msg.setData(JsonUtil.beanToJson(page));
+        return msg;
+    }
+
+    @RequestMapping(value="", method = RequestMethod.GET)
+    public Object getQuestion(Long id) throws Exception{
+        Question question = questionService.selectQuestion(id);
+        String data = JsonUtil.beanToJson(question);
+        ResponseMsg msg = new ResponseMsg();
+        msg.setData(data);
         return msg;
     }
 

@@ -38,4 +38,8 @@ public class QuestionService {
         page.setTotal(list.size());
         return page;
     }
+
+    public Question selectQuestion(Long id) {
+        return questionMapper.selectQuestion(id);
+    }
 }

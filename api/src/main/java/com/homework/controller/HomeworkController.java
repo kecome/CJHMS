@@ -13,6 +13,7 @@ import com.homework.service.HomeworkService;
 import com.homework.util.JsonUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,7 +36,7 @@ import java.util.logging.Logger;
 @RestController
 @RequestMapping(value = "/homework")
 public class HomeworkController {
-    Logger logger = Logger.getLogger(HomeworkController.class.getName());
+    Logger logger = (Logger) LoggerFactory.getLogger(HomeworkController.class);
     @Autowired
     private HomeworkService homeworkService;
 

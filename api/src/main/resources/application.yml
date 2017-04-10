@@ -23,5 +23,5 @@ spring:
 server:
     port: 8888
 mybatis:
-  type-aliases-package: com.homework.model
-  mapper-locations: classpath:com/homework/mapper/*.xml
+   type-aliases-package: com.homework.model
+   mapper-locations: classpath:com/homework/mapper/*.xml

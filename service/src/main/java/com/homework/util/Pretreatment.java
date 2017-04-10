@@ -21,12 +21,6 @@ public class Pretreatment {
         return idGenerator.nextId();
     }
 
-//    public static void main(String[] args) {
-//        for(int i=0;i<20;i++) {
-//            System.out.println(nextId());
-//        }
-//    }
-
     public static String getOrder(Map<String, String> order) {
         if(order != null && order.size() > 0) {
             StringBuffer buffer = new StringBuffer();
