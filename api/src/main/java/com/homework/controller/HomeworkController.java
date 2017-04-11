@@ -13,7 +13,6 @@ import com.homework.service.HomeworkService;
 import com.homework.util.JsonUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * 作业controller
@@ -36,7 +34,6 @@ import java.util.logging.Logger;
 @RestController
 @RequestMapping(value = "/homework")
 public class HomeworkController {
-    Logger logger = (Logger) LoggerFactory.getLogger(HomeworkController.class);
     @Autowired
     private HomeworkService homeworkService;
 
@@ -76,7 +73,7 @@ public class HomeworkController {
      */
     @RequestMapping(value="", method = RequestMethod.POST)
     public Object postHomework(@Validated @RequestBody HomeworkQuestiion hq) throws Exception {
-        logger.info("方法postHomework()---->" + JsonUtil.beanToJson(hq));
+       // logger.info("方法postHomework()---->" + JsonUtil.beanToJson(hq));
         homeworkService.postHomework(hq);
         return new ResponseMsg();
     }

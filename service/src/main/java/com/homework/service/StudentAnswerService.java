@@ -27,7 +27,7 @@ public class StudentAnswerService {
         param.setHomeworkId(homeworkId);
         param.setStudentId(234L);
         Page<Studentanswer> page = new Page<>();
-        List<Studentanswer> list = studentanswerMapper.selectStudentAnswerList(param);
+        List<Studentanswer> list = studentanswerMapper.selectStudentanswerList(param);
         page.setItems(list);
         page.setTotal(list.size());
         return page;
