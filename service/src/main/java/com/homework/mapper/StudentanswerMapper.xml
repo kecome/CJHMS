@@ -18,7 +18,7 @@
         select s.* from studentanswer s LEFT JOIN question q on s.questionId = q.id where q.homeworkId = #{homeworkId}
         and s.studentId = #{studentId}
     </select>
-<!-- -->
+
     <insert id="insertStudentanswer" parameterType="com.homework.model.Studentanswer">
         <bind name="sysDate" value="@com.homework.util.Pretreatment@now()" />
         <selectKey keyProperty="id" resultType="Long" order="BEFORE">
