@@ -8,6 +8,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * http请求工具类
@@ -21,7 +22,14 @@ public class HttpUtil {
 
     public static String POST = "post";
 
-    public static String send(String url, Map<String, Object> param, String method) {
+    /**
+     * 封装get和post请求
+     * @param url
+     * @param param
+     * @param method
+     * @return
+     */
+    public static String send(String url, TreeMap<String, Object> param, String method) {
         if(method == null || method.equals("")) {
             return null;
         }
@@ -41,13 +49,6 @@ public class HttpUtil {
         return result;
     }
 
-//    public static void main(String[] args) {
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("id", 299612298323361792L);
-//        String str = send("http://localhost:8888/homework", map, HttpUtil.GET);
-//        System.out.println("str:::" + str);
-//    }
-
     /**
      * 向指定URL发送GET方法的请求
      *
@@ -57,7 +58,7 @@ public class HttpUtil {
      *            请求参数，请求参数应该是 name1=value1&name2=value2 的形式。
      * @return URL 所代表远程资源的响应结果
      */
-    public static String sendGet(String url, String param) {
+    private static String sendGet(String url, String param) {
         String result = "";
         BufferedReader in = null;
         try {
@@ -111,7 +112,7 @@ public class HttpUtil {
      *            请求参数，请求参数应该是 name1=value1&name2=value2 的形式。
      * @return 所代表远程资源的响应结果
      */
-    public static String sendPost(String url, String param) {
+    private static String sendPost(String url, String param) {
         PrintWriter out = null;
         BufferedReader in = null;
         String result = "";

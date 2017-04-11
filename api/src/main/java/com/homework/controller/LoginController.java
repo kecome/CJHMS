@@ -10,10 +10,10 @@ import com.homework.util.HttpUtil;
 import com.homework.util.JsonUtil;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * 用户登录controller
@@ -25,6 +25,9 @@ import java.util.Map;
 @RequestMapping(value = "/login")
 public class LoginController {
 
+    @Value("${cbp_host}")
+    private String host;
+
     /**
      * 用户登录
      * @param param
@@ -35,10 +38,10 @@ public class LoginController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     public Object login(@RequestBody UserParam param) throws Exception {
         ResponseMsg msg = new ResponseMsg();
-        Map<String, Object> map = new HashMap<>();
+        TreeMap<String, Object> map = new TreeMap<>();
         map.put("userName", param.getUsername());
         map.put("password", param.getPassword());
-        String json = HttpUtil.send("http://10.0.3.69:8090/unlogin/login.cbp",map, HttpUtil.POST);
+        String json = HttpUtil.send(host+"unlogin/login.cbp",map, HttpUtil.POST);
         if(StringUtils.isEmpty(json)) {
             throw new BusinessException(ErrorInfo.HTTP_CONNECTION_NULL.code, ErrorInfo.HTTP_CONNECTION_NULL.desc);
         }
@@ -56,19 +59,19 @@ public class LoginController {
 
     /**
      * 退出登录
-     * @param token
+     * @param
      * @return
      */
-    @RequestMapping(value = "loginOut", method = RequestMethod.POST)
+    @LoginIgnore
+    @RequestMapping(value = "/loginOut", method = RequestMethod.POST)
     public Object loginOut(@RequestHeader String token) {
-        Map<String, Object> map = new HashMap<>();
+        TreeMap<String, Object> map = new TreeMap<>();
         map.put("token", token);
-        String json = HttpUtil.send("http://10.0.3.69:8090/unlogin/loginout.cbp",map, HttpUtil.POST);
+        String json = HttpUtil.send(host + "unlogin/loginout.cbp",map, HttpUtil.POST);
         if(StringUtils.isEmpty(json)) {
             throw new BusinessException(ErrorInfo.HTTP_CONNECTION_NULL.code, ErrorInfo.HTTP_CONNECTION_NULL.desc);
         }
         System.out.println(json);
         return json;
     }
-
 }
