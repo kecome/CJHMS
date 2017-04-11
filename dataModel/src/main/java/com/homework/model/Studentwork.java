@@ -16,6 +16,10 @@ public class Studentwork extends BaseModel {
      */
     private Long studentId;
     /**
+     * 班级id号
+     */
+    private Long classId;
+    /**
      * 学生是否提交：【0：未提交；1：已提交】
      */
     private Integer submit;
@@ -54,5 +58,13 @@ public class Studentwork extends BaseModel {
 
     public void setMark(Integer mark) {
         this.mark = mark;
+    }
+
+    public Long getClassId() {
+        return classId;
+    }
+
+    public void setClassId(Long classId) {
+        this.classId = classId;
     }
 }

@@ -43,6 +43,7 @@ create table `studentwork` (
     `id` bigint unsigned not null comment 'id号',
     `homeworkId` bigint unsigned not null comment '作业id',
     `studentId` bigint unsigned not null comment '学生id号',
+    `classId` bigint unsigned not null comment '班级id号',
     `submit` tinyint not null default 0 comment '学生是否提交：【0：未提交；1：已提交】',
     `mark` tinyint not null default 0 comment '老师是否批阅：【0：未批阅；1：已批阅】',
     `created` datetime not null comment '创建时间',

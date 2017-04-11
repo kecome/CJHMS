@@ -1,14 +1,14 @@
 package com.homework.util;
 
 /**
- * 当前操作用户
+ * 当前会话的用户信息
  *
  * @author xuke
- * @create 2017-04-10 下午 17:44
+ * @create 2017-04-11 下午 14:39
  **/
 public class User {
     private Long id;
-    private String name;
+    private String username;
 
     public Long getId() {
         return id;
@@ -18,11 +18,11 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

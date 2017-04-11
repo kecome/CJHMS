@@ -7,6 +7,7 @@
         <id property="id" column="id" />
         <result property="homeworkId" column="homeworkId"/>
         <result property="studentId" column="studentId"/>
+        <result property="classId" column="classId"/>
         <result property="submit" column="submit"/>
         <result property="mark" column="mark"/>
         <result property="created" column="created"/>

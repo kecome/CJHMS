@@ -60,6 +60,7 @@ public class HomeworkService {
             sw = new Studentwork();
             sw.setHomeworkId(homework.getId());
             sw.setStudentId(studentId);
+            sw.setClassId(66L);
             sw.setSubmit(0);
             sw.setMark(0);
             studentworkMapper.insertStudentwork(sw);
