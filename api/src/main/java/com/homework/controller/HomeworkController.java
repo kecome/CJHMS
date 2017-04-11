@@ -11,7 +11,6 @@ import com.homework.param.HomeworkParam;
 import com.homework.response.ResponseMsg;
 import com.homework.service.HomeworkService;
 import com.homework.util.JsonUtil;
-import com.homework.util.UserUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +43,6 @@ public class HomeworkController {
         Page<Homework> page = homeworkService.selectHomeworkList(param);
         ResponseMsg msg = new ResponseMsg();
         msg.setData(JsonUtil.beanToJson(page));
-        System.out.println("homeworkList--------->" + UserUtil.getUser());
         return msg;
     }
 

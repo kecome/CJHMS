@@ -10,6 +10,8 @@ import com.homework.util.HttpUtil;
 import com.homework.util.JsonUtil;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +26,7 @@ import java.util.TreeMap;
 @RestController
 @RequestMapping(value = "/login")
 public class LoginController {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Value("${cbp_host}")
     private String host;
@@ -37,6 +40,7 @@ public class LoginController {
     @LoginIgnore
     @RequestMapping(value = "", method = RequestMethod.POST)
     public Object login(@RequestBody UserParam param) throws Exception {
+        logger.info("param---->" + JsonUtil.beanToJson(param));
         ResponseMsg msg = new ResponseMsg();
         TreeMap<String, Object> map = new TreeMap<>();
         map.put("userName", param.getUsername());
@@ -45,7 +49,6 @@ public class LoginController {
         if(StringUtils.isEmpty(json)) {
             throw new BusinessException(ErrorInfo.HTTP_CONNECTION_NULL.code, ErrorInfo.HTTP_CONNECTION_NULL.desc);
         }
-        System.out.println("json------->" + json);
         JSONObject obj = JSONObject.fromObject(json);
         if(obj.getInt("code") == 0) {   //请求正常
             JSONObject data = obj.getJSONObject("data");
