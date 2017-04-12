@@ -10,21 +10,23 @@ import com.homework.model.Question;
 import com.homework.param.HomeworkParam;
 import com.homework.response.ResponseMsg;
 import com.homework.service.HomeworkService;
+import com.homework.util.HttpUtil;
 import com.homework.util.JsonUtil;
+import com.homework.util.UserUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TreeMap;
 
 /**
  * 作业controller
@@ -39,7 +41,15 @@ public class HomeworkController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private HomeworkService homeworkService;
+    @Value("${cbp_host}")
+    private String host;
 
+    /**
+     * 作业列表
+     * @param param
+     * @return
+     * @throws Exception
+     */
     @ApiOperation(value = "获取作业列表",notes = "直接请求")
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     public Object getHomeworkList(@RequestBody HomeworkParam param) throws Exception{
@@ -85,6 +95,25 @@ public class HomeworkController {
         ResponseMsg msg = new ResponseMsg();
         logger.info("请求方法postHomework返回---->" + JsonUtil.beanToJson(msg));
         return msg;
+    }
+
+    /**
+     * 获取班级
+     * @return
+     */
+    @RequestMapping(value="/classes", method = RequestMethod.GET)
+    public Object getClasses(@RequestHeader String token) throws Exception{
+        TreeMap<String, Object> param = new TreeMap();
+        TreeMap<String, Object> header = new TreeMap();
+        header.put("token", token);
+        param.put("teacherIds", new Long[] {UserUtil.getUser().getId()});
+        String json = HttpUtil.send(host+"class/queryClass.cbp",param,header, HttpUtil.POST);
+        if(StringUtils.isEmpty(json)) {
+            throw new BusinessException(ErrorInfo.HTTP_CONNECTION_NULL.code, ErrorInfo.HTTP_CONNECTION_NULL.desc);
+        }
+        ResponseMsg msg = new ResponseMsg();
+        logger.info("请求方法getClasses返回---->" + JsonUtil.beanToJson(msg));
+        return json;
     }
 
 //    public static void main(String[] args) throws  Exception {

@@ -25,3 +25,5 @@ mybatis:
    mapper-locations: classpath:com/homework/mapper/*.xml
 server:
     port: 8888
+logging:
+  level: debug

@@ -45,7 +45,8 @@ public class LoginController {
         TreeMap<String, Object> map = new TreeMap<>();
         map.put("userName", param.getUsername());
         map.put("password", param.getPassword());
-        String json = HttpUtil.send(host+"unlogin/login.cbp",map, HttpUtil.POST);
+        logger.info("cbp请求地址---->" + host+"unlogin/login.cbp" + "参数---->" + JsonUtil.beanToJson(map));
+        String json = HttpUtil.send(host+"unlogin/login.cbp",map,null, HttpUtil.POST);
         if(StringUtils.isEmpty(json)) {
             throw new BusinessException(ErrorInfo.HTTP_CONNECTION_NULL.code, ErrorInfo.HTTP_CONNECTION_NULL.desc);
         }
@@ -70,9 +71,9 @@ public class LoginController {
     @RequestMapping(value = "/loginOut", method = RequestMethod.POST)
     public Object loginOut(@RequestHeader String token) {
         logger.info("请求方法login参数---->" + token);
-        TreeMap<String, Object> map = new TreeMap<>();
-        map.put("token", token);
-        String json = HttpUtil.send(host + "unlogin/loginout.cbp",map, HttpUtil.POST);
+        TreeMap<String, Object> header = new TreeMap<>();
+        header.put("token", token);
+        String json = HttpUtil.send(host + "unlogin/loginout.cbp",null,header, HttpUtil.POST);
         if(StringUtils.isEmpty(json)) {
             throw new BusinessException(ErrorInfo.HTTP_CONNECTION_NULL.code, ErrorInfo.HTTP_CONNECTION_NULL.desc);
         }
