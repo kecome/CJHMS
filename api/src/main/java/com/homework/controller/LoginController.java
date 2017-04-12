@@ -40,7 +40,7 @@ public class LoginController {
     @LoginIgnore
     @RequestMapping(value = "", method = RequestMethod.POST)
     public Object login(@RequestBody UserParam param) throws Exception {
-        logger.info("param---->" + JsonUtil.beanToJson(param));
+        logger.info("请求方法login参数---->" + JsonUtil.beanToJson(param));
         ResponseMsg msg = new ResponseMsg();
         TreeMap<String, Object> map = new TreeMap<>();
         map.put("userName", param.getUsername());
@@ -57,6 +57,7 @@ public class LoginController {
             msg.setData(JsonUtil.beanToJson(info));
             return msg;
         }
+        logger.info("请求方法login返回---->" + json);
         return json;
     }
 
@@ -68,13 +69,14 @@ public class LoginController {
     @LoginIgnore
     @RequestMapping(value = "/loginOut", method = RequestMethod.POST)
     public Object loginOut(@RequestHeader String token) {
+        logger.info("请求方法login参数---->" + token);
         TreeMap<String, Object> map = new TreeMap<>();
         map.put("token", token);
         String json = HttpUtil.send(host + "unlogin/loginout.cbp",map, HttpUtil.POST);
         if(StringUtils.isEmpty(json)) {
             throw new BusinessException(ErrorInfo.HTTP_CONNECTION_NULL.code, ErrorInfo.HTTP_CONNECTION_NULL.desc);
         }
-        System.out.println(json);
+        logger.info("请求方法login返回---->" + json);
         return json;
     }
 }

@@ -52,7 +52,7 @@ public class LoginInterceptor implements HandlerInterceptor{
         if(clazzAnnotation == null && methodAnnotation == null) {  //没加忽略登录拦截注解，进入token验证
             TreeMap<String, Object> param = new TreeMap<>();
             param.put("token", request.getHeader("token"));
-            String json = HttpUtil.send("http://10.0.3.69:8090/unverify/getTokeneffective.cbp", param, HttpUtil.POST);
+            String json = HttpUtil.send("http://10.0.0.214:8080/cpp/unverify/getTokeneffective.cbp", param, HttpUtil.POST);
             if(StringUtils.isEmpty(json)) {
                 throw new BusinessException(ErrorInfo.HTTP_CONNECTION_NULL.code, ErrorInfo.HTTP_CONNECTION_NULL.desc);
             }

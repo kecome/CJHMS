@@ -20,8 +20,8 @@ spring:
         testOnReturn: false
         poolPreparedStatements: true
         maxOpenPreparedStatements: 20
-server:
-    port: 8888
 mybatis:
    type-aliases-package: com.homework.model
    mapper-locations: classpath:com/homework/mapper/*.xml
+server:
+    port: 8888

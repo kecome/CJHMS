@@ -6,6 +6,8 @@ import com.homework.param.QuestionParam;
 import com.homework.response.ResponseMsg;
 import com.homework.service.QuestionService;
 import com.homework.util.JsonUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/question")
 public class QuestionController {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private QuestionService questionService;
 
@@ -32,18 +35,22 @@ public class QuestionController {
      */
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     public Object getQuestionList( @RequestBody QuestionParam param) throws Exception{
+        logger.info("请求方法getQuestionList参数---->" + JsonUtil.beanToJson(param));
         Page<Question> page = questionService.selectQuestionList(param);
         ResponseMsg msg = new ResponseMsg();
         msg.setData(JsonUtil.beanToJson(page));
+        logger.info("请求方法getQuestionList返回---->" + JsonUtil.beanToJson(msg));
         return msg;
     }
 
     @RequestMapping(value="", method = RequestMethod.GET)
     public Object getQuestion(Long id) throws Exception{
+        logger.info("请求方法getQuestion参数---->" + id);
         Question question = questionService.selectQuestion(id);
         String data = JsonUtil.beanToJson(question);
         ResponseMsg msg = new ResponseMsg();
         msg.setData(data);
+        logger.info("请求方法getQuestion返回---->" + JsonUtil.beanToJson(msg));
         return msg;
     }
 

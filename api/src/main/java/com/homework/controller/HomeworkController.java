@@ -13,6 +13,8 @@ import com.homework.service.HomeworkService;
 import com.homework.util.JsonUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,15 +36,18 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/homework")
 public class HomeworkController {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private HomeworkService homeworkService;
 
     @ApiOperation(value = "获取作业列表",notes = "直接请求")
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     public Object getHomeworkList(@RequestBody HomeworkParam param) throws Exception{
+        logger.info("请求方法getHomeworkList参数---->" + JsonUtil.beanToJson(param));
         Page<Homework> page = homeworkService.selectHomeworkList(param);
         ResponseMsg msg = new ResponseMsg();
         msg.setData(JsonUtil.beanToJson(page));
+        logger.info("请求方法getHomeworkList返回---->" + JsonUtil.beanToJson(msg));
         return msg;
     }
 
@@ -55,6 +60,7 @@ public class HomeworkController {
     @ApiOperation(value = "根据id获取作业", httpMethod = "GET" ,notes = "携带作业id")
     @RequestMapping(value="", method = RequestMethod.GET)
     public Object getHomework(Long id) throws Exception{
+        logger.info("请求方法getHomework参数---->" + id);
         if(id == null || id < 0) {
             throw new BusinessException(ErrorInfo.ID_IS_NULL.code, ErrorInfo.ID_IS_NULL.desc);
         }
@@ -62,6 +68,7 @@ public class HomeworkController {
         String data = JsonUtil.beanToJson(hk);
         ResponseMsg msg = new ResponseMsg();
         msg.setData(data);
+        logger.info("请求方法getHomework返回---->" + JsonUtil.beanToJson(msg));
         return msg;
     }
 
@@ -73,9 +80,11 @@ public class HomeworkController {
      */
     @RequestMapping(value="", method = RequestMethod.POST)
     public Object postHomework(@Validated @RequestBody HomeworkQuestiion hq) throws Exception {
-       // logger.info("方法postHomework()---->" + JsonUtil.beanToJson(hq));
+        logger.info("请求方法postHomework参数---->" + JsonUtil.beanToJson(hq));
         homeworkService.postHomework(hq);
-        return new ResponseMsg();
+        ResponseMsg msg = new ResponseMsg();
+        logger.info("请求方法postHomework返回---->" + JsonUtil.beanToJson(msg));
+        return msg;
     }
 
 //    public static void main(String[] args) throws  Exception {

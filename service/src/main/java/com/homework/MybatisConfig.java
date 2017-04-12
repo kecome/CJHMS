@@ -22,10 +22,8 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import javax.sql.DataSource;
 import java.util.Properties;
-
 @Configuration    //该注解类似于spring配置文件
 @MapperScan(basePackages="com.homework.mapper")
-//@ConfigurationProperties("classpath:mybatis-config.yml")
 public class MybatisConfig {
 
     @Autowired
