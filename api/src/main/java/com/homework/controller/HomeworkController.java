@@ -36,7 +36,7 @@ import java.util.TreeMap;
  **/
 @Api("HomeworkController控制器")
 @RestController
-@RequestMapping(value = "/homework")
+@RequestMapping(value = "/homework",produces="application/json;charset=UTF-8")
 public class HomeworkController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
@@ -125,9 +125,9 @@ public class HomeworkController {
     @RequestMapping(value="/students", method = RequestMethod.POST)
     public Object getStudents(@RequestBody List<Long> ids) throws Exception{
         TreeMap<String, Object> param = new TreeMap();
-        param.put("teacherIds[]", new Long[] {UserUtil.getUser().getId()});
-        param.put("classIds[]", ids.toArray());
-        String json = HttpUtil.send(host+"class/queryClass.cbp",param,HttpUtil.POST);
+       // param.put("teacherIds[]", "323,434,545");
+        param.put("classIds[]", StringUtils.join(ids,","));
+        String json = HttpUtil.send(host+"student/queryStudent.cbp",param,HttpUtil.POST);
         if(StringUtils.isEmpty(json)) {
             throw new BusinessException(ErrorInfo.HTTP_CONNECTION_NULL.code, ErrorInfo.HTTP_CONNECTION_NULL.desc);
         }

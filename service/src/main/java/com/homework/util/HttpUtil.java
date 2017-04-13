@@ -38,8 +38,8 @@ public class HttpUtil {
             return null;
         }
         TreeMap<String, Object> header = new TreeMap<>();
-        header.put("serverTokenKey", serverTokenKey);
-        header.put("serverTokenVal", serverTokenVal);
+       // header.put("serverTokenKey", serverTokenKey);
+       // header.put("serverTokenVal", serverTokenVal);
         if(param.containsKey("token")) {
             header.put("token", param.get("token"));
             param.remove("token");
@@ -65,8 +65,8 @@ public class HttpUtil {
 
     public static String postJson(String url,String json) {
         TreeMap<String, Object> header = new TreeMap<>();
-        header.put("serverTokenKey", serverTokenKey);
-        header.put("serverTokenVal", serverTokenVal);
+       // header.put("serverTokenKey", serverTokenKey);
+       // header.put("serverTokenVal", serverTokenVal);
         if(UserUtil.getUser() != null) {
             header.put("token", UserUtil.getUser().getToken());
         }
@@ -179,7 +179,7 @@ public class HttpUtil {
             // flush输出流的缓冲
             out.flush();
             // 定义BufferedReader输入流来读取URL的响应
-            in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
             String line;
             while ((line = in.readLine()) != null) {
                 result += line;

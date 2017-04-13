@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 作业题目controller
  *
@@ -57,13 +54,13 @@ public class QuestionController {
         return msg;
     }
 
-    public static void main(String[] args) throws Exception {
-        QuestionParam param = new QuestionParam();
-        param.setHomeworkId(43434L);
-        Map<String, String> order = new HashMap<>();
-        order.put("created", "desc");
-        param.setOrder(order);
-        System.out.println(JsonUtil.beanToJson(param));
-    }
+//    public static void main(String[] args) throws Exception {
+//        QuestionParam param = new QuestionParam();
+//        param.setHomeworkId(43434L);
+//        Map<String, String> order = new HashMap<>();
+//        order.put("created", "desc");
+//        param.setOrder(order);
+//        System.out.println(JsonUtil.beanToJson(param));
+//    }
 
 }
