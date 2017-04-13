@@ -50,9 +50,11 @@ public class LoginInterceptor implements HandlerInterceptor{
         Annotation methodAnnotation = handlerMethod.getMethod().getAnnotation(LoginIgnore.class);
         //if(annotation != null) return true;
         if(clazzAnnotation == null && methodAnnotation == null) {  //没加忽略登录拦截注解，进入token验证
-            TreeMap<String, Object> header = new TreeMap<>();
-            header.put("token", request.getHeader("token"));
-            String json = HttpUtil.send("http://10.0.3.188:8090/unverify/getTokeneffective.cbp",null, header, HttpUtil.POST);
+            TreeMap<String, Object> param = new TreeMap<>();
+            param.put("token", request.getHeader("token"));
+            //http://10.0.3.188:8090/
+            //String json = HttpUtil.send("http://10.0.0.214:8080/cbp/unverify/getTokeneffective.cbp",null, header, HttpUtil.POST);
+            String json = HttpUtil.send("http://10.0.3.188:8090/unverify/getTokeneffective.cbp",param, HttpUtil.POST);
             if(StringUtils.isEmpty(json)) {
                 throw new BusinessException(ErrorInfo.HTTP_CONNECTION_NULL.code, ErrorInfo.HTTP_CONNECTION_NULL.desc);
             }
@@ -65,6 +67,7 @@ public class LoginInterceptor implements HandlerInterceptor{
             User user = new User();
             user.setId(data.getLong("id"));
             user.setUsername(data.getString("userName"));
+            user.setToken(request.getHeader("token"));
             UserUtil.putUser(user);
             return true;
         }else {  //忽略登录拦截

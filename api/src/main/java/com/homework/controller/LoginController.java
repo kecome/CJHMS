@@ -46,7 +46,8 @@ public class LoginController {
         map.put("userName", param.getUsername());
         map.put("password", param.getPassword());
         logger.info("cbp请求地址---->" + host+"unlogin/login.cbp" + "参数---->" + JsonUtil.beanToJson(map));
-        String json = HttpUtil.send(host+"unlogin/login.cbp",map,null, HttpUtil.POST);
+        String json = HttpUtil.send(host+"unlogin/login.cbp",map, HttpUtil.POST);
+        logger.info("cbp请求地址---->" + host+"unlogin/login.cbp" + "返回---->" + json);
         if(StringUtils.isEmpty(json)) {
             throw new BusinessException(ErrorInfo.HTTP_CONNECTION_NULL.code, ErrorInfo.HTTP_CONNECTION_NULL.desc);
         }
@@ -56,6 +57,7 @@ public class LoginController {
             String token = data.getString("token");
             TokenInfo info = new TokenInfo(token, true, null);
             msg.setData(JsonUtil.beanToJson(info));
+            logger.info("请求方法login返回---->" + JsonUtil.beanToJson(info));
             return msg;
         }
         logger.info("请求方法login返回---->" + json);
@@ -71,9 +73,8 @@ public class LoginController {
     @RequestMapping(value = "/loginOut", method = RequestMethod.POST)
     public Object loginOut(@RequestHeader String token) {
         logger.info("请求方法login参数---->" + token);
-        TreeMap<String, Object> header = new TreeMap<>();
-        header.put("token", token);
-        String json = HttpUtil.send(host + "unlogin/loginout.cbp",null,header, HttpUtil.POST);
+        TreeMap<String, Object> param = new TreeMap<>();
+        String json = HttpUtil.send(host + "unlogin/loginout.cbp",param, HttpUtil.POST);
         if(StringUtils.isEmpty(json)) {
             throw new BusinessException(ErrorInfo.HTTP_CONNECTION_NULL.code, ErrorInfo.HTTP_CONNECTION_NULL.desc);
         }

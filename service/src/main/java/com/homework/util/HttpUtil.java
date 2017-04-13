@@ -1,7 +1,5 @@
 package com.homework.util;
 
-import org.springframework.beans.factory.annotation.Value;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -24,24 +22,30 @@ public class HttpUtil {
 
     public static String POST = "post";
 
-    @Value("${cbp_host}")
-    private static String host;
-
     private static String serverTokenKey = "homeWork";
 
     private static String serverTokenVal = "FD777E29B73DC4B60DE98F1";
 
     /**
-     * 封装get和post请求
+     * 封装get和post请求 参数类型&key=value
      * @param url
      * @param param
      * @param method
      * @return
      */
-    public static String send(String url, TreeMap<String, Object> param,TreeMap<String, Object> header, String method) {
-        System.out.println(host);
+    public static String send(String url, TreeMap<String, Object> param,String method) {
         if(method == null || method.equals("")) {
             return null;
+        }
+        TreeMap<String, Object> header = new TreeMap<>();
+        header.put("serverTokenKey", serverTokenKey);
+        header.put("serverTokenVal", serverTokenVal);
+        if(param.containsKey("token")) {
+            header.put("token", param.get("token"));
+            param.remove("token");
+        }
+        if(UserUtil.getUser() != null) {
+            header.put("token", UserUtil.getUser().getToken());
         }
         StringBuilder builder = new StringBuilder("");
         if(param!= null && param.size() > 0) {
@@ -59,6 +63,18 @@ public class HttpUtil {
         return result;
     }
 
+    public static String postJson(String url,String json) {
+        TreeMap<String, Object> header = new TreeMap<>();
+        header.put("serverTokenKey", serverTokenKey);
+        header.put("serverTokenVal", serverTokenVal);
+        if(UserUtil.getUser() != null) {
+            header.put("token", UserUtil.getUser().getToken());
+        }
+        // 设置文件类型:
+        header.put("contentType", "application/json");
+        return sendPost(url, json, header);
+    }
+
     /**
      * 向指定URL发送GET方法的请求
      *
@@ -72,11 +88,10 @@ public class HttpUtil {
         String result = "";
         BufferedReader in = null;
         String urlNameString = url;
+        if(!param.equals("")) {
+            urlNameString = url + "?" + param;
+        }
         try {
-            if(!param.equals("")) {
-                urlNameString = url + "?" + param;
-            }
-           // String urlNameString = url + (param.equals("") ? "":("?" + param));
             URL realUrl = new URL(urlNameString);
             // 打开和URL之间的连接
             URLConnection connection = realUrl.openConnection();
@@ -84,6 +99,7 @@ public class HttpUtil {
             connection.setRequestProperty("accept", "*/*");
             connection.setRequestProperty("connection", "Keep-Alive");
             connection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            //设置http头信息
             if(header != null && header.size() > 0) {
                 for(Map.Entry<String, Object> entry:header.entrySet()) {
                     connection.setRequestProperty(entry.getKey(), (String) entry.getValue());
@@ -111,6 +127,7 @@ public class HttpUtil {
         }
         // 使用finally块来关闭输入流
         finally {
+            UserUtil.removeUser();
             try {
                 if (in != null) {
                     in.close();
@@ -121,8 +138,6 @@ public class HttpUtil {
         }
         return result;
     }
-
-
 
     /**
      * 向指定 URL 发送POST方法的请求
@@ -145,13 +160,13 @@ public class HttpUtil {
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
             conn.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            //设置http头信息
             if(header != null && header.size() > 0) {
                 for(Map.Entry<String, Object> entry:header.entrySet()) {
                     conn.setRequestProperty(entry.getKey(), (String) entry.getValue());
                 }
             }
             //conn.setRequestProperty("serverTokenKey", serverTokenKey);
-            //conn.setRequestProperty("serverTokenVal",serverTokenVal);
             //设置连接超时间
             conn.setReadTimeout(5000);
             // 发送POST请求必须设置如下两行
@@ -175,6 +190,7 @@ public class HttpUtil {
         }
         //使用finally块来关闭输出流、输入流
         finally{
+            UserUtil.removeUser();
             try{
                 if(out!=null){
                     out.close();

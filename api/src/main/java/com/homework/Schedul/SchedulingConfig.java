@@ -4,7 +4,6 @@ import com.homework.service.HomeworkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 
 /**
  * 定时任务配置类
@@ -19,7 +18,7 @@ public class SchedulingConfig {
     private HomeworkService homeworkService;
 
     // 每30秒执行一次
-    @Scheduled(cron = "0/30 * * * * ?")
+    //@Scheduled(cron = "0/30 * * * * ?")
     public void scheduler() {
         homeworkService.updateStatus();
         System.out.println(">>>>>>>>>>>>> scheduled ... ");

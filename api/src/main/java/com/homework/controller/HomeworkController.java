@@ -90,6 +90,9 @@ public class HomeworkController {
      */
     @RequestMapping(value="", method = RequestMethod.POST)
     public Object postHomework(@Validated @RequestBody HomeworkQuestiion hq) throws Exception {
+        if(hq.getClassIds() == null || hq.getClassIds().size() == 0 ) {
+            throw new BusinessException(ErrorInfo.ClASSID_IS_NULL.code, ErrorInfo.ClASSID_IS_NULL.desc);
+        }
         logger.info("请求方法postHomework参数---->" + JsonUtil.beanToJson(hq));
         homeworkService.postHomework(hq);
         ResponseMsg msg = new ResponseMsg();
@@ -102,22 +105,40 @@ public class HomeworkController {
      * @return
      */
     @RequestMapping(value="/classes", method = RequestMethod.GET)
-    public Object getClasses(@RequestHeader String token) throws Exception{
+    public Object getClasses() throws Exception{
         TreeMap<String, Object> param = new TreeMap();
-        TreeMap<String, Object> header = new TreeMap();
-        header.put("token", token);
-        param.put("teacherIds", new Long[] {UserUtil.getUser().getId()});
-        String json = HttpUtil.send(host+"class/queryClass.cbp",param,header, HttpUtil.POST);
+        param.put("teacherIds[]", UserUtil.getUser().getId()); //100003000014
+        String json = HttpUtil.send(host+"class/queryClass.cbp",param, HttpUtil.POST);
         if(StringUtils.isEmpty(json)) {
             throw new BusinessException(ErrorInfo.HTTP_CONNECTION_NULL.code, ErrorInfo.HTTP_CONNECTION_NULL.desc);
         }
-        ResponseMsg msg = new ResponseMsg();
-        logger.info("请求方法getClasses返回---->" + JsonUtil.beanToJson(msg));
+        logger.info("请求方法getClasses返回---->" + json);
+        return json;
+    }
+
+    /**
+     * 查询学生
+     * @param ids  班级id
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value="/students", method = RequestMethod.POST)
+    public Object getStudents(@RequestBody List<Long> ids) throws Exception{
+        TreeMap<String, Object> param = new TreeMap();
+        param.put("teacherIds[]", new Long[] {UserUtil.getUser().getId()});
+        param.put("classIds[]", ids.toArray());
+        String json = HttpUtil.send(host+"class/queryClass.cbp",param,HttpUtil.POST);
+        if(StringUtils.isEmpty(json)) {
+            throw new BusinessException(ErrorInfo.HTTP_CONNECTION_NULL.code, ErrorInfo.HTTP_CONNECTION_NULL.desc);
+        }
         return json;
     }
 
 //    public static void main(String[] args) throws  Exception {
-//        System.out.println(buildHomeworkClass());
+//        List<Long> ids = new ArrayList<>();
+//        ids.add(23432L);
+//        ids.add(4343L);
+//        System.out.println(JsonUtil.beanToJson(ids));
 //    }
 
     private static String buildHomeworkClass() throws Exception {
