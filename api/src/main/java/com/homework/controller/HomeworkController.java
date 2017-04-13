@@ -21,12 +21,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * 作业controller
@@ -135,10 +135,11 @@ public class HomeworkController {
     }
 
 //    public static void main(String[] args) throws  Exception {
-//        List<Long> ids = new ArrayList<>();
-//        ids.add(23432L);
-//        ids.add(4343L);
-//        System.out.println(JsonUtil.beanToJson(ids));
+////        List<Long> ids = new ArrayList<>();
+////        ids.add(23432L);
+////        ids.add(4343L);
+////        System.out.println(JsonUtil.beanToJson(ids));
+//        System.out.println(buildHomeworkQuestion());
 //    }
 
     private static String buildHomeworkClass() throws Exception {
@@ -161,9 +162,21 @@ public class HomeworkController {
         homework.setPublicTime(new Date());
 
         //班级
-        List<Long> classIds = new ArrayList<>();
-        classIds.add(666L);
-        classIds.add(444L);
+        List<Map<Long, List<Long>>> classIds = new ArrayList<>();
+
+        Map<Long, List<Long>> map1 = new HashMap<>();
+        List<Long> sids1 = new ArrayList<>();
+        sids1.add(666L);
+        map1.put(1111L, sids1);
+        classIds.add(map1);
+
+        Map<Long, List<Long>> map2 = new HashMap<>();
+        List<Long> sids2 = new ArrayList<>();
+        sids2.add(556L);
+        sids2.add(555L);
+        sids2.add(444L);
+        map2.put(2222L, sids2);
+        classIds.add(map2);
 
         List<Question> questions = new ArrayList<>();
         Question q1 = new Question();

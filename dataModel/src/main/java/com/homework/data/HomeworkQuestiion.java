@@ -4,6 +4,7 @@ import com.homework.model.Homework;
 import com.homework.model.Question;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 作业，题目数据模型
@@ -17,9 +18,9 @@ public class HomeworkQuestiion {
      */
     private Homework homework;
     /**
-     * 班级id
+     * 班级学生id
      */
-    private List<Long> classIds;
+    private List<Map<Long, List<Long>>> classIds;
     /**
      * 题目信息
      */
@@ -33,13 +34,6 @@ public class HomeworkQuestiion {
         this.homework = homework;
     }
 
-    public List<Long> getClassIds() {
-        return classIds;
-    }
-
-    public void setClassIds(List<Long> classIds) {
-        this.classIds = classIds;
-    }
 
     public List<Question> getQuestions() {
         return questions;
@@ -47,5 +41,13 @@ public class HomeworkQuestiion {
 
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
+    }
+
+    public List<Map<Long, List<Long>>> getClassIds() {
+        return classIds;
+    }
+
+    public void setClassIds(List<Map<Long, List<Long>>> classIds) {
+        this.classIds = classIds;
     }
 }
