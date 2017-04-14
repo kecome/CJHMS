@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.homework.mapper.MessageMapper">
+    <resultMap id="homeworkResultMap" type="Message">
+        <id property="id" column="id" />
+        <result property="studentId" column="studentId"/>
+        <result property="teacherId" column="teacherId"/>
+        <result property="type" column="type"/>
+        <result property="content" column="content"/>
+        <result property="isRead" column="isRead"/>
+        <result property="created" column="created"/>
+        <result property="updated" column="updated"/>
+    </resultMap>
+
+    <sql id="messageList">
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="teacherId != null">
+                and teacherId = #{teacherId}
+            </if>
+            <if test="studentId != null">
+                and studentId = #{studentId}
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+            <if test="isReader != null">
+                and isReader = #{isReader}
+            </if>
+        </trim>
+    </sql>
+
+    <select id="selectMessageList" parameterType="com.homework.param.MessageParam" resultType="Message">
+        <bind name="orderSql" value="@com.homework.util.Pretreatment@getOrder(order)"/>
+        select * from message
+        <include refid="messageList" />
+        <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(orderSql)">
+            order by
+            #{orderSql}
+        </if>
+        <if test="isPage">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="count" parameterType="com.homework.param.MessageParam" resultType="Long">
+        select count(id) from message
+        <include refid="messageList" />
+    </select>
+
+    <update id="updateStatus" parameterType="Long">
+        <bind name="sysDate" value="@com.homework.util.Pretreatment@now()"></bind>
+        update message set isRead = 1 where id = #{id}
+    </update>
+
+    <insert id="insertMessage" parameterType="com.homework.model.Message">
+        <bind name="sysDate" value="@com.homework.util.Pretreatment@now()" />
+        <selectKey keyProperty="id" resultType="Long" order="BEFORE">
+            <bind name="nextId" value="@com.homework.util.Pretreatment@nextId()" />
+            select #{nextId}
+        </selectKey>
+        insert into message
+        (id,studentId,teacherId,type,content,isRead,created, updated)
+        values(#{id},#{studentId},#{teacherId},#{type},#{content},#{isRead},#{sysDate},#{sysDate})
+    </insert>
+
+</mapper>

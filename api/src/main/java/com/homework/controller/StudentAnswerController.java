@@ -23,7 +23,7 @@ import java.util.List;
  * @create 2017-04-10 下午 14:57
  **/
 @RestController
-@RequestMapping(value = "/studentanswer")
+@RequestMapping(value = "/studentanswer",produces="application/json;charset=UTF-8")
 public class StudentAnswerController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired

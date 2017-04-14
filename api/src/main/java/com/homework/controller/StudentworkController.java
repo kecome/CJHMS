@@ -27,6 +27,12 @@ public class StudentworkController {
     private StudentworkService studentworkService;
 
 
+    /**
+     * 我的作业
+     * @param param
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value="", method = RequestMethod.POST)
     public Object getStudents(@RequestBody StudentworkParam param) throws Exception{
         ResponseMsg msg = new ResponseMsg();
@@ -35,11 +41,11 @@ public class StudentworkController {
         return msg;
     }
 
-    public static void main(String[] args) throws Exception{
-        StudentworkParam param = new StudentworkParam();
-        param.setClassId(32323L);
-        param.setStudentId(54545L);
-        param.setHomeworkId(56656L);
-        System.out.println(JsonUtil.beanToJson(param));
-    }
+//    public static void main(String[] args) throws Exception{
+//        StudentworkParam param = new StudentworkParam();
+//        param.setClassId(32323L);
+//        param.setStudentId(54545L);
+//        param.setHomeworkId(56656L);
+//        System.out.println(JsonUtil.beanToJson(param));
+//    }
 }

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @create 2017-04-10 下午 14:00
  **/
 @RestController
-@RequestMapping(value = "/question")
+@RequestMapping(value = "/question",produces="application/json;charset=UTF-8")
 public class QuestionController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired

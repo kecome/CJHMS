@@ -31,8 +31,7 @@ public class Homework extends BaseModel {
     /**
      * 相关知识点
      */
-    //@NotEmpty(message="密码不能为空")
-    //@Length(min=6,message="密码长度不能小于6位")
+
     private String knowledge;
     /**
      * 预估完成时间,单位/分钟

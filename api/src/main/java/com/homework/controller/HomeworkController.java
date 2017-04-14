@@ -12,6 +12,7 @@ import com.homework.response.ResponseMsg;
 import com.homework.service.HomeworkService;
 import com.homework.util.HttpUtil;
 import com.homework.util.JsonUtil;
+import com.homework.util.UserUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
@@ -44,6 +45,24 @@ public class HomeworkController {
     private String host;
 
     /**
+     * 布置作业
+     * @param hq
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value="", method = RequestMethod.POST)
+    public Object postHomework(@Validated @RequestBody HomeworkQuestiion hq) throws Exception {
+        if(hq.getClassIds() == null || hq.getClassIds().size() == 0 ) {
+            throw new BusinessException(ErrorInfo.ClASSID_IS_NULL.code, ErrorInfo.ClASSID_IS_NULL.desc);
+        }
+        logger.info("请求方法postHomework参数---->" + JsonUtil.beanToJson(hq));
+        homeworkService.postHomework(hq);
+        ResponseMsg msg = new ResponseMsg();
+        logger.info("请求方法postHomework返回---->" + JsonUtil.beanToJson(msg));
+        return msg;
+    }
+
+    /**
      * 作业列表
      * @param param
      * @return
@@ -53,6 +72,7 @@ public class HomeworkController {
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     public Object getHomeworkList(@RequestBody HomeworkParam param) throws Exception{
         logger.info("请求方法getHomeworkList参数---->" + JsonUtil.beanToJson(param));
+        param.setTeacherId(UserUtil.getUser().getId()); //查询老师自己发布的作业
         Page<Homework> page = homeworkService.selectHomeworkList(param);
         ResponseMsg msg = new ResponseMsg();
         msg.setData(JsonUtil.beanToJson(page));
@@ -80,25 +100,6 @@ public class HomeworkController {
         logger.info("请求方法getHomework返回---->" + JsonUtil.beanToJson(msg));
         return msg;
     }
-
-    /**
-     * 发布作业
-     * @param hq
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping(value="", method = RequestMethod.POST)
-    public Object postHomework(@Validated @RequestBody HomeworkQuestiion hq) throws Exception {
-        if(hq.getClassIds() == null || hq.getClassIds().size() == 0 ) {
-            throw new BusinessException(ErrorInfo.ClASSID_IS_NULL.code, ErrorInfo.ClASSID_IS_NULL.desc);
-        }
-        logger.info("请求方法postHomework参数---->" + JsonUtil.beanToJson(hq));
-        homeworkService.postHomework(hq);
-        ResponseMsg msg = new ResponseMsg();
-        logger.info("请求方法postHomework返回---->" + JsonUtil.beanToJson(msg));
-        return msg;
-    }
-
 
     /**
      * 查询学生

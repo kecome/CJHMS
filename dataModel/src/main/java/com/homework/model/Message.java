@@ -6,7 +6,7 @@ package com.homework.model;
  * @author xuke
  * @create 2017-04-07 上午 9:18
  **/
-public class message extends BaseModel {
+public class Message extends BaseModel {
     /**
      * 消息接收者id号，学生
      */

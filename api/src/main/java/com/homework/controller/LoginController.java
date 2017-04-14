@@ -24,7 +24,7 @@ import java.util.TreeMap;
  * @create 2017-04-11 下午 13:47
  **/
 @RestController
-@RequestMapping(value = "/login")
+@RequestMapping(value = "/login",produces="application/json;charset=UTF-8")
 public class LoginController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
