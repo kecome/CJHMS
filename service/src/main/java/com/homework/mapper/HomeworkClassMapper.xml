@@ -21,5 +21,11 @@
         (id,homeworkId,classId,created, updated)
         values(#{id},#{homeworkId},#{classId},#{sysDate},#{sysDate})
     </insert>
+    <delete id="deleteHomeworkClass" parameterType="Long">
+        delete from homework_class where homeworkId = #{homeworkId}
+    </delete>
+    <select id="selectList" parameterType="Long" resultType="HomeworkClass">
+        select * from homework_class where homeworkId = #{homeworkId}
+    </select>
 
 </mapper>

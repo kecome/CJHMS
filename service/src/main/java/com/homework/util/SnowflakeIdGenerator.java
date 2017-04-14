@@ -1,17 +1,13 @@
 package com.homework.util;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
-import org.springframework.stereotype.Component;
-
 /**
  * Twitter Snowflake ID生成算法实现
  */
-@Component("idGenerator")
+
 public class SnowflakeIdGenerator implements IdGenerator {
-    @Autowired
-    private Environment env;
+
+    private static SnowflakeIdGenerator sd = new SnowflakeIdGenerator(2, 3);
 
     private static final long TWEPOCH = 1420041600000L;
     private static final long WORKER_ID_BITS = 5L;
@@ -29,7 +25,7 @@ public class SnowflakeIdGenerator implements IdGenerator {
     private long sequence = 0L;
     private long lastTimestamp = -1L;
 
-    public SnowflakeIdGenerator() {
+    private SnowflakeIdGenerator() {
         long workerId = 1L;
         long datacenterId = 2L;
         if (workerId > MAX_WORKER_ID || workerId < 0) {
@@ -42,7 +38,7 @@ public class SnowflakeIdGenerator implements IdGenerator {
         this.datacenterId = 113; //Long.parseLong(env.getProperty("datacenterId"));
     }
 
-    public SnowflakeIdGenerator(long workerId, long datacenterId) {
+    private SnowflakeIdGenerator(long workerId, long datacenterId) {
         if (workerId > MAX_WORKER_ID || workerId < 0) {
             throw new IllegalArgumentException(String.format("worker Id can't be greater than %d or less than 0", MAX_WORKER_ID));
         }
@@ -51,6 +47,10 @@ public class SnowflakeIdGenerator implements IdGenerator {
         }
         this.workerId = workerId;
         this.datacenterId = datacenterId;
+    }
+
+    public static SnowflakeIdGenerator getInstance() {
+        return sd;
     }
 
     public synchronized long nextId() {
@@ -84,5 +84,7 @@ public class SnowflakeIdGenerator implements IdGenerator {
     private long getTimestamp() {
         return System.currentTimeMillis();
     }
+
+
 
 }

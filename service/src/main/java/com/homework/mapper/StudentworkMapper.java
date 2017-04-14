@@ -10,6 +10,8 @@ import java.util.List;
  */
 public interface StudentworkMapper {
     List<Studentwork> selectStudentworkList(StudentworkParam param);
+    List<Studentwork> selectList(StudentworkParam param);
     Long count(StudentworkParam param);
     int insertStudentwork(Studentwork studentwork);
+    int deleteStudentwork(Long homeworkId);
 }

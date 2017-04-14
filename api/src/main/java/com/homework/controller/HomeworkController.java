@@ -12,7 +12,6 @@ import com.homework.response.ResponseMsg;
 import com.homework.service.HomeworkService;
 import com.homework.util.HttpUtil;
 import com.homework.util.JsonUtil;
-import com.homework.util.UserUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
@@ -62,7 +61,7 @@ public class HomeworkController {
     }
 
     /**
-     * 根据id获取作业
+     * 根据id获取作业包括题目
      * @param id
      * @return
      * @throws Exception
@@ -74,8 +73,8 @@ public class HomeworkController {
         if(id == null || id < 0) {
             throw new BusinessException(ErrorInfo.ID_IS_NULL.code, ErrorInfo.ID_IS_NULL.desc);
         }
-        Homework hk = homeworkService.selectHomework(id);
-        String data = JsonUtil.beanToJson(hk);
+        HomeworkQuestiion hq = homeworkService.getHomework(id);
+        String data = JsonUtil.beanToJson(hq);
         ResponseMsg msg = new ResponseMsg();
         msg.setData(data);
         logger.info("请求方法getHomework返回---->" + JsonUtil.beanToJson(msg));
@@ -100,21 +99,6 @@ public class HomeworkController {
         return msg;
     }
 
-    /**
-     * 获取班级
-     * @return
-     */
-    @RequestMapping(value="/classes", method = RequestMethod.GET)
-    public Object getClasses() throws Exception{
-        TreeMap<String, Object> param = new TreeMap();
-        param.put("teacherIds[]", UserUtil.getUser().getId()); //100003000014
-        String json = HttpUtil.send(host+"class/queryClass.cbp",param, HttpUtil.POST);
-        if(StringUtils.isEmpty(json)) {
-            throw new BusinessException(ErrorInfo.HTTP_CONNECTION_NULL.code, ErrorInfo.HTTP_CONNECTION_NULL.desc);
-        }
-        logger.info("请求方法getClasses返回---->" + json);
-        return json;
-    }
 
     /**
      * 查询学生
@@ -135,10 +119,10 @@ public class HomeworkController {
     }
 
 //    public static void main(String[] args) throws  Exception {
-////        List<Long> ids = new ArrayList<>();
-////        ids.add(23432L);
-////        ids.add(4343L);
-////        System.out.println(JsonUtil.beanToJson(ids));
+//        List<Long> ids = new ArrayList<>();
+//        ids.add(23432L);
+//        ids.add(4343L);
+//       System.out.println(JsonUtil.beanToJson(ids));
 //        System.out.println(buildHomeworkQuestion());
 //    }
 

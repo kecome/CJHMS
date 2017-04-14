@@ -66,8 +66,10 @@
         values(#{id},#{homeworkId}, #{type},#{title},#{seq},#{answer},#{item},#{sysDate},#{sysDate})
     </insert>
 
-    <select id="">
-
+    <delete id="deleteQuestion" parameterType="Long">
+        delete from question where homeworkId = #{homeworkId}
+    </delete>
+    <select id="selectList" parameterType="Long" resultType="Question">
+        select * from question where homeworkId = #{homeworkId}
     </select>
-
 </mapper>

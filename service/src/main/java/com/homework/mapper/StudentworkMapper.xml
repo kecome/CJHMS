@@ -22,6 +22,9 @@
             <if test="studentId != null">
                 and studentId = #{studentId}
             </if>
+            <if test="classId != null">
+                and classId = #{classId}
+            </if>
         </trim>
     </sql>
 
@@ -38,6 +41,17 @@
         </if>
     </select>
 
+    <select id="selectList" parameterType="com.homework.param.StudentworkParam" resultType="Studentwork">
+        SELECT * FROM `studentwork` s left join homework h on s.homeworkId = h.id
+        where h.`status` = 1
+        <if test="homeworkId != null">
+            and s.homeworkId = #{homeworkId}
+        </if>
+        <if test="classId != null">
+            and s.classId = #{classId}
+        </if>
+    </select>
+
     <select id="count" parameterType="com.homework.param.StudentworkParam" resultType="Long">
         select count(id) from studentwork
         <include refid="studentworkList" />
@@ -50,20 +64,13 @@
             select #{nextId}
         </selectKey>
         insert into studentwork
-            (id,homeworkId,studentId,submit,mark,created, updated)
+            (id,homeworkId,studentId,classId,submit,mark,created, updated)
         values
-            (#{id},#{homeworkId},#{studentId},#{submit},#{mark},#{sysDate},#{sysDate})
+            (#{id},#{homeworkId},#{studentId},#{classId},#{submit},#{mark},#{sysDate},#{sysDate})
     </insert>
 
-    <!--<insert id="insertStudentworks">-->
-        <!--<selectKey keyProperty="id" resultType="Long" order="BEFORE">-->
-            <!--<bind name="nextId" value="@com.homework.util.Pretreatment@nextId()" />-->
-            <!--select #{nextId}-->
-        <!--</selectKey>-->
-        <!--insert into studentwork (id,homeworkId,studentId,submit,mark,created, updated) values-->
-        <!--<foreach item="item" collection="list" separator=",">-->
-            <!--(#{item.id}, #{item.homeworkId}, #{item.studentId}, #{item.submit}, #{item.submit}, #{item.mark}, #{sysDate}, #{sysDate})-->
-        <!--</foreach>-->
-    <!--</insert>-->
+    <delete id="deleteStudentwork" parameterType="Long">
+        delete from studentwork where homeworkId = #{homeworkId}
+    </delete>
 
 </mapper>

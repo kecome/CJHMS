@@ -14,6 +14,11 @@ public class StudentworkParam extends BaseParam{
      */
     private Long studentId;
 
+    /**
+     * 班级id
+     */
+    private Long classId;
+
     public Long getHomeworkId() {
         return homeworkId;
     }
@@ -28,5 +33,13 @@ public class StudentworkParam extends BaseParam{
 
     public void setStudentId(Long studentId) {
         this.studentId = studentId;
+    }
+
+    public Long getClassId() {
+        return classId;
+    }
+
+    public void setClassId(Long classId) {
+        this.classId = classId;
     }
 }
