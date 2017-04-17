@@ -1,5 +1,6 @@
 package com.homework.service;
 
+import com.homework.data.Page;
 import com.homework.mapper.StudentworkMapper;
 import com.homework.model.Studentwork;
 import com.homework.param.StudentworkParam;
@@ -19,7 +20,15 @@ public class StudentworkService {
     @Autowired
     private StudentworkMapper studentworkMapper;
 
-    public List<Studentwork> selectList(StudentworkParam param) {
-        return studentworkMapper.selectList(param);
+    public Page<Studentwork> selectList(StudentworkParam param) {
+        Page<Studentwork> page = new Page<>();
+        List<Studentwork> list = studentworkMapper.selectStudentworkList(param);
+        page.setItems(list);
+        if(param.getIsPage()) {
+            page.setTotal(studentworkMapper.count(param));
+            return page;
+        }
+        page.setTotal(list.size());
+        return page;
     }
 }

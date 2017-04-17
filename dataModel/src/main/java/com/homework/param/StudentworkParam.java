@@ -13,11 +13,14 @@ public class StudentworkParam extends BaseParam{
      * 学生id
      */
     private Long studentId;
-
     /**
      * 班级id
      */
     private Long classId;
+    /**
+     * 0：未提交；1：已提交
+     */
+    private int submit;
 
     public Long getHomeworkId() {
         return homeworkId;
@@ -41,5 +44,13 @@ public class StudentworkParam extends BaseParam{
 
     public void setClassId(Long classId) {
         this.classId = classId;
+    }
+
+    public int getSubmit() {
+        return submit;
+    }
+
+    public void setSubmit(int submit) {
+        this.submit = submit;
     }
 }

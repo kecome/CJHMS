@@ -72,7 +72,9 @@ public class HomeworkController {
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     public Object getHomeworkList(@RequestBody HomeworkParam param) throws Exception{
         logger.info("请求方法getHomeworkList参数---->" + JsonUtil.beanToJson(param));
-        param.setTeacherId(UserUtil.getUser().getId()); //查询老师自己发布的作业
+        if(param.getTeacherId() == null) {
+            param.setTeacherId(UserUtil.getUser().getId()); //查询当前老师发布的作业
+        }
         Page<Homework> page = homeworkService.selectHomeworkList(param);
         ResponseMsg msg = new ResponseMsg();
         msg.setData(JsonUtil.beanToJson(page));

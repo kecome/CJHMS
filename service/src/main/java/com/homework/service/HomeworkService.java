@@ -13,6 +13,7 @@ import com.homework.model.HomeworkClass;
 import com.homework.model.Question;
 import com.homework.model.Studentwork;
 import com.homework.param.HomeworkParam;
+import com.homework.util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,6 +48,7 @@ public class HomeworkService {
     public void postHomework(HomeworkQuestiion hq) {
         //插入或更新作业记录
         Homework homework = hq.getHomework();
+        homework.setTeacherId(UserUtil.getUser().getId());
         Long homeworkId = homework.getId();
         if(homeworkId != null) {
             Homework hk = homeworkMapper.selectHomework(homeworkId);

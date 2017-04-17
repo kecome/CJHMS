@@ -10,9 +10,11 @@ package com.homework; /**
  **/
 
 import com.alibaba.druid.pool.DruidDataSourceFactory;
+import org.apache.ibatis.io.VFS;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.mybatis.spring.boot.autoconfigure.SpringBootVFS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -49,6 +51,8 @@ public class MybatisConfig {
      */
      @Bean
      public SqlSessionFactory sqlSessionFactory(DataSource ds) throws Exception{
+         VFS.addImplClass(SpringBootVFS.class);
+
          SqlSessionFactoryBean fb = new SqlSessionFactoryBean();
          fb.setDataSource(ds);//指定数据源(这个必须有，否则报错)
          //下边两句仅仅用于*.xml文件，如果整个持久层操作不需要使用到xml文件的话（只用注解就可以搞定），则不加

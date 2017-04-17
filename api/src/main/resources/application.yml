@@ -1,9 +1,12 @@
 spring:
     datasource:
         name: test
-        url: jdbc:mysql://127.0.0.1:3306/hktest?characterEncoding=utf8&useSSL=false
-        username: root
-        password:
+#        url: jdbc:mysql://127.0.0.1:3306/hktest?characterEncoding=utf8&useSSL=false
+#        username: root
+#        password:
+        url: jdbc:mysql://10.0.0.214:56688/homework?characterEncoding=utf8&useSSL=false
+        username: caiji
+        password: caiji1234
         # 使用druid数据源
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
@@ -24,6 +27,4 @@ mybatis:
    type-aliases-package: com.homework.model
    mapper-locations: classpath:com/homework/mapper/*.xml
 server:
-    port: 8888
-logging:
-  level: debug
+    port: 9084

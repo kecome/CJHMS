@@ -1,5 +1,6 @@
 package com.homework.controller;
 
+import com.homework.data.Page;
 import com.homework.model.Studentwork;
 import com.homework.param.StudentworkParam;
 import com.homework.response.ResponseMsg;
@@ -12,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * @author xuke
@@ -34,11 +33,14 @@ public class StudentworkController {
      */
     @RequestMapping(value="", method = RequestMethod.POST)
     public Object getStudents(@RequestBody StudentworkParam param) throws Exception{
+        logger.info("请求方法getStudents参数---->" + JsonUtil.beanToJson(param));
         ResponseMsg msg = new ResponseMsg();
-        List<Studentwork> studentworks = studentworkService.selectList(param);
-        msg.setData(JsonUtil.beanToJson(studentworks));
+        Page<Studentwork> page = studentworkService.selectList(param);
+        msg.setData(JsonUtil.beanToJson(page));
+        logger.info("请求方法getStudents返回---->" + JsonUtil.beanToJson(msg));
         return msg;
     }
+
 
 //    public static void main(String[] args) throws Exception{
 //        StudentworkParam param = new StudentworkParam();

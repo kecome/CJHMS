@@ -25,6 +25,9 @@
             <if test="classId != null">
                 and classId = #{classId}
             </if>
+            <if test="submit != null">
+                and submit = #{submit}
+            </if>
         </trim>
     </sql>
 
