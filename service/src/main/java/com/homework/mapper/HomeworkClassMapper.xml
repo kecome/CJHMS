@@ -11,6 +11,42 @@
         <result property="updated" column="updated"/>
     </resultMap>
 
+    <sql id="homeworkClassList">
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="homeworkId != null">
+                and homeworkId = #{homeworkId}
+            </if>
+            <if test="classId != null">
+                and classId = #{classId}
+            </if>
+            <if test="teacherId != null">
+                and teacherId = #{teacherId}
+            </if>
+        </trim>
+    </sql>
+
+    <select id="selectClassList" parameterType="com.homework.param.HomeworkClassParam" resultType="HomeworkClass">
+        <bind name="orderSql" value="@com.homework.util.Pretreatment@getOrder(order)"/>
+        select c.* from homework_class c left join homework h on h.id = c.homeworkId
+        <include refid="homeworkClassList" />
+        <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(orderSql)">
+            order by
+            #{orderSql}
+        </if>
+        <if test="isPage">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="count" parameterType="com.homework.param.HomeworkClassParam" resultType="Long">
+        select count(id) from homework_class
+        <include refid="homeworkClassList" />
+    </select>
+
+    <select id="selectList" parameterType="Long" resultType="HomeworkClass">
+        select * from homework_class where homeworkId = #{homeworkId}
+    </select>
+
     <insert id="insertHomeworkClass" useGeneratedKeys="true" keyProperty="id" parameterType="com.homework.model.HomeworkClass">
         <bind name="sysDate" value="@com.homework.util.Pretreatment@now()" />
         <selectKey keyProperty="id" resultType="Long" order="BEFORE">
@@ -24,8 +60,4 @@
     <delete id="deleteHomeworkClass" parameterType="Long">
         delete from homework_class where homeworkId = #{homeworkId}
     </delete>
-    <select id="selectList" parameterType="Long" resultType="HomeworkClass">
-        select * from homework_class where homeworkId = #{homeworkId}
-    </select>
-
 </mapper>

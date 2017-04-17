@@ -16,7 +16,6 @@ public class UserParam {
      */
     private String password;
 
-
     public String getUsername() {
         return username;
     }
@@ -32,4 +31,5 @@ public class UserParam {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

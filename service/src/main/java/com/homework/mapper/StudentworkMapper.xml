@@ -28,12 +28,15 @@
             <if test="submit != null">
                 and submit = #{submit}
             </if>
+            <if test="teacherId != null">
+                and teacherId = #{teacherId}
+            </if>
         </trim>
     </sql>
 
     <select id="selectStudentworkList" parameterType="com.homework.param.StudentworkParam" resultType="Studentwork">
         <bind name="orderSql" value="@com.homework.util.Pretreatment@getOrder(order)"/>
-        select * from studentwork
+        select s.* from studentwork s left join homework h on h.id = s.homeworkId
         <include refid="studentworkList" />
         <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(orderSql)">
             order by

@@ -1,18 +1,13 @@
 package com.homework.param;
-
 /**
  * @author xuke
- * @create 2017-04-07 下午 16:55
+ * @create 2017-04-17 下午 19:25
  **/
-public class StudentworkParam extends BaseParam{
+public class HomeworkClassParam extends BaseParam{
     /**
      * 作业id
      */
     private Long homeworkId;
-    /**
-     * 学生id
-     */
-    private Long studentId;
     /**
      * 班级id
      */
@@ -21,10 +16,6 @@ public class StudentworkParam extends BaseParam{
      * 老师id
      */
     private Long teacherId;
-    /**
-     * 0：未提交；1：已提交
-     */
-    private int submit;
 
     public Long getHomeworkId() {
         return homeworkId;
@@ -34,28 +25,12 @@ public class StudentworkParam extends BaseParam{
         this.homeworkId = homeworkId;
     }
 
-    public Long getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
-    }
-
     public Long getClassId() {
         return classId;
     }
 
     public void setClassId(Long classId) {
         this.classId = classId;
-    }
-
-    public int getSubmit() {
-        return submit;
-    }
-
-    public void setSubmit(int submit) {
-        this.submit = submit;
     }
 
     public Long getTeacherId() {

@@ -1,6 +1,8 @@
 package com.homework.controller;
 
+import com.homework.data.Page;
 import com.homework.model.HomeworkClass;
+import com.homework.param.HomeworkClassParam;
 import com.homework.response.ResponseMsg;
 import com.homework.service.HomeworkClassService;
 import com.homework.util.JsonUtil;
@@ -10,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * @author xuke
@@ -30,11 +30,11 @@ public class HomeworkClassController {
      * @return
      */
     @RequestMapping(value="", method = RequestMethod.GET)
-    public Object getClasses(Long id) throws Exception{
-        logger.info("请求方法getClasses参数---->" + id);
+    public Object getClasses(HomeworkClassParam param) throws Exception{
+        logger.info("请求方法getClasses参数---->" + JsonUtil.beanToJson(param));
         ResponseMsg msg = new ResponseMsg();
-        List<HomeworkClass> list = homeworkClassService.selectList(id);
-        msg.setData(JsonUtil.beanToJson(list));
+        Page<HomeworkClass> page = homeworkClassService.selectList(param);
+        msg.setData(JsonUtil.beanToJson(page));
         logger.info("请求方法getClasses返回---->" + JsonUtil.beanToJson(msg));
         return msg;
     }

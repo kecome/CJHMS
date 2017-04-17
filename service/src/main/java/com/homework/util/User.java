@@ -19,6 +19,10 @@ public class User {
      * 用户token
      */
     private String token;
+    /**
+     * 用户角色
+     */
+    private String role;
 
     public Long getId() {
         return id;
@@ -42,5 +46,13 @@ public class User {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

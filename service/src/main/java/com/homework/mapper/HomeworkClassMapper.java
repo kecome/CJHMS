@@ -1,6 +1,7 @@
 package com.homework.mapper;
 
 import com.homework.model.HomeworkClass;
+import com.homework.param.HomeworkClassParam;
 
 import java.util.List;
 
@@ -10,5 +11,7 @@ import java.util.List;
 public interface HomeworkClassMapper {
     Long insertHomeworkClass(HomeworkClass homeworkClass);
     int deleteHomeworkClass(Long homeworkId);
-    List<HomeworkClass> selectList(Long homeworkId);
+    List<HomeworkClass> selectClassList(HomeworkClassParam param);
+    long count(HomeworkClassParam param);
+    List<HomeworkClass> selectList(long id);
 }
