@@ -31,7 +31,7 @@ public class HomeworkClassController {
      */
     @RequestMapping(value="", method = RequestMethod.GET)
     public Object getClasses(HomeworkClassParam param) throws Exception{
-        logger.info("请求方法getClasses参数---->" + JsonUtil.beanToJson(param));
+        logger.info("请求方法getClasses参数----->" + JsonUtil.beanToJson(param));
         ResponseMsg msg = new ResponseMsg();
         Page<HomeworkClass> page = homeworkClassService.selectList(param);
         msg.setData(JsonUtil.beanToJson(page));
