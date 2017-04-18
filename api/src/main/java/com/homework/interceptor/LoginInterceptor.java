@@ -9,6 +9,8 @@ import com.homework.util.User;
 import com.homework.util.UserUtil;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -26,7 +28,7 @@ import java.util.TreeMap;
  * @create 2017-03-31 上午 11:04
  **/
 public class LoginInterceptor implements HandlerInterceptor{
-
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private Environment env;
 
     public LoginInterceptor(Environment env) {
@@ -56,6 +58,7 @@ public class LoginInterceptor implements HandlerInterceptor{
                 throw new BusinessException(ErrorInfo.USER_IS_NULL.code, ErrorInfo.USER_IS_NULL.desc);
             }
             JSONObject data = obj.getJSONObject("data");
+            logger.info(data.toString());
             User user = new User();
             user.setId(data.getLong("id"));
             user.setUsername(data.getString("userName"));
