@@ -1,6 +1,7 @@
 package com.homework.exception;
 
 import com.homework.response.ResponseMsg;
+import com.homework.util.User;
 import com.homework.util.UserUtil;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -19,6 +20,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value={MethodArgumentNotValidException.class, BusinessException.class, RuntimeException.class, Exception.class})
     @ResponseBody
     public ResponseMsg exceptionHandler(Exception e) {
+        User user = UserUtil.getUser();
         //发生异常时清除当前会话信息
         UserUtil.removeUser();
         e.printStackTrace();

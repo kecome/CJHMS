@@ -65,6 +65,7 @@ public class LoginInterceptor implements HandlerInterceptor{
             user.setRole(data.getString("currentSchoolRole"));
             user.setToken(request.getHeader("token"));
             UserUtil.putUser(user);
+            User u = UserUtil.getUser();
             return true;
         }else {  //忽略登录拦截
             return true;

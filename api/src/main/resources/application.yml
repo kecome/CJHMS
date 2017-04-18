@@ -27,4 +27,4 @@ mybatis:
    type-aliases-package: com.homework.model
    mapper-locations: classpath:com/homework/mapper/*.xml
 server:
-    port: 8080
+    port: 9084

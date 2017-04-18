@@ -6,7 +6,6 @@ import com.homework.param.StudentworkParam;
 import com.homework.response.ResponseMsg;
 import com.homework.service.StudentworkService;
 import com.homework.util.JsonUtil;
-import com.homework.util.UserUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,12 +35,12 @@ public class StudentworkController {
     public Object getStudents(@RequestBody StudentworkParam param) throws Exception{
         logger.info("请求方法getStudents参数---->" + JsonUtil.beanToJson(param));
         ResponseMsg msg = new ResponseMsg();
-        if(UserUtil.getUser().getRole().equals(UserUtil.STUDENT)) {   //当前登录人是学生
-            param.setStudentId(UserUtil.getUser().getId());
-        }
-        if(UserUtil.getUser().getRole().equals(UserUtil.TEACHER)) {   //当前登录人是老师
-            param.setTeacherId(UserUtil.getUser().getId());
-        }
+//        if(UserUtil.getUser().getRole().equals(UserUtil.STUDENT)) {   //当前登录人是学生
+//            param.setStudentId(UserUtil.getUser().getId());
+//        }
+//        if(UserUtil.getUser().getRole().equals(UserUtil.TEACHER)) {   //当前登录人是老师
+//            param.setTeacherId(UserUtil.getUser().getId());
+//        }
         Page<Studentwork> page = studentworkService.selectList(param);
         msg.setData(JsonUtil.beanToJson(page));
         logger.info("请求方法getStudents返回---->" + JsonUtil.beanToJson(msg));

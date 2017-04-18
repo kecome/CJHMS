@@ -122,11 +122,9 @@ public class HomeworkController {
     }
 
 //    public static void main(String[] args) throws  Exception {
-//        List<Long> ids = new ArrayList<>();
-//        ids.add(23432L);
-//        ids.add(4343L);
-//       System.out.println(JsonUtil.beanToJson(ids));
-//        System.out.println(buildHomeworkQuestion());
+//
+//       System.out.println(buildHomeworkQuestion());
+//
 //    }
 
     private static String buildHomeworkClass() throws Exception {
