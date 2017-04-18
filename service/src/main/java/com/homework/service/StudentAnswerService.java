@@ -33,10 +33,30 @@ public class StudentAnswerService {
         return page;
     }
 
+    public void postStudentanswer(List<Studentanswer> studentanswers) {
+        if(studentanswers != null && studentanswers.size() > 0) {
+            for(Studentanswer answer : studentanswers) {
+                if(answer.getId() == null) {
+                    studentanswerMapper.insertStudentanswer(answer);
+                }else {
+                    studentanswerMapper.updateStudentanswer(answer);
+                }
+            }
+        }
+    }
+
     public void insertStudentanswer(List<Studentanswer> studentanswers) {
         if(studentanswers != null && studentanswers.size() > 0) {
             for(Studentanswer answer : studentanswers) {
                 studentanswerMapper.insertStudentanswer(answer);
+            }
+        }
+    }
+
+    public void updateStudentanswer(List<Studentanswer> studentanswers) {
+        if(studentanswers != null && studentanswers.size() > 0) {
+            for(Studentanswer answer : studentanswers) {
+                studentanswerMapper.updateStudentanswer(answer);
             }
         }
     }

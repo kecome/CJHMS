@@ -8,7 +8,7 @@ package com.homework.response;/**
  * @author
  * @create 2017-03-31 下午 15:19
  **/
-public class ResponseMsg {
+public class ResponseMsg<T> {
     /**
      * 请求响应码
      */
@@ -20,15 +20,7 @@ public class ResponseMsg {
     /**
      * 响应数据
      */
-    private String data;
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
+    private T data;
 
     public String getCode() {
         return code;
@@ -44,5 +36,13 @@ public class ResponseMsg {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
     }
 }

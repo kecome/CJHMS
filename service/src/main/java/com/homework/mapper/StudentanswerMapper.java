@@ -11,4 +11,5 @@ import java.util.List;
 public interface StudentanswerMapper {
     List<Studentanswer> selectStudentanswerList(StudentanswerParam param);
     int insertStudentanswer(Studentanswer studentanswer);
+    int updateStudentanswer(Studentanswer studentanswer);
 }

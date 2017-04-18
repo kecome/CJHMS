@@ -79,4 +79,30 @@
         delete from studentwork where homeworkId = #{homeworkId}
     </delete>
 
+    <update id="updateStudentwork" parameterType="Studentwork">
+        <bind name="sysDate" value="@com.homework.util.Pretreatment@now()"></bind>
+        update homework
+        <trim prefix="set" suffixOverrides="," suffix=" where id = #{id} ">
+            updated = #{sysDate},
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(title)">
+                title=#{title},
+            </if>
+            <if test="subjectId != null">
+                subjectId=#{subjectId},
+            </if>
+            <if test="spentTime != null">
+                spentTime=#{spentTime},
+            </if>
+            <if test="publicTime != null">
+                publicTime=#{publicTime},
+            </if>
+            <if test="endTime != null">
+                endTime=#{endTime},
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(knowledge)">
+                knowledge=#{knowledge},
+            </if>
+        </trim>
+    </update>
+
 </mapper>

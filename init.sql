@@ -31,8 +31,8 @@ create table `question` (
     `type` tinyint not null comment '题型：【0：选择题；1：主观题】',
     `title` text not null comment '题干',
     `seq` int comment '题目序号，作业展示时用于排序',
-    `answer` text not null comment '题目答案',
-    `item` varchar(128) not null comment '答案选项',
+    `answer` text comment '题目答案',
+    `item` varchar(128) comment '答案选项',
     `created` datetime not null comment '创建时间',
     `updated` datetime not null comment '修改时间',
      primary key (`id`)

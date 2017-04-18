@@ -76,8 +76,8 @@ public class HomeworkController {
             param.setTeacherId(UserUtil.getUser().getId()); //查询当前老师发布的作业
         }
         Page<Homework> page = homeworkService.selectHomeworkList(param);
-        ResponseMsg msg = new ResponseMsg();
-        msg.setData(JsonUtil.beanToJson(page));
+        ResponseMsg<Page> msg = new ResponseMsg<>();
+        msg.setData(page);
         logger.info("请求方法getHomeworkList返回---->" + JsonUtil.beanToJson(msg));
         return msg;
     }
@@ -97,8 +97,8 @@ public class HomeworkController {
         }
         HomeworkQuestiion hq = homeworkService.getHomework(id);
         String data = JsonUtil.beanToJson(hq);
-        ResponseMsg msg = new ResponseMsg();
-        msg.setData(data);
+        ResponseMsg<HomeworkQuestiion> msg = new ResponseMsg<>();
+        msg.setData(hq);
         logger.info("请求方法getHomework返回---->" + JsonUtil.beanToJson(msg));
         return msg;
     }

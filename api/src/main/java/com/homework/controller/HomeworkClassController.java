@@ -6,7 +6,6 @@ import com.homework.param.HomeworkClassParam;
 import com.homework.response.ResponseMsg;
 import com.homework.service.HomeworkClassService;
 import com.homework.util.JsonUtil;
-import com.homework.util.UserUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +33,10 @@ public class HomeworkClassController {
     @RequestMapping(value="", method = RequestMethod.POST)
     public Object getClasses(@RequestBody HomeworkClassParam param) throws Exception{
         logger.info("请求方法getClasses参数----->" + JsonUtil.beanToJson(param));
-        ResponseMsg msg = new ResponseMsg();
-        param.setTeacherId(UserUtil.getUser().getId());
+        ResponseMsg<Page> msg = new ResponseMsg<>();
+        //param.setTeacherId(UserUtil.getUser().getId());
         Page<HomeworkClass> page = homeworkClassService.selectList(param);
-        msg.setData(JsonUtil.beanToJson(page));
+        msg.setData(page);
         logger.info("请求方法getClasses返回---->" + JsonUtil.beanToJson(msg));
         return msg;
     }

@@ -85,6 +85,7 @@ public class HomeworkService {
         User user = UserUtil.getUser();
         homework.setTeacherId(user.getId());
         Long homeworkId = homework.getId();
+        if(homework.getStatus() == null) homework.setStatus(0);
         if(homeworkId != null) {
             Homework hk = homeworkMapper.selectHomework(homeworkId);
             if(hk.getStatus() == 1) {   //作业已经发布不可以再修改

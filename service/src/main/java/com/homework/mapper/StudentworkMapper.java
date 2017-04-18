@@ -14,4 +14,5 @@ public interface StudentworkMapper {
     Long count(StudentworkParam param);
     int insertStudentwork(Studentwork studentwork);
     int deleteStudentwork(Long homeworkId);
+    int updateStudentwork(Studentwork studentwork);
 }

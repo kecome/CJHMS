@@ -37,8 +37,8 @@ public class QuestionController {
     public Object getQuestionList( @RequestBody QuestionParam param) throws Exception{
         logger.info("请求方法getQuestionList参数---->" + JsonUtil.beanToJson(param));
         Page<Question> page = questionService.selectQuestionList(param);
-        ResponseMsg msg = new ResponseMsg();
-        msg.setData(JsonUtil.beanToJson(page));
+        ResponseMsg<Page> msg = new ResponseMsg<>();
+        msg.setData(page);
         logger.info("请求方法getQuestionList返回---->" + JsonUtil.beanToJson(msg));
         return msg;
     }
@@ -47,9 +47,8 @@ public class QuestionController {
     public Object getQuestion(Long id) throws Exception{
         logger.info("请求方法getQuestion参数---->" + id);
         Question question = questionService.selectQuestion(id);
-        String data = JsonUtil.beanToJson(question);
-        ResponseMsg msg = new ResponseMsg();
-        msg.setData(data);
+        ResponseMsg<Question> msg = new ResponseMsg<>();
+        msg.setData(question);
         logger.info("请求方法getQuestion返回---->" + JsonUtil.beanToJson(msg));
         return msg;
     }

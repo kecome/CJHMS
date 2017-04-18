@@ -36,6 +36,10 @@ public class LoginInterceptor implements HandlerInterceptor{
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        if (!HandlerMethod.class.isAssignableFrom(handler.getClass()))
+        {
+            return true;
+        }
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Class clazz = handlerMethod.getBeanType();
         if(!clazz.getPackage().getName().startsWith("com.homework")) {
@@ -65,7 +69,6 @@ public class LoginInterceptor implements HandlerInterceptor{
             user.setRole(data.getString("currentSchoolRole"));
             user.setToken(request.getHeader("token"));
             UserUtil.putUser(user);
-            User u = UserUtil.getUser();
             return true;
         }else {  //忽略登录拦截
             return true;

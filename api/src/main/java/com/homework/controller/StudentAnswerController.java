@@ -33,9 +33,8 @@ public class StudentAnswerController {
     public Object getStudentAnswer(Long id) throws Exception{
         logger.info("请求方法getStudentAnswer参数---->" + id);
         Page<Studentanswer> page = studentAnswerService.selectStudentAnswerList(id);
-        String data = JsonUtil.beanToJson(page);
-        ResponseMsg msg = new ResponseMsg();
-        msg.setData(data);
+        ResponseMsg<Page> msg = new ResponseMsg<>();
+        msg.setData(page);
         logger.info("请求方法getStudentAnswer返回---->" + JsonUtil.beanToJson(msg));
         return msg;
     }
@@ -43,7 +42,7 @@ public class StudentAnswerController {
     @RequestMapping(value="", method = RequestMethod.POST)
     public Object PostStudentAnswer(@RequestBody List<Studentanswer> studentanswers) throws Exception {
         logger.info("请求方法PostStudentAnswer参数---->" + JsonUtil.beanToJson(studentanswers));
-        studentAnswerService.insertStudentanswer(studentanswers);
+        studentAnswerService.postStudentanswer(studentanswers);
         ResponseMsg msg = new ResponseMsg();
         logger.info("请求方法PostStudentAnswer返回---->" + JsonUtil.beanToJson(msg));
         return msg;

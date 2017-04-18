@@ -30,4 +30,21 @@
         values
         (#{id},#{questionId},#{studentId},#{answer},#{isRight},#{comment},#{sysDate},#{sysDate})
     </insert>
+    <update id="updateStudentanswer" parameterType="Studentanswer">
+        <bind name="sysDate" value="@com.homework.util.Pretreatment@now()"></bind>
+        update studentanswer
+        <trim prefix="set" suffixOverrides="," suffix=" where id = #{id} ">
+            updated = #{sysDate},
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(answer)">
+                answer=#{answer},
+            </if>
+            <if test="isRight != null">
+                isRight=#{isRight},
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(comment)">
+                comment=#{comment},
+            </if>
+        </trim>
+    </update>
+
 </mapper>
