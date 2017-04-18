@@ -7,8 +7,8 @@ package com.homework.util;
  * @create 2017-04-11 上午 11:14
  **/
 public final class UserUtil {
-    public static final String TEACHER = "teacher";
-    public static final String STUDENT = "student";
+    public static final String TEACHER = "TEACHER";
+    public static final String STUDENT = "STUDENT";
 
     private static final ThreadLocal<User> userLocal = new ThreadLocal();
 

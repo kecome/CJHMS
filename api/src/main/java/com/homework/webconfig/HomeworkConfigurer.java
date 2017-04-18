@@ -27,6 +27,7 @@ public class HomeworkConfigurer extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginInterceptor(env)).addPathPatterns("/**");
+        registry.addInterceptor(new LoginInterceptor(env)).addPathPatterns("/**").excludePathPatterns("/**.html");
+        super.addInterceptors(registry);
     }
 }

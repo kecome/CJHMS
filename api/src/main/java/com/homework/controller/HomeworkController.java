@@ -149,21 +149,11 @@ public class HomeworkController {
         homework.setPublicTime(new Date());
 
         //班级
-        List<Map<Long, List<Long>>> classIds = new ArrayList<>();
+        List<Long> classIds = new ArrayList<>();
 
-        Map<Long, List<Long>> map1 = new HashMap<>();
-        List<Long> sids1 = new ArrayList<>();
-        sids1.add(666L);
-        map1.put(1111L, sids1);
-        classIds.add(map1);
-
-        Map<Long, List<Long>> map2 = new HashMap<>();
-        List<Long> sids2 = new ArrayList<>();
-        sids2.add(556L);
-        sids2.add(555L);
-        sids2.add(444L);
-        map2.put(2222L, sids2);
-        classIds.add(map2);
+        classIds.add(345L);
+        classIds.add(456L);
+        classIds.add(345L);
 
         List<Question> questions = new ArrayList<>();
         Question q1 = new Question();

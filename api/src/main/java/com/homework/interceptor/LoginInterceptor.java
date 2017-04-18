@@ -3,7 +3,6 @@ package com.homework.interceptor;
 import com.homework.annotation.LoginIgnore;
 import com.homework.exception.BusinessException;
 import com.homework.exception.ErrorInfo;
-import com.homework.response.ResponseMsg;
 import com.homework.util.HttpUtil;
 import com.homework.util.User;
 import com.homework.util.UserUtil;
@@ -37,10 +36,11 @@ public class LoginInterceptor implements HandlerInterceptor{
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        response.setCharacterEncoding("UTF-8");
-        ResponseMsg msg = new ResponseMsg();
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Class clazz = handlerMethod.getBeanType();
+        if(!clazz.getPackage().getName().startsWith("com.homework")) {
+            return true;
+        }
         //判断请求处理类是否加了LoginIgnore注解
         Annotation clazzAnnotation = clazz.getAnnotation(LoginIgnore.class);
         //判断请求方法是否加了LoginIgnore注解  只有返回true才会继续向下执行，返回false取消当前请求
@@ -62,6 +62,7 @@ public class LoginInterceptor implements HandlerInterceptor{
             User user = new User();
             user.setId(data.getLong("id"));
             user.setUsername(data.getString("userName"));
+            user.setRole(data.getString("currentSchoolRole"));
             user.setToken(request.getHeader("token"));
             UserUtil.putUser(user);
             return true;
