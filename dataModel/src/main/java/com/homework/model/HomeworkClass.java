@@ -15,6 +15,10 @@ public class HomeworkClass extends BaseModel {
      * 所属班级id
      */
     private Long classId;
+    /**
+     * 班级名称
+     */
+    private String className;
 
     public Long getHomeworkId() {
         return homeworkId;
@@ -30,5 +34,13 @@ public class HomeworkClass extends BaseModel {
 
     public void setClassId(Long classId) {
         this.classId = classId;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
     }
 }

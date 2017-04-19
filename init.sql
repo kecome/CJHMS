@@ -3,6 +3,7 @@ create table `homework` (
     `id` bigint unsigned not null comment 'id号',
     `teacherId` bigint unsigned not null comment '教师id号',
     `subjectId` bigint unsigned not null comment '所属科目id号',
+    `subjectName` varchar(255) not null comment '科目名称',
     `title` varchar(255) not null comment '作业名称',
     `knowledge` varchar(255) comment '相关知识点',
     `spentTime` int comment '预估完成时间,单位/分钟',
@@ -19,6 +20,7 @@ create table `homework_class` (
     `id` bigint unsigned not null comment 'id号',
     `homeworkId` bigint unsigned not null comment '作业id',
     `classId` bigint unsigned not null comment '所属班级id号',
+    `className` varchar(255) not null comment '班级名称',
     `created` datetime not null comment '创建时间',
     `updated` datetime not null comment '修改时间',
     primary key (`id`)
@@ -43,6 +45,7 @@ create table `studentwork` (
     `id` bigint unsigned not null comment 'id号',
     `homeworkId` bigint unsigned not null comment '作业id',
     `studentId` bigint unsigned not null comment '学生id号',
+    `studentName` varchar(64) not null comment '学生名称',
     `classId` bigint unsigned not null comment '班级id号',
     `submit` tinyint not null default 0 comment '学生是否提交：【0：未提交；1：已提交】',
     `mark` tinyint not null default 0 comment '老师是否批阅：【0：未批阅；1：已批阅】',

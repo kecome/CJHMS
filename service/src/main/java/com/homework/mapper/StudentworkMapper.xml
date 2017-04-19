@@ -104,9 +104,9 @@
             select #{nextId}
         </selectKey>
         insert into studentwork
-            (id,homeworkId,studentId,classId,submit,mark,created, updated)
+            (id,homeworkId,studentId,studentName,classId,submit,mark,created, updated)
         values
-            (#{id},#{homeworkId},#{studentId},#{classId},#{submit},#{mark},#{sysDate},#{sysDate})
+            (#{id},#{homeworkId},#{studentId},#{studentName},#{classId},#{submit},#{mark},#{sysDate},#{sysDate})
     </insert>
 
     <delete id="deleteStudentwork" parameterType="Long">
@@ -115,7 +115,7 @@
 
     <update id="updateStudentwork" parameterType="Studentwork">
         <bind name="sysDate" value="@com.homework.util.Pretreatment@now()"></bind>
-        update homework
+        update studentwork
         <trim prefix="set" suffixOverrides="," suffix=" where id = #{id} ">
             updated = #{sysDate},
             <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(title)">
@@ -137,6 +137,11 @@
                 knowledge=#{knowledge},
             </if>
         </trim>
+    </update>
+
+    <update id="updateSubmit" parameterType="map">
+        <bind name="sysDate" value="@com.homework.util.Pretreatment@now()"></bind>
+        update studentwork set submit = 1, updated = #{sysDate} where studentId=#{studentId} and homeworkId=#{homeworkId}
     </update>
 
 </mapper>

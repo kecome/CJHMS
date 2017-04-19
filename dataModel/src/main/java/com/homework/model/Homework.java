@@ -29,9 +29,12 @@ public class Homework extends BaseModel {
     @NotNull(message = "作业名称不能为空")
     private String title;
     /**
+     * 科目名称
+     */
+    private String subjectName;
+    /**
      * 相关知识点
      */
-
     private String knowledge;
     /**
      * 预估完成时间,单位/分钟
@@ -119,4 +122,11 @@ public class Homework extends BaseModel {
         this.endTime = endTime;
     }
 
+    public String getSubjectName() {
+        return subjectName;
+    }
+
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
+    }
 }

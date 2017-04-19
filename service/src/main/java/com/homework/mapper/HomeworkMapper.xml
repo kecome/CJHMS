@@ -90,8 +90,8 @@
             select #{nextId}
         </selectKey>
         insert into homework
-              (id,teacherId,subjectId,title,knowledge,spentTime,status,publicTime,endTime, created, updated)
-        values(#{id},#{teacherId},#{subjectId},#{title},#{knowledge},#{spentTime},#{status},#{publicTime},#{endTime},#{sysDate},#{sysDate})
+              (id,teacherId,subjectId,subjectName,title,knowledge,spentTime,status,publicTime,endTime, created, updated)
+        values(#{id},#{teacherId},#{subjectId},#{subjectName},#{title},#{knowledge},#{spentTime},#{status},#{publicTime},#{endTime},#{sysDate},#{sysDate})
     </insert>
 
 </mapper>

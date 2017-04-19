@@ -16,6 +16,10 @@ public class Studentwork extends BaseModel {
      */
     private Long studentId;
     /**
+     * 学生名称
+     */
+    private String studentName;
+    /**
      * 班级id号
      */
     private Long classId;
@@ -66,5 +70,13 @@ public class Studentwork extends BaseModel {
 
     public void setClassId(Long classId) {
         this.classId = classId;
+    }
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
     }
 }

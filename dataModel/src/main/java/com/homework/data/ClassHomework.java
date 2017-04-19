@@ -1,6 +1,7 @@
 package com.homework.data;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.homework.model.HomeworkClass;
 
 import java.util.Date;
 import java.util.List;
@@ -41,7 +42,7 @@ public class ClassHomework {
     /**
      * 设定班级
      */
-    private List<Long> classIds;
+    private List<HomeworkClass> classes;
     /**
      * 老师id
      */
@@ -105,14 +106,6 @@ public class ClassHomework {
         this.endTime = endTime;
     }
 
-    public List<Long> getClassIds() {
-        return classIds;
-    }
-
-    public void setClassIds(List<Long> classIds) {
-        this.classIds = classIds;
-    }
-
     public Integer getSubmitCount() {
         return submitCount;
     }
@@ -159,5 +152,13 @@ public class ClassHomework {
 
     public void setTeacherId(Long teacherId) {
         this.teacherId = teacherId;
+    }
+
+    public List<HomeworkClass> getClasses() {
+        return classes;
+    }
+
+    public void setClasses(List<HomeworkClass> classes) {
+        this.classes = classes;
     }
 }

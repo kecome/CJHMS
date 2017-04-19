@@ -103,8 +103,8 @@
             select #{nextId}
         </selectKey>
         insert into homework_class
-        (id,homeworkId,classId,created, updated)
-        values(#{id},#{homeworkId},#{classId},#{sysDate},#{sysDate})
+        (id,homeworkId,classId,className,created, updated)
+        values(#{id},#{homeworkId},#{classId},#{className},#{sysDate},#{sysDate})
     </insert>
     <delete id="deleteHomeworkClass" parameterType="Long">
         delete from homework_class where homeworkId = #{homeworkId}

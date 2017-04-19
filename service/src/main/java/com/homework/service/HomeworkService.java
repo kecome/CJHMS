@@ -69,12 +69,17 @@ public class HomeworkService {
         JSONArray data = obj.getJSONArray("data");
 
         Map<Long, List<Long>> classId = new HashMap<>();
+        Map<Long, String> sMap = new HashMap<>();
+        Map<Long, String> cMap = new HashMap<>();
+        List<Long> studentIds = null;
         for(int i=0;i<classIds.size();i++) {
-            List<Long> studentIds = new ArrayList<>();
+             studentIds = new ArrayList<>();
             if(data != null && data.size() > 0) {
                 for(int j=0;j<data.size();j++) {
-                    if(classIds.get(i).longValue() == data.getJSONObject(i).getLong("classId")) {
-                        studentIds.add(data.getJSONObject(i).getLong("studentId"));
+                    if(classIds.get(i).longValue() == data.getJSONObject(j).getLong("classId")) {
+                        studentIds.add(data.getJSONObject(j).getLong("studentId"));
+                        sMap.put(data.getJSONObject(j).getLong("studentId"), data.getJSONObject(j).getString("realName"));
+                        cMap.put(classIds.get(i), data.getJSONObject(j).getString("className"));
                     }
                 }
             }
@@ -88,6 +93,7 @@ public class HomeworkService {
         if(homework.getStatus() == null) homework.setStatus(0);
         if(homeworkId != null) {
             Homework hk = homeworkMapper.selectHomework(homeworkId);
+            if(hk == null) return;
             if(hk.getStatus() == 1) {   //作业已经发布不可以再修改
                 throw new BusinessException(ErrorInfo.HOMEWORK_PUBLIC.code, ErrorInfo.HOMEWORK_PUBLIC.desc);
             }
@@ -105,6 +111,7 @@ public class HomeworkService {
             hc = new HomeworkClass();
             hc.setClassId(entry.getKey());
             hc.setHomeworkId(homeworkId);
+            hc.setClassName(cMap.get(entry.getKey()));
             homeworkClassMapper.insertHomeworkClass(hc);
             //插入作业学生关联记录
             Studentwork sw = null;
@@ -113,6 +120,7 @@ public class HomeworkService {
                     sw = new Studentwork();
                     sw.setHomeworkId(homeworkId);
                     sw.setStudentId(sid);
+                    sw.setStudentName(sMap.get(sid));
                     sw.setClassId(entry.getKey());
                     sw.setSubmit(0);
                     sw.setMark(0);

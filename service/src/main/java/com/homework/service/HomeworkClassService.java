@@ -44,7 +44,7 @@ public class HomeworkClassService {
         if(param.getIsPage()) {
             if(list != null && list.size() > 0) {
                 for(ClassHomework ch : list) {
-                    ch.setClassIds(homeworkClassMapper.selectClassId(ch.getHomeworkId()));
+                    ch.setClasses(homeworkClassMapper.selectList(ch.getHomeworkId()));
                 }
             }
             page.setTotal(homeworkClassMapper.countClassHomework(param));

@@ -2,6 +2,7 @@ package com.homework.service;
 
 import com.homework.data.Page;
 import com.homework.mapper.StudentanswerMapper;
+import com.homework.mapper.StudentworkMapper;
 import com.homework.model.Studentanswer;
 import com.homework.param.MarkParam;
 import com.homework.param.StudentanswerParam;
@@ -22,6 +23,9 @@ import java.util.List;
 public class StudentAnswerService {
     @Autowired
     private StudentanswerMapper studentanswerMapper;
+    @Autowired
+    private StudentworkMapper studentworkMapper;
+
 
     public Page<Studentanswer> selectStudentAnswerList(Long homeworkId) {
         StudentanswerParam param = new StudentanswerParam();

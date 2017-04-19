@@ -50,6 +50,12 @@ public class StudentAnswerController {
         return msg;
     }
 
+    /**
+     * 老师批阅作业
+     * @param param
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value="/mark", method = RequestMethod.POST)
     public Object markAnswer(List<MarkParam> param) throws Exception{
         logger.info("请求方法markAnswer参数---->" + JsonUtil.beanToJson(param));
