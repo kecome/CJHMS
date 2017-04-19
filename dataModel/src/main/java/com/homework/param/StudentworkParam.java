@@ -24,7 +24,7 @@ public class StudentworkParam extends BaseParam{
     /**
      * 0：未提交；1：已提交
      */
-    private int submit;
+    private Integer submit;
 
     public Long getHomeworkId() {
         return homeworkId;
@@ -50,13 +50,6 @@ public class StudentworkParam extends BaseParam{
         this.classId = classId;
     }
 
-    public int getSubmit() {
-        return submit;
-    }
-
-    public void setSubmit(int submit) {
-        this.submit = submit;
-    }
 
     public Long getTeacherId() {
         return teacherId;
@@ -64,5 +57,13 @@ public class StudentworkParam extends BaseParam{
 
     public void setTeacherId(Long teacherId) {
         this.teacherId = teacherId;
+    }
+
+    public Integer getSubmit() {
+        return submit;
+    }
+
+    public void setSubmit(Integer submit) {
+        this.submit = submit;
     }
 }

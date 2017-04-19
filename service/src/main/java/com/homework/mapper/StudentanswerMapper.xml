@@ -47,4 +47,21 @@
         </trim>
     </update>
 
+    <update id="markStudentanswer" parameterType="com.homework.param.MarkParam">
+        <bind name="sysDate" value="@com.homework.util.Pretreatment@now()"></bind>
+        update studentanswer
+        <trim prefix="set" suffixOverrides="," suffix=" where studentId = #{studentId} and questionId=#{questionId} ">
+            updated = #{sysDate},
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(answer)">
+                answer=#{answer},
+            </if>
+            <if test="isRight != null">
+                isRight=#{isRight},
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(comment)">
+                comment=#{comment},
+            </if>
+        </trim>
+    </update>
+
 </mapper>

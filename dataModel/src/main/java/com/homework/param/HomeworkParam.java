@@ -1,5 +1,7 @@
 package com.homework.param;
 
+import java.util.List;
+
 /**
  * 作业查询参数类
  *
@@ -15,6 +17,10 @@ public class HomeworkParam extends BaseParam {
      * 标题
      */
     private String title;
+    /**
+     * 作业id集合
+     */
+    private List<Long> ids;
 
     public Long getTeacherId() {
         return teacherId;
@@ -30,5 +36,13 @@ public class HomeworkParam extends BaseParam {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public List<Long> getIds() {
+        return ids;
+    }
+
+    public void setIds(List<Long> ids) {
+        this.ids = ids;
     }
 }

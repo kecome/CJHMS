@@ -2,6 +2,8 @@ package com.homework.controller;
 
 import com.homework.data.Page;
 import com.homework.model.Studentanswer;
+import com.homework.param.MarkParam;
+import com.homework.param.StudentanswerParam;
 import com.homework.response.ResponseMsg;
 import com.homework.service.StudentAnswerService;
 import com.homework.util.JsonUtil;
@@ -40,12 +42,27 @@ public class StudentAnswerController {
     }
 
     @RequestMapping(value="", method = RequestMethod.POST)
-    public Object PostStudentAnswer(@RequestBody List<Studentanswer> studentanswers) throws Exception {
+    public Object postStudentAnswer(@RequestBody List<Studentanswer> studentanswers) throws Exception {
         logger.info("请求方法PostStudentAnswer参数---->" + JsonUtil.beanToJson(studentanswers));
         studentAnswerService.postStudentanswer(studentanswers);
         ResponseMsg msg = new ResponseMsg();
         logger.info("请求方法PostStudentAnswer返回---->" + JsonUtil.beanToJson(msg));
         return msg;
+    }
+
+    @RequestMapping(value="/mark", method = RequestMethod.POST)
+    public Object markAnswer(List<MarkParam> param) throws Exception{
+        logger.info("请求方法markAnswer参数---->" + JsonUtil.beanToJson(param));
+        ResponseMsg msg = new ResponseMsg();
+        studentAnswerService.markAnswer(param);
+        logger.info("请求方法markAnswer返回---->" + JsonUtil.beanToJson(msg));
+        return msg;
+    }
+
+    @RequestMapping(value="homework", method = RequestMethod.POST)
+    public Object getStudentAnswerWork(@RequestBody StudentanswerParam param) {
+
+        return null;
     }
 
 //    public static void main(String[] args) throws Exception{

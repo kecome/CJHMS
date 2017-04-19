@@ -40,7 +40,7 @@
         <include refid="studentworkList" />
         <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(orderSql)">
             order by
-            #{orderSql}
+            ${orderSql}
         </if>
         <if test="isPage">
             limit #{offset}, #{limit}
@@ -61,6 +61,40 @@
     <select id="count" parameterType="com.homework.param.StudentworkParam" resultType="Long">
         select count(id) from studentwork
         <include refid="studentworkList" />
+    </select>
+
+    <select id="selectStudentId" parameterType="long" resultType="long">
+        select studentId from studentwork where homeworkId = #{homeworkId} and submit = 0
+    </select>
+
+    <sql id="homeworkList">
+        from studentwork s LEFT JOIN homework h on s.homeworkId = h.id
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="studentId != null">
+                and s.studentId = #{studentId}
+            </if>
+
+            <if test="submit != null">
+                and s.submit = #{submit}
+            </if>
+        </trim>
+    </sql>
+
+    <select id="selectHomework" parameterType="com.homework.param.StudentworkParam" resultType="Homework">
+        <bind name="orderSql" value="@com.homework.util.Pretreatment@getOrder(order)"/>
+        select h.*
+        <include refid="homeworkList" />
+        <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(orderSql)">
+            order by
+            ${orderSql}
+        </if>
+        <if test="isPage">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+    <select id="countHomework" parameterType="com.homework.param.StudentworkParam" resultType="long">
+        select count(*)
+        <include refid="homeworkList" />
     </select>
 
     <insert id="insertStudentwork" parameterType="com.homework.model.Studentwork">

@@ -1,11 +1,13 @@
 package com.homework.controller;
 
+import com.homework.data.ClassHomework;
 import com.homework.data.Page;
 import com.homework.model.HomeworkClass;
 import com.homework.param.HomeworkClassParam;
 import com.homework.response.ResponseMsg;
 import com.homework.service.HomeworkClassService;
 import com.homework.util.JsonUtil;
+import com.homework.util.UserUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,14 +36,26 @@ public class HomeworkClassController {
     public Object getClasses(@RequestBody HomeworkClassParam param) throws Exception{
         logger.info("请求方法getClasses参数----->" + JsonUtil.beanToJson(param));
         ResponseMsg<Page> msg = new ResponseMsg<>();
-        //param.setTeacherId(UserUtil.getUser().getId());
+        if(param.getTeacherId() == null) param.setTeacherId(UserUtil.getUser().getId());
         Page<HomeworkClass> page = homeworkClassService.selectList(param);
         msg.setData(page);
         logger.info("请求方法getClasses返回---->" + JsonUtil.beanToJson(msg));
         return msg;
     }
 
-    public static void main(String[] args) {
+    @RequestMapping(value="/classHomework", method = RequestMethod.POST)
+    public Object getClassHomework(@RequestBody HomeworkClassParam param) throws Exception{
+        logger.info("请求方法getClassHomework参数----->" + JsonUtil.beanToJson(param));
+        ResponseMsg<Page> msg = new ResponseMsg<>();
+        if(param.getTeacherId() == null) param.setTeacherId(UserUtil.getUser().getId());
+        Page<ClassHomework> page = homeworkClassService.selectClassHomework(param);
+        msg.setData(page);
+        logger.info("请求方法getClassHomework返回---->" + JsonUtil.beanToJson(msg));
+        return msg;
+    }
+
+
+   public static void main(String[] args) {
         HomeworkClassParam param = new HomeworkClassParam();
         param.setTeacherId(234L);
         param.setClassId(443L);

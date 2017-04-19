@@ -1,5 +1,6 @@
 package com.homework.mapper;
 
+import com.homework.data.ClassHomework;
 import com.homework.model.HomeworkClass;
 import com.homework.param.HomeworkClassParam;
 
@@ -14,4 +15,7 @@ public interface HomeworkClassMapper {
     List<HomeworkClass> selectClassList(HomeworkClassParam param);
     long count(HomeworkClassParam param);
     List<HomeworkClass> selectList(long id);
+    List<Long> selectClassId(long id);
+    List<ClassHomework> selectClassHomework(HomeworkClassParam param);
+    long countClassHomework(HomeworkClassParam param);
 }

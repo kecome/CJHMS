@@ -1,6 +1,7 @@
 package com.homework.mapper;
 
 import com.homework.model.Studentanswer;
+import com.homework.param.MarkParam;
 import com.homework.param.StudentanswerParam;
 
 import java.util.List;
@@ -12,4 +13,5 @@ public interface StudentanswerMapper {
     List<Studentanswer> selectStudentanswerList(StudentanswerParam param);
     int insertStudentanswer(Studentanswer studentanswer);
     int updateStudentanswer(Studentanswer studentanswer);
+    int markStudentanswer(MarkParam param);
 }

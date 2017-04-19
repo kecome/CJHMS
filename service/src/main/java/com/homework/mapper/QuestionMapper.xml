@@ -29,7 +29,7 @@
         <include refid="questionList" />
         <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(orderSql)">
             order by
-            #{orderSql}
+            ${orderSql}
         </if>
         <if test="isPage">
             limit #{offset}, #{limit}

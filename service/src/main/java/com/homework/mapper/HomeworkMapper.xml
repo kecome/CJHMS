@@ -22,8 +22,13 @@
             <if test="teacherId != null">
                 and teacherId = #{teacherId}
             </if>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(title)">
-                and title = #{title}
+            <!--<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(title)">-->
+                <!--and title = #{title}-->
+            <!--</if>-->
+            <if test="ids != null and ids.size() > 0">
+               and id in <foreach  item="item" collection="ids" index="index"  open="(" separator="," close=")">
+                    #{item}
+                </foreach>
             </if>
         </trim>
     </sql>
@@ -34,7 +39,7 @@
         <include refid="homeworkList" />
         <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(orderSql)">
             order by
-             #{orderSql}
+            ${orderSql}
         </if>
         <if test="isPage">
             limit #{offset}, #{limit}

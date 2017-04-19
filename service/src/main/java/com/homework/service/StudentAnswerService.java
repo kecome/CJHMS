@@ -3,6 +3,7 @@ package com.homework.service;
 import com.homework.data.Page;
 import com.homework.mapper.StudentanswerMapper;
 import com.homework.model.Studentanswer;
+import com.homework.param.MarkParam;
 import com.homework.param.StudentanswerParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,6 +58,14 @@ public class StudentAnswerService {
         if(studentanswers != null && studentanswers.size() > 0) {
             for(Studentanswer answer : studentanswers) {
                 studentanswerMapper.updateStudentanswer(answer);
+            }
+        }
+    }
+
+    public void markAnswer(List<MarkParam> param) {
+        if(param != null && param.size() > 0){
+            for(MarkParam p : param) {
+                studentanswerMapper.markStudentanswer(p);
             }
         }
     }

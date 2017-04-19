@@ -1,6 +1,7 @@
 package com.homework.controller;
 
 import com.homework.data.Page;
+import com.homework.model.Homework;
 import com.homework.model.Studentwork;
 import com.homework.param.StudentworkParam;
 import com.homework.response.ResponseMsg;
@@ -45,6 +46,17 @@ public class StudentworkController {
         ResponseMsg<Page> msg = new ResponseMsg<>();
         msg.setData(page);
         logger.info("请求方法getStudents返回---->" + JsonUtil.beanToJson(msg));
+        return msg;
+    }
+
+    @RequestMapping(value="list", method = RequestMethod.POST)
+    public Object getHomework(@RequestBody StudentworkParam param) throws Exception{
+        logger.info("请求方法getHomework参数---->" + JsonUtil.beanToJson(param));
+        if(param.getStudentId() == null) param.setStudentId(UserUtil.getUser().getId());
+        Page<Homework> page = studentworkService.selectHomework(param);
+        ResponseMsg<Page> msg = new ResponseMsg<>();
+        msg.setData(page);
+        logger.info("请求方法getHomework返回---->" + JsonUtil.beanToJson(msg));
         return msg;
     }
 

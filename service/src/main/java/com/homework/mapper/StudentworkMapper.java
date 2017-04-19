@@ -1,5 +1,6 @@
 package com.homework.mapper;
 
+import com.homework.model.Homework;
 import com.homework.model.Studentwork;
 import com.homework.param.StudentworkParam;
 
@@ -15,4 +16,8 @@ public interface StudentworkMapper {
     int insertStudentwork(Studentwork studentwork);
     int deleteStudentwork(Long homeworkId);
     int updateStudentwork(Studentwork studentwork);
+    List<Long> selectStudentId(Long homeworkId);
+
+    List<Homework> selectHomework(StudentworkParam param);
+    long countHomework(StudentworkParam param);
 }

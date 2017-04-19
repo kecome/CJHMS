@@ -1,5 +1,6 @@
 package com.homework.service;
 
+import com.homework.data.ClassHomework;
 import com.homework.data.Page;
 import com.homework.mapper.HomeworkClassMapper;
 import com.homework.model.HomeworkClass;
@@ -34,6 +35,22 @@ public class HomeworkClassService {
         }
         page.setTotal(list.size());
         return page;
+    }
 
+    public Page<ClassHomework> selectClassHomework(HomeworkClassParam param) {
+        Page<ClassHomework> page = new Page<>();
+        List<ClassHomework> list = homeworkClassMapper.selectClassHomework(param);
+        page.setItems(list);
+        if(param.getIsPage()) {
+            if(list != null && list.size() > 0) {
+                for(ClassHomework ch : list) {
+                    ch.setClassIds(homeworkClassMapper.selectClassId(ch.getHomeworkId()));
+                }
+            }
+            page.setTotal(homeworkClassMapper.countClassHomework(param));
+            return page;
+        }
+        page.setTotal(list.size());
+        return page;
     }
 }

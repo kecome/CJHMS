@@ -2,6 +2,7 @@ package com.homework.service;
 
 import com.homework.data.Page;
 import com.homework.mapper.StudentworkMapper;
+import com.homework.model.Homework;
 import com.homework.model.Studentwork;
 import com.homework.param.StudentworkParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,18 @@ public class StudentworkService {
         page.setItems(list);
         if(param.getIsPage()) {
             page.setTotal(studentworkMapper.count(param));
+            return page;
+        }
+        page.setTotal(list.size());
+        return page;
+    }
+
+    public Page<Homework> selectHomework(StudentworkParam param) {
+        Page<Homework> page = new Page<>();
+        List<Homework> list = studentworkMapper.selectHomework(param);
+        page.setItems(list);
+        if(param.getIsPage()) {
+            page.setTotal(studentworkMapper.countHomework(param));
             return page;
         }
         page.setTotal(list.size());

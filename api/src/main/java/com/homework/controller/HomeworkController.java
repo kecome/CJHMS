@@ -1,6 +1,7 @@
 package com.homework.controller;
 
 import com.homework.data.HomeworkQuestiion;
+import com.homework.data.HomeworkStudent;
 import com.homework.data.Page;
 import com.homework.exception.BusinessException;
 import com.homework.exception.ErrorInfo;
@@ -103,13 +104,22 @@ public class HomeworkController {
         return msg;
     }
 
+    @RequestMapping(value="student", method = RequestMethod.POST)
+    public Object getHomeworkStudent(@RequestBody Map<String, Long> param) throws Exception{
+        logger.info("请求方法getHomeworkStudent参数---->" + JsonUtil.beanToJson(param));
+        HomeworkStudent hs = homeworkService.getHomeworkStudent(param);
+        ResponseMsg<HomeworkStudent> msg = new ResponseMsg<>();
+        msg.setData(hs);
+        logger.info("请求方法getHomeworkStudent返回---->" + JsonUtil.beanToJson(msg));
+        return msg;
+    }
     /**
      * 查询学生
      * @param ids  班级id
      * @return
      * @throws Exception
      */
-    @RequestMapping(value="/students", method = RequestMethod.POST)
+    @RequestMapping(value="/stud", method = RequestMethod.POST)
     public Object getStudents(@RequestBody List<Long> ids) throws Exception{
         TreeMap<String, Object> param = new TreeMap();
        // param.put("teacherIds[]", "323,434,545");

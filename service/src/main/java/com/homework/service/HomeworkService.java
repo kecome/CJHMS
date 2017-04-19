@@ -1,24 +1,23 @@
 package com.homework.service;
 
 import com.homework.data.HomeworkQuestiion;
+import com.homework.data.HomeworkStudent;
 import com.homework.data.Page;
 import com.homework.exception.BusinessException;
 import com.homework.exception.ErrorInfo;
-import com.homework.mapper.HomeworkClassMapper;
-import com.homework.mapper.HomeworkMapper;
-import com.homework.mapper.QuestionMapper;
-import com.homework.mapper.StudentworkMapper;
-import com.homework.model.Homework;
-import com.homework.model.HomeworkClass;
-import com.homework.model.Question;
-import com.homework.model.Studentwork;
+import com.homework.mapper.*;
+import com.homework.model.*;
 import com.homework.param.HomeworkParam;
+import com.homework.param.StudentanswerParam;
 import com.homework.util.HttpUtil;
+import com.homework.util.JsonUtil;
 import com.homework.util.User;
 import com.homework.util.UserUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -35,6 +34,7 @@ import java.util.*;
 @Transactional
 @Service
 public class HomeworkService {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private HomeworkMapper homeworkMapper;
     @Autowired
@@ -43,6 +43,8 @@ public class HomeworkService {
     private QuestionMapper questionMapper;
     @Autowired
     private StudentworkMapper studentworkMapper;
+    @Autowired
+    private StudentanswerMapper studentanswerMapper;
     @Value("${cbp_host}")
     private String host;
 
@@ -51,20 +53,18 @@ public class HomeworkService {
      * @param hq
      */
     public void postHomework(HomeworkQuestiion hq) throws Exception{
-
         List<Long> classIds = hq.getClassIds();
         TreeMap<String, Object> param = new TreeMap();
         param.put("classIds", StringUtils.join(classIds,"~"));
-       // param.put("classIds", 1000031120141001L);
+        logger.info("请求cbp方法queryClassStudent参数----->" + JsonUtil.beanToJson(param));
         String json = HttpUtil.send(host+"class/queryClassStudent.cbp",param,HttpUtil.POST);
-       // String json = HttpUtil.send(host+"student/queryStudent.cbp",param,HttpUtil.POST);
-        System.out.println("json----->" + json);
+        logger.info("请求cbp方法queryClassStudent返回----->" + json);
         if(StringUtils.isEmpty(json)) {
             throw new BusinessException(ErrorInfo.HTTP_CONNECTION_NULL.code, ErrorInfo.HTTP_CONNECTION_NULL.desc);
         }
         JSONObject obj = JSONObject.fromObject(json);
         if(obj.getInt("code") != 0) {
-            throw new BusinessException();
+            throw new BusinessException(ErrorInfo.YUN_REP_ERROR.code, ErrorInfo.YUN_REP_ERROR.desc);
         }
         JSONArray data = obj.getJSONArray("data");
 
@@ -147,6 +147,22 @@ public class HomeworkService {
         }
         hq.setClassIds(classIds);
         return hq;
+    }
+
+    public HomeworkStudent getHomeworkStudent(Map<String, Long> param) {
+        HomeworkStudent hs = new HomeworkStudent();
+        List<Long> sIds = studentworkMapper.selectStudentId(param.get("homeworkId"));
+        List<Question> questions = questionMapper.selectList(param.get("homeworkId"));
+        StudentanswerParam aParam = new StudentanswerParam();
+        aParam.setStudentId(param.get("studentId"));
+        aParam.setHomeworkId(param.get("homeworkId"));
+        List<Studentanswer> answers = studentanswerMapper.selectStudentanswerList(aParam);
+        hs.setAnswers(answers);
+        hs.setHomeworkId(param.get("homeworkId"));
+        hs.setQuestions(questions);
+        hs.setStudentIds(sIds);
+        hs.setTeacherId(UserUtil.getUser().getId());
+        return hs;
     }
 
     /**

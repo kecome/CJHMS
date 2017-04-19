@@ -43,8 +43,57 @@
         <include refid="homeworkClassList" />
     </select>
 
+    <sql id="classHomeworkList">
+        from `homework_class` hc left join homework h on hc.homeworkId = h.id
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="homeworkId != null">
+                and homeworkId = #{homeworkId}
+            </if>
+            <if test="classId != null">
+                and classId = #{classId}
+            </if>
+            <if test="teacherId != null">
+                and teacherId = #{teacherId}
+            </if>
+        </trim>
+    </sql>
+
+    <select id="selectClassHomework" parameterType="com.homework.param.HomeworkClassParam" resultType="com.homework.data.ClassHomework">
+        <bind name="orderSql" value="@com.homework.util.Pretreatment@getOrder(order)"/>
+        select
+          h.id as homeworkId,
+	      hc.classId classId,
+	      h.`status` as status,
+	      h.title as title,
+	      h.publicTime as publicTime,
+	      h.endTime as endTime,
+          h.created as created,
+          h.updated as updated,
+          h.teacherId as teacherId,
+ 	      (select count(*) from studentwork s where s.homeworkId = hc.homeworkId) as count,
+	      (select count(*) from studentwork s where s.homeworkId = hc.homeworkId and s.submit = 1) as submitCount
+        <include refid="classHomeworkList" />
+        <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(orderSql)">
+            order by
+            ${orderSql}
+        </if>
+        <if test="isPage">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="countClassHomework" parameterType="com.homework.param.HomeworkClassParam" resultType="long">
+        select count(*)
+        <include refid="classHomeworkList" />
+    </select>
+
+
     <select id="selectList" parameterType="Long" resultType="HomeworkClass">
         select * from homework_class where homeworkId = #{homeworkId}
+    </select>
+
+    <select id="selectClassId" parameterType="Long" resultType="Long">
+        select classId from homework_class where homeworkId = #{homeworkId}
     </select>
 
     <insert id="insertHomeworkClass" useGeneratedKeys="true" keyProperty="id" parameterType="com.homework.model.HomeworkClass">
