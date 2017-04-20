@@ -159,16 +159,16 @@ public class HomeworkService {
 
     public HomeworkStudent getHomeworkStudent(Map<String, Long> param) {
         HomeworkStudent hs = new HomeworkStudent();
-        List<Long> sIds = studentworkMapper.selectStudentId(param.get("homeworkId"));
+       // List<Long> sIds = studentworkMapper.selectStudentId(param.get("homeworkId"));
         List<Question> questions = questionMapper.selectList(param.get("homeworkId"));
         StudentanswerParam aParam = new StudentanswerParam();
         aParam.setStudentId(param.get("studentId"));
         aParam.setHomeworkId(param.get("homeworkId"));
         List<Studentanswer> answers = studentanswerMapper.selectStudentanswerList(aParam);
         hs.setAnswers(answers);
-        hs.setHomeworkId(param.get("homeworkId"));
+        hs.setHomework(homeworkMapper.selectHomework(param.get("homeworkId")));
         hs.setQuestions(questions);
-        hs.setStudentIds(sIds);
+       // hs.setStudentIds(sIds);
         hs.setTeacherId(UserUtil.getUser().getId());
         return hs;
     }

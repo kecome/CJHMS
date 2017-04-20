@@ -27,6 +27,10 @@ public class Studentanswer extends BaseModel {
      * 老师批阅
      */
     private String comment;
+    /**
+     * 正在做的题 0：不是；1：是
+     */
+    private int active;
 
     public Long getQuestionId() {
         return questionId;
@@ -66,5 +70,13 @@ public class Studentanswer extends BaseModel {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
     }
 }

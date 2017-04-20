@@ -24,6 +24,10 @@ public class Studentwork extends BaseModel {
      */
     private Long classId;
     /**
+     * 学生作业计时
+     */
+    private int time;
+    /**
      * 学生是否提交：【0：未提交；1：已提交】
      */
     private Integer submit;
@@ -78,5 +82,13 @@ public class Studentwork extends BaseModel {
 
     public void setStudentName(String studentName) {
         this.studentName = studentName;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
     }
 }

@@ -6,7 +6,6 @@ import com.homework.data.Page;
 import com.homework.exception.BusinessException;
 import com.homework.exception.ErrorInfo;
 import com.homework.model.Homework;
-import com.homework.model.HomeworkClass;
 import com.homework.model.Question;
 import com.homework.param.HomeworkParam;
 import com.homework.response.ResponseMsg;
@@ -107,6 +106,9 @@ public class HomeworkController {
     @RequestMapping(value="student", method = RequestMethod.POST)
     public Object getHomeworkStudent(@RequestBody Map<String, Long> param) throws Exception{
         logger.info("请求方法getHomeworkStudent参数---->" + JsonUtil.beanToJson(param));
+        if(UserUtil.getUser().getRole().equals(UserUtil.STUDENT)) {
+            param.put("studentId", UserUtil.getUser().getId());
+        }
         HomeworkStudent hs = homeworkService.getHomeworkStudent(param);
         ResponseMsg<HomeworkStudent> msg = new ResponseMsg<>();
         msg.setData(hs);
@@ -137,12 +139,6 @@ public class HomeworkController {
 //
 //    }
 
-    private static String buildHomeworkClass() throws Exception {
-        HomeworkClass hc = new HomeworkClass();
-        hc.setClassId(43434L);
-        hc.setHomeworkId(555L);
-        return JsonUtil.beanToJson(hc);
-    }
 
     private static String buildHomeworkQuestion() throws Exception{
         HomeworkQuestiion hq = new HomeworkQuestiion();

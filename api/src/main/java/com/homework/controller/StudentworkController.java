@@ -62,7 +62,9 @@ public class StudentworkController {
         return msg;
     }
 
-    public Object submitHomework(Map<String, Long> param) throws Exception {
+    @RequestMapping(value="submit", method = RequestMethod.POST)
+    public Object submitHomework(@RequestBody Map<String, Long> param) throws Exception {
+        if(param.get("studentId") == null) param.put("studentId", UserUtil.getUser().getId());
         logger.info("请求方法submitHomework参数---->" + JsonUtil.beanToJson(param));
         ResponseMsg msg = new ResponseMsg();
         studentworkService.submitHomework(param);

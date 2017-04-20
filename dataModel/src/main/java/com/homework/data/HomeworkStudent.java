@@ -1,5 +1,6 @@
 package com.homework.data;
 
+import com.homework.model.Homework;
 import com.homework.model.Question;
 import com.homework.model.Studentanswer;
 
@@ -13,11 +14,11 @@ public class HomeworkStudent {
     /**
      * 学生id集合
      */
-    private List<Long> studentIds;
+   // private List<Long> studentIds;
     /**
-     * 作业id
+     * 作业
      */
-    private Long homeworkId;
+    private Homework homework;
     /**
      * 老师id
      */
@@ -30,22 +31,6 @@ public class HomeworkStudent {
      * 学生答案
      */
     private List<Studentanswer> answers;
-
-    public List<Long> getStudentIds() {
-        return studentIds;
-    }
-
-    public void setStudentIds(List<Long> studentIds) {
-        this.studentIds = studentIds;
-    }
-
-    public Long getHomeworkId() {
-        return homeworkId;
-    }
-
-    public void setHomeworkId(Long homeworkId) {
-        this.homeworkId = homeworkId;
-    }
 
     public Long getTeacherId() {
         return teacherId;
@@ -69,5 +54,13 @@ public class HomeworkStudent {
 
     public void setAnswers(List<Studentanswer> answers) {
         this.answers = answers;
+    }
+
+    public Homework getHomework() {
+        return homework;
+    }
+
+    public void setHomework(Homework homework) {
+        this.homework = homework;
     }
 }

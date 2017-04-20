@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -67,32 +66,11 @@ public class StudentAnswerController {
 
     @RequestMapping(value="homework", method = RequestMethod.POST)
     public Object getStudentAnswerWork(@RequestBody StudentanswerParam param) {
-
         return null;
     }
 
 //    public static void main(String[] args) throws Exception{
 //        System.out.println(buildStudentAnswer());
 //    }
-
-    public static String buildStudentAnswer() throws Exception {
-        List<Studentanswer> list = new ArrayList<>();
-        Studentanswer s1 = new Studentanswer();
-        s1.setQuestionId(1123L);
-        s1.setStudentId(345L);
-        s1.setAnswer("答案。。。");
-        s1.setIsRight(0);
-        s1.setComment("老师批阅");
-        list.add(s1);
-
-        Studentanswer s2 = new Studentanswer();
-        s2.setQuestionId(1124L);
-        s2.setStudentId(345L);
-        s2.setAnswer("答案。。。");
-        s2.setIsRight(1);
-        s2.setComment("老师批阅砖石");
-        list.add(s2);
-        return JsonUtil.beanToJson(list);
-    }
 
 }

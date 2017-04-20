@@ -4,6 +4,7 @@ import com.homework.annotation.LoginIgnore;
 import com.homework.exception.BusinessException;
 import com.homework.exception.ErrorInfo;
 import com.homework.util.HttpUtil;
+import com.homework.util.JsonUtil;
 import com.homework.util.User;
 import com.homework.util.UserUtil;
 import net.sf.json.JSONObject;
@@ -52,7 +53,9 @@ public class LoginInterceptor implements HandlerInterceptor{
         if(clazzAnnotation == null && methodAnnotation == null) {  //没加忽略登录拦截注解，进入token验证
             TreeMap<String, Object> param = new TreeMap<>();
             param.put("token", request.getHeader("token"));
+            logger.info("请求地址"+env.getProperty("cbp_host") + "unverify/getTokeneffective.cbp参数：" + JsonUtil.beanToJson(param));
             String json = HttpUtil.send(env.getProperty("cbp_host") + "unverify/getTokeneffective.cbp",param, HttpUtil.POST);
+            logger.info("请求地址" + env.getProperty("cbp_host") + "unverify/getTokeneffective.cbp返回：" +json);
             if(StringUtils.isEmpty(json)) {
                 throw new BusinessException(ErrorInfo.HTTP_CONNECTION_NULL.code, ErrorInfo.HTTP_CONNECTION_NULL.desc);
             }

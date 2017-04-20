@@ -54,12 +54,4 @@ public class HomeworkClassController {
         return msg;
     }
 
-
-   public static void main(String[] args) {
-        HomeworkClassParam param = new HomeworkClassParam();
-        param.setTeacherId(234L);
-        param.setClassId(443L);
-        param.setHomeworkId(555L);
-
-    }
 }
