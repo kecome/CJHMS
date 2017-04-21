@@ -31,6 +31,14 @@ public class Studentanswer extends BaseModel {
      * 正在做的题 0：不是；1：是
      */
     private int active;
+    /**
+     * 修改开始结束时间日志
+     */
+    private String submitLog;
+    /**
+     * 是否批阅 0：未批阅  1：已批阅
+     */
+    private int mark;
 
     public Long getQuestionId() {
         return questionId;
@@ -78,5 +86,21 @@ public class Studentanswer extends BaseModel {
 
     public void setActive(int active) {
         this.active = active;
+    }
+
+    public String getSubmitLog() {
+        return submitLog;
+    }
+
+    public void setSubmitLog(String submitLog) {
+        this.submitLog = submitLog;
+    }
+
+    public int getMark() {
+        return mark;
+    }
+
+    public void setMark(int mark) {
+        this.mark = mark;
     }
 }

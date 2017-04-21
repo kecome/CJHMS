@@ -15,6 +15,8 @@ public class Message extends BaseModel {
      * 消息发送者id号，老师
      */
     private Long teacherId;
+
+    private Long resourceId;
     /**
      * 消息类型：【0：作业批阅消息】
      */
@@ -66,5 +68,13 @@ public class Message extends BaseModel {
 
     public void setIsRead(Integer isRead) {
         this.isRead = isRead;
+    }
+
+    public Long getResourceId() {
+        return resourceId;
+    }
+
+    public void setResourceId(Long resourceId) {
+        this.resourceId = resourceId;
     }
 }

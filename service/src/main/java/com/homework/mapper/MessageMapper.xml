@@ -61,8 +61,8 @@
             select #{nextId}
         </selectKey>
         insert into message
-        (id,studentId,teacherId,type,content,isRead,created, updated)
-        values(#{id},#{studentId},#{teacherId},#{type},#{content},#{isRead},#{sysDate},#{sysDate})
+        (id,studentId,teacherId,type,content,resourceId,isRead,created, updated)
+        values(#{id},#{studentId},#{teacherId},#{type},#{content},#{resourceId},#{isRead},#{sysDate},#{sysDate})
     </insert>
 
 </mapper>

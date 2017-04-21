@@ -8,7 +8,10 @@ public class MarkParam {
     private Long questionId;
     private String comment;
     private int isRight;
+
     private Long studentId;
+    private int mark;
+    private Long homeworkId;
 
     public String getComment() {
         return comment;
@@ -40,5 +43,21 @@ public class MarkParam {
 
     public void setQuestionId(Long questionId) {
         this.questionId = questionId;
+    }
+
+    public int getMark() {
+        return mark;
+    }
+
+    public void setMark(int mark) {
+        this.mark = mark;
+    }
+
+    public Long getHomeworkId() {
+        return homeworkId;
+    }
+
+    public void setHomeworkId(Long homeworkId) {
+        this.homeworkId = homeworkId;
     }
 }

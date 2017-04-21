@@ -62,6 +62,7 @@ public class StudentworkController {
         return msg;
     }
 
+
     @RequestMapping(value="submit", method = RequestMethod.POST)
     public Object submitHomework(@RequestBody Map<String, Long> param) throws Exception {
         if(param.get("studentId") == null) param.put("studentId", UserUtil.getUser().getId());

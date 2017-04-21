@@ -41,8 +41,14 @@
             <if test="isRight != null">
                 isRight=#{isRight},
             </if>
+            <if test="active != null">
+                active=#{active},
+            </if>
             <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(comment)">
                 comment=#{comment},
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(submitLog)">
+                submitLog = CONCAT(submitLog,#{submitLog}),
             </if>
         </trim>
     </update>
@@ -58,8 +64,8 @@
             <if test="isRight != null">
                 isRight=#{isRight},
             </if>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(comment)">
-                comment=#{comment},
+            <if test="mark != null">
+                mark=#{mark},
             </if>
         </trim>
     </update>

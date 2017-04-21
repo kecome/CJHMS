@@ -24,6 +24,25 @@ public class HomeworkStudent {
      */
     private Long teacherId;
     /**
+     * 老师是否批阅：【0：未批阅；1：已批阅】
+     */
+    private Integer mark;
+    /**
+     * 是否显示学生作业答案
+     */
+    private boolean show = false;
+
+    /**
+     * 学生id
+     */
+    private Long studentId;
+
+    /**
+     * 学生名字
+     */
+    private String studentName;
+
+    /**
      * 作业题目
      */
     private List<Question> questions;
@@ -62,5 +81,37 @@ public class HomeworkStudent {
 
     public void setHomework(Homework homework) {
         this.homework = homework;
+    }
+
+    public Integer getMark() {
+        return mark;
+    }
+
+    public void setMark(Integer mark) {
+        this.mark = mark;
+    }
+
+    public boolean isShow() {
+        return show;
+    }
+
+    public void setShow(boolean show) {
+        this.show = show;
+    }
+
+    public Long getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
+    }
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
     }
 }

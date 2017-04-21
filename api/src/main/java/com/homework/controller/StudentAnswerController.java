@@ -40,11 +40,18 @@ public class StudentAnswerController {
         return msg;
     }
 
+    /**
+     * 学生提交答案
+     * @param studentanswers
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value="", method = RequestMethod.POST)
     public Object postStudentAnswer(@RequestBody List<Studentanswer> studentanswers) throws Exception {
         logger.info("请求方法PostStudentAnswer参数---->" + JsonUtil.beanToJson(studentanswers));
-        studentAnswerService.postStudentanswer(studentanswers);
+        List<Long> ids = studentAnswerService.postStudentanswer(studentanswers);
         ResponseMsg msg = new ResponseMsg();
+        msg.setData(ids);
         logger.info("请求方法PostStudentAnswer返回---->" + JsonUtil.beanToJson(msg));
         return msg;
     }
@@ -56,11 +63,25 @@ public class StudentAnswerController {
      * @throws Exception
      */
     @RequestMapping(value="/mark", method = RequestMethod.POST)
-    public Object markAnswer(List<MarkParam> param) throws Exception{
+    public Object markAnswer(@RequestBody List<MarkParam> param) throws Exception{
         logger.info("请求方法markAnswer参数---->" + JsonUtil.beanToJson(param));
         ResponseMsg msg = new ResponseMsg();
         studentAnswerService.markAnswer(param);
         logger.info("请求方法markAnswer返回---->" + JsonUtil.beanToJson(msg));
+        return msg;
+    }
+
+    /**
+     * 确认批阅
+     * @param param
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value="/markSubmit", method = RequestMethod.POST)
+    public Object markSubmit(@RequestBody MarkParam param) throws Exception{
+        logger.info("请求方法markAnswer参数---->" + JsonUtil.beanToJson(param));
+        studentAnswerService.markSubmit(param);
+        ResponseMsg msg = new ResponseMsg();
         return msg;
     }
 

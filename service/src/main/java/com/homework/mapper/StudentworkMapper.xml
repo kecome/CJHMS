@@ -82,7 +82,8 @@
 
     <select id="selectHomework" parameterType="com.homework.param.StudentworkParam" resultType="Homework">
         <bind name="orderSql" value="@com.homework.util.Pretreatment@getOrder(order)"/>
-        select h.*
+        select h.id, h.teacherId, h.subjectId, h.subjectName, h.title, h.knowledge, h.spentTime,
+        h.status, h.publicTime, h.endTime, h.created, s.updated
         <include refid="homeworkList" />
         <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(orderSql)">
             order by
@@ -97,6 +98,10 @@
         <include refid="homeworkList" />
     </select>
 
+    <select id="selectStudentwork" parameterType="com.homework.param.StudentworkParam" resultType="Studentwork">
+        select * from studentwork  where studentId = #{studentId} and homeworkId = #{homeworkId} limit 1
+    </select>
+
     <insert id="insertStudentwork" parameterType="com.homework.model.Studentwork">
         <bind name="sysDate" value="@com.homework.util.Pretreatment@now()" />
         <selectKey keyProperty="id" resultType="Long" order="BEFORE">
@@ -104,9 +109,9 @@
             select #{nextId}
         </selectKey>
         insert into studentwork
-            (id,homeworkId,studentId,studentName,classId,submit,mark,created, updated)
+            (id,homeworkId,studentId,studentName,classId,submit,mark,time,created, updated)
         values
-            (#{id},#{homeworkId},#{studentId},#{studentName},#{classId},#{submit},#{mark},#{sysDate},#{sysDate})
+            (#{id},#{homeworkId},#{studentId},#{studentName},#{classId},#{submit},#{mark},#{time},#{sysDate},#{sysDate})
     </insert>
 
     <delete id="deleteStudentwork" parameterType="Long">
@@ -118,23 +123,11 @@
         update studentwork
         <trim prefix="set" suffixOverrides="," suffix=" where id = #{id} ">
             updated = #{sysDate},
-            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(title)">
-                title=#{title},
+            <if test="submit != null">
+                submit=#{submit},
             </if>
-            <if test="subjectId != null">
-                subjectId=#{subjectId},
-            </if>
-            <if test="spentTime != null">
-                spentTime=#{spentTime},
-            </if>
-            <if test="publicTime != null">
-                publicTime=#{publicTime},
-            </if>
-            <if test="endTime != null">
-                endTime=#{endTime},
-            </if>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(knowledge)">
-                knowledge=#{knowledge},
+            <if test="time != time">
+                time=#{time},
             </if>
         </trim>
     </update>

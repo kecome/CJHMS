@@ -18,12 +18,12 @@ public class BaseModel {
     /**
      * 创建时间
      */
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date created;
     /**
      * 修改时间
      */
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date updated;
 
     public Long getId() {

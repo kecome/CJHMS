@@ -48,13 +48,13 @@ public class Homework extends BaseModel {
     /**
      * 预约发布时间
      */
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date publicTime;
     /**
      * 截止提交时间
      */
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endTime;
 

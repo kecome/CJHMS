@@ -13,4 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/file",produces="application/json;charset=UTF-8")
 public class AttachmentController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+//    @RequestMapping()
+//    public Object upload() {
+//
+//    }
 }

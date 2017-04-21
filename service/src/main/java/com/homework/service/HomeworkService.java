@@ -9,6 +9,7 @@ import com.homework.mapper.*;
 import com.homework.model.*;
 import com.homework.param.HomeworkParam;
 import com.homework.param.StudentanswerParam;
+import com.homework.param.StudentworkParam;
 import com.homework.util.HttpUtil;
 import com.homework.util.JsonUtil;
 import com.homework.util.User;
@@ -157,17 +158,37 @@ public class HomeworkService {
         return hq;
     }
 
-    public HomeworkStudent getHomeworkStudent(Map<String, Long> param) {
+    public HomeworkStudent getHomeworkStudent(StudentanswerParam param) {
         HomeworkStudent hs = new HomeworkStudent();
-       // List<Long> sIds = studentworkMapper.selectStudentId(param.get("homeworkId"));
-        List<Question> questions = questionMapper.selectList(param.get("homeworkId"));
-        StudentanswerParam aParam = new StudentanswerParam();
-        aParam.setStudentId(param.get("studentId"));
-        aParam.setHomeworkId(param.get("homeworkId"));
-        List<Studentanswer> answers = studentanswerMapper.selectStudentanswerList(aParam);
-        hs.setAnswers(answers);
-        hs.setHomework(homeworkMapper.selectHomework(param.get("homeworkId")));
+        Long homeworkId;
+        Long studentId;
+        if(param.getHomeworkId() == null ) return hs;
+        homeworkId = param.getHomeworkId();
+        hs.setHomework(homeworkMapper.selectHomework(homeworkId));
+        List<Question> questions = questionMapper.selectList(homeworkId);
         hs.setQuestions(questions);
+        if(param.getStudentId() == null ) return hs;
+        studentId = param.getStudentId();
+       // List<Long> sIds = studentworkMapper.selectStudentId(param.get("homeworkId"));
+
+        if(param.getShow()){
+            StudentanswerParam aParam = new StudentanswerParam();
+            aParam.setStudentId(studentId);
+            aParam.setHomeworkId(homeworkId);
+            List<Studentanswer> answers = studentanswerMapper.selectStudentanswerList(aParam);
+            hs.setAnswers(answers);
+        }
+        StudentworkParam sp = new StudentworkParam();
+        sp.setStudentId(homeworkId);
+        sp.setHomeworkId(studentId);
+        Studentwork studentwork = studentworkMapper.selectStudentwork(sp);
+        if(studentwork != null) {
+            //设置作业是否批阅
+            hs.setMark(studentwork.getMark());
+            hs.setStudentName(studentwork.getStudentName());
+            hs.setStudentId(studentwork.getStudentId());
+        }
+
        // hs.setStudentIds(sIds);
         hs.setTeacherId(UserUtil.getUser().getId());
         return hs;

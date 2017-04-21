@@ -16,6 +16,8 @@ public class StudentanswerParam extends BaseParam{
      */
     private Long studentId;
 
+    private Boolean show = true;
+
     public Long getHomeworkId() {
         return homeworkId;
     }
@@ -30,5 +32,13 @@ public class StudentanswerParam extends BaseParam{
 
     public void setStudentId(Long studentId) {
         this.studentId = studentId;
+    }
+
+    public Boolean getShow() {
+        return show;
+    }
+
+    public void setShow(Boolean show) {
+        this.show = show;
     }
 }
