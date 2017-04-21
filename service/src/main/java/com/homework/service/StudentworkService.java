@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author xuke
@@ -46,7 +45,7 @@ public class StudentworkService {
         return page;
     }
 
-    public void submitHomework(Map<String, Long> param) {
-        studentworkMapper.updateSubmit(param);
+    public void submitHomework(Studentwork studentwork) {
+        studentworkMapper.updateStudentwork(studentwork);
     }
 }

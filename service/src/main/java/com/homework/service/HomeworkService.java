@@ -179,18 +179,13 @@ public class HomeworkService {
             hs.setAnswers(answers);
         }
         StudentworkParam sp = new StudentworkParam();
-        sp.setStudentId(homeworkId);
-        sp.setHomeworkId(studentId);
+        sp.setStudentId(studentId);
+        sp.setHomeworkId(homeworkId);
         Studentwork studentwork = studentworkMapper.selectStudentwork(sp);
         if(studentwork != null) {
-            //设置作业是否批阅
-            hs.setMark(studentwork.getMark());
-            hs.setStudentName(studentwork.getStudentName());
-            hs.setStudentId(studentwork.getStudentId());
+            hs.setStudentwork(studentwork);
         }
-
        // hs.setStudentIds(sIds);
-        hs.setTeacherId(UserUtil.getUser().getId());
         return hs;
     }
 

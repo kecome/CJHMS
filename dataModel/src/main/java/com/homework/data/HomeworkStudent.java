@@ -3,6 +3,7 @@ package com.homework.data;
 import com.homework.model.Homework;
 import com.homework.model.Question;
 import com.homework.model.Studentanswer;
+import com.homework.model.Studentwork;
 
 import java.util.List;
 
@@ -20,44 +21,20 @@ public class HomeworkStudent {
      */
     private Homework homework;
     /**
-     * 老师id
+     * 作业题目
      */
-    private Long teacherId;
-    /**
-     * 老师是否批阅：【0：未批阅；1：已批阅】
-     */
-    private Integer mark;
+    private List<Question> questions;
     /**
      * 是否显示学生作业答案
      */
     private boolean show = false;
 
-    /**
-     * 学生id
-     */
-    private Long studentId;
+    private Studentwork studentwork;
 
-    /**
-     * 学生名字
-     */
-    private String studentName;
-
-    /**
-     * 作业题目
-     */
-    private List<Question> questions;
     /**
      * 学生答案
      */
     private List<Studentanswer> answers;
-
-    public Long getTeacherId() {
-        return teacherId;
-    }
-
-    public void setTeacherId(Long teacherId) {
-        this.teacherId = teacherId;
-    }
 
     public List<Question> getQuestions() {
         return questions;
@@ -83,14 +60,6 @@ public class HomeworkStudent {
         this.homework = homework;
     }
 
-    public Integer getMark() {
-        return mark;
-    }
-
-    public void setMark(Integer mark) {
-        this.mark = mark;
-    }
-
     public boolean isShow() {
         return show;
     }
@@ -99,19 +68,11 @@ public class HomeworkStudent {
         this.show = show;
     }
 
-    public Long getStudentId() {
-        return studentId;
+    public Studentwork getStudentwork() {
+        return studentwork;
     }
 
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
-    }
-
-    public String getStudentName() {
-        return studentName;
-    }
-
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
+    public void setStudentwork(Studentwork studentwork) {
+        this.studentwork = studentwork;
     }
 }

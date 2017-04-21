@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
-
 /**
  * @author xuke
  * @create 2017-04-14 下午 15:29
@@ -64,11 +62,11 @@ public class StudentworkController {
 
 
     @RequestMapping(value="submit", method = RequestMethod.POST)
-    public Object submitHomework(@RequestBody Map<String, Long> param) throws Exception {
-        if(param.get("studentId") == null) param.put("studentId", UserUtil.getUser().getId());
-        logger.info("请求方法submitHomework参数---->" + JsonUtil.beanToJson(param));
+    public Object submitHomework(@RequestBody Studentwork studentwork) throws Exception {
+        if(studentwork.getStudentId() == null) studentwork.setStudentId(UserUtil.getUser().getId());
+        logger.info("请求方法submitHomework参数---->" + JsonUtil.beanToJson(studentwork));
         ResponseMsg msg = new ResponseMsg();
-        studentworkService.submitHomework(param);
+        studentworkService.submitHomework(studentwork);
         logger.info("请求方法submitHomework返回---->" + JsonUtil.beanToJson(msg));
         return msg;
     }
