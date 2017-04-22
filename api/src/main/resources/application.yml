@@ -26,6 +26,6 @@ spring:
 mybatis:
    type-aliases-package: com.homework.model
    mapper-locations: classpath:com/homework/mapper/*.xml
- #  type-handlers-package: com.homework.typehandlers
+   type-handlers-package: com.homework.typehandlers
 server:
     port: 9084

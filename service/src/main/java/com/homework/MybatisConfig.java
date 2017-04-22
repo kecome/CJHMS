@@ -57,6 +57,7 @@ public class MybatisConfig {
          fb.setDataSource(ds);//指定数据源(这个必须有，否则报错)
          //下边两句仅仅用于*.xml文件，如果整个持久层操作不需要使用到xml文件的话（只用注解就可以搞定），则不加
          fb.setTypeAliasesPackage(env.getProperty("mybatis.type-aliases-package"));//指定基包
+         fb.setTypeHandlersPackage(env.getProperty("mybatis.type-handlers-package"));
          fb.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(env.getProperty("mybatis.mapper-locations")));//指定xml文件位置
          return fb.getObject();
      }
