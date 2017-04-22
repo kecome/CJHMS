@@ -36,10 +36,10 @@ public class StudentworkController {
     @RequestMapping(value="", method = RequestMethod.POST)
     public Object getStudentwork(@RequestBody StudentworkParam param) throws Exception{
         logger.info("请求方法getStudents参数---->" + JsonUtil.beanToJson(param));
-        if(UserUtil.getUser().getRole().equals(UserUtil.STUDENT)) {   //当前登录人是学生
+        if(param.getStudentId() == null && UserUtil.getUser().getRole().equals(UserUtil.STUDENT)) {   //当前登录人是学生
             param.setStudentId(UserUtil.getUser().getId());
         }
-        if(UserUtil.getUser().getRole().equals(UserUtil.TEACHER)) {   //当前登录人是老师
+        if(param.getTeacherId() == null && UserUtil.getUser().getRole().equals(UserUtil.TEACHER)) {   //当前登录人是老师
             param.setTeacherId(UserUtil.getUser().getId());
         }
         Page<Studentwork> page = studentworkService.selectList(param);

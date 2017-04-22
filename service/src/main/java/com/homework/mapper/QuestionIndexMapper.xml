@@ -8,7 +8,7 @@
         <bind name="sysDate" value="@com.homework.util.Pretreatment@now()"></bind>
         update questionIndex
         <trim prefix="set" suffixOverrides="," suffix=" where studentworkId = #{studentworkId}">
-            updated = #{sysDate}
+            updated = #{sysDate},
             <if test="questionId != null">
                 questionId=#{questionId},
             </if>

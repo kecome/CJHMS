@@ -126,7 +126,7 @@
             <if test="submit != null">
                 submit=#{submit},
             </if>
-            <if test="time != time">
+            <if test="time != null">
                 time=#{time},
             </if>
         </trim>

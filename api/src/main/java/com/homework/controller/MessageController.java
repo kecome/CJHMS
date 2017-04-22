@@ -6,6 +6,7 @@ import com.homework.param.MessageParam;
 import com.homework.response.ResponseMsg;
 import com.homework.service.MessageService;
 import com.homework.util.JsonUtil;
+import com.homework.util.UserUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,9 +45,27 @@ public class MessageController {
 
     @RequestMapping(value="/list", method = RequestMethod.POST)
     public Object getMessageList(@RequestBody MessageParam param) throws Exception {
+        logger.info("请求方法getMessageList参数---->" + JsonUtil.beanToJson(param));
+        if(param.getStudentId() == null && UserUtil.getUser().getRole().equals(UserUtil.STUDENT)) {   //当前登录人是学生
+            param.setStudentId(UserUtil.getUser().getId());
+        }
+        if(param.getTeacherId() == null && UserUtil.getUser().getRole().equals(UserUtil.TEACHER)) {   //当前登录人是老师
+            param.setTeacherId(UserUtil.getUser().getId());
+        }
         ResponseMsg msg = new ResponseMsg();
         Page<Message> messages = messageService.selectMessageList(param);
         msg.setData(JsonUtil.beanToJson(messages));
+        logger.info("请求方法getMessageList返回---->" + JsonUtil.beanToJson(messages));
+        return msg;
+    }
+
+    @RequestMapping(value="/read", method = RequestMethod.POST)
+    public Object readMsg(@RequestBody Long id) throws Exception {
+        logger.info("请求方法readMsg参数---->" + id);
+        ResponseMsg msg = new ResponseMsg();
+        int count = messageService.updateStatus(id);
+        msg.setData(count);
+        logger.info("请求方法readMsg返回---->" + JsonUtil.beanToJson(msg));
         return msg;
     }
 
