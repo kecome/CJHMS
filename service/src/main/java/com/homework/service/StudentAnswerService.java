@@ -1,21 +1,21 @@
 package com.homework.service;
 
 import com.homework.data.Page;
-import com.homework.mapper.HomeworkMapper;
-import com.homework.mapper.MessageMapper;
-import com.homework.mapper.StudentanswerMapper;
-import com.homework.mapper.StudentworkMapper;
+import com.homework.exception.BusinessException;
+import com.homework.exception.ErrorInfo;
+import com.homework.mapper.*;
+import com.homework.model.AnswerLog;
 import com.homework.model.Homework;
 import com.homework.model.Message;
 import com.homework.model.Studentanswer;
 import com.homework.param.MarkParam;
+import com.homework.param.StudentanswerLog;
 import com.homework.param.StudentanswerParam;
 import com.homework.util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,6 +35,10 @@ public class StudentAnswerService {
     private HomeworkMapper homeworkMapper;
     @Autowired
     private MessageMapper messageMapper;
+    @Autowired
+    private AnswerLogMapper answerLogMapper;
+    @Autowired
+    private QuestionMapper questionMapper;
 
     public Page<Studentanswer> selectStudentAnswerList(Long homeworkId) {
         StudentanswerParam param = new StudentanswerParam();
@@ -49,26 +53,46 @@ public class StudentAnswerService {
 
     /**
      * 学生
-     * @param studentanswers
+     * @param
      * @return
      */
-    public List<Long> postStudentanswer(List<Studentanswer> studentanswers) {
-        List<Long> aIds = new ArrayList<>();
-        if(studentanswers != null && studentanswers.size() > 0) {
-            for(Studentanswer answer : studentanswers) {
-                if(UserUtil.getUser().getRole().equals(UserUtil.STUDENT) && answer.getStudentId() == null) {
-                    answer.setStudentId(UserUtil.getUser().getId());
-                }
-                if(answer.getId() == null) {
-                    studentanswerMapper.insertStudentanswer(answer);
-                    aIds.add(answer.getId());
-                }else {
-                    studentanswerMapper.updateStudentanswer(answer);
-                    aIds.add(answer.getId());
-                }
-            }
+    public Studentanswer postStudentanswer(StudentanswerLog param) {
+        Studentanswer studentanswer = param.getStudentanswer();
+        AnswerLog answerLog = param.getAnswerLog();
+        if(studentanswer == null) {
+            return null;
         }
-        return aIds;
+        //题目不存在
+        if(questionMapper.selectQuestion(studentanswer.getQuestionId()) == null){
+            throw new BusinessException(ErrorInfo.QUESTION_IS_NULL.code, ErrorInfo.QUESTION_IS_NULL.desc);
+        }
+        if(studentanswer.getStudentId() == null)studentanswer.setStudentId(UserUtil.getUser().getId());
+        if(studentanswer.getId() == null) {
+            studentanswerMapper.insertStudentanswer(studentanswer);
+        }else {
+            studentanswerMapper.updateStudentanswer(studentanswer);
+        }
+        if(answerLog != null) {
+            if(answerLog.getStudentId() == null) answerLog.setStudentId(UserUtil.getUser().getId());
+            answerLog.setQuestionId(studentanswer.getQuestionId());
+            answerLogMapper.insertLog(answerLog);
+        }
+//        if(studentanswers != null && studentanswers.size() > 0) {
+//            for(Studentanswer answer : studentanswers) {
+//                if(UserUtil.getUser().getRole().equals(UserUtil.STUDENT) && answer.getStudentId() == null) {
+//                    answer.setStudentId(UserUtil.getUser().getId());
+//                }
+//                if(answer.getId() == null) {
+//                    studentanswerMapper.insertStudentanswer(answer);
+//                    aIds.add(answer.getId());
+//                }else {
+//                    studentanswerMapper.updateStudentanswer(answer);
+//                    aIds.add(answer.getId());
+//                }
+//            }
+//        }
+//        return aIds;
+        return studentanswer;
     }
 
     public void insertStudentanswer(List<Studentanswer> studentanswers) {
@@ -82,7 +106,11 @@ public class StudentAnswerService {
     public void updateStudentanswer(List<Studentanswer> studentanswers) {
         if(studentanswers != null && studentanswers.size() > 0) {
             for(Studentanswer answer : studentanswers) {
-                studentanswerMapper.updateStudentanswer(answer);
+                if(answer.getId() == null) {
+                    studentanswerMapper.insertStudentanswer(answer);
+                } else {
+                    studentanswerMapper.updateStudentanswer(answer);
+                }
             }
         }
     }

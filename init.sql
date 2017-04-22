@@ -62,14 +62,34 @@ create table `studentAnswer` (
     `studentId` bigint unsigned not null comment '学生id号',
     `answer` mediumblob comment '题目答案,主观题为照片url',
     `isRight` tinyint comment '正确与否：【0：正确；1：错误】',
-    `active` int unsigned comment '正在做的题【0：不是；1：是】',
     `mark` int unsigned comment '是否批阅 0：未批阅  1：已批阅',
     `comment` text comment '老师批阅',
-    `submitLog` text comment '修改开始结束时间日志',
     `created` datetime not null comment '创建时间',
     `updated` datetime not null comment '修改时间',
      primary key (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 comment = '学生答题表';
+
+drop table if exists questionIndex;
+create table `questionIndex` (
+    `id` bigint unsigned not null comment 'id号',
+    `questionId` bigint unsigned not null comment '题目id号',
+    `studentworkId` bigint unsigned not null comment '学生作业id号',
+    `created` datetime not null comment '创建时间',
+    `updated` datetime not null comment '修改时间',
+     primary key (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 comment = '学生退出答题记录';
+
+drop table if exists answerLog;
+create table `answerLog` (
+    `id` bigint unsigned not null comment 'id号',
+    `questionId` bigint unsigned not null comment '题目id号',
+    `studentId` bigint unsigned not null comment '学生id号',
+    `start` datetime not null comment '开始时间',
+    `end` datetime not null comment '开始时间',
+    `created` datetime not null comment '创建时间',
+    `updated` datetime not null comment '修改时间',
+     primary key (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 comment = '学生答题时间日志记录';
 
 drop table if exists message;
 create table `message` (

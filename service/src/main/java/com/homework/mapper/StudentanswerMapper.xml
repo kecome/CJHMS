@@ -26,9 +26,9 @@
             select #{nextId}
         </selectKey>
         insert into studentanswer
-        (id,questionId,studentId,answer,isRight,comment,created, updated)
+        (id,questionId,studentId,answer,time,isRight,comment,created, updated)
         values
-        (#{id},#{questionId},#{studentId},#{answer},#{isRight},#{comment},#{sysDate},#{sysDate})
+        (#{id},#{questionId},#{studentId},#{answer},#{time},#{isRight},#{comment},#{sysDate},#{sysDate})
     </insert>
     <update id="updateStudentanswer" parameterType="Studentanswer">
         <bind name="sysDate" value="@com.homework.util.Pretreatment@now()"></bind>
@@ -41,14 +41,11 @@
             <if test="isRight != null">
                 isRight=#{isRight},
             </if>
-            <if test="active != null">
-                active=#{active},
+            <if test="time != null">
+                time=#{time},
             </if>
             <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(comment)">
                 comment=#{comment},
-            </if>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(submitLog)">
-                submitLog = CONCAT(submitLog,#{submitLog}),
             </if>
         </trim>
     </update>

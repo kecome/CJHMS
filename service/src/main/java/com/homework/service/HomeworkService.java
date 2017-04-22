@@ -46,6 +46,8 @@ public class HomeworkService {
     private StudentworkMapper studentworkMapper;
     @Autowired
     private StudentanswerMapper studentanswerMapper;
+    @Autowired
+    private QuestionIndexMapper questionIndexMapper;
     @Value("${cbp_host}")
     private String host;
 
@@ -184,6 +186,7 @@ public class HomeworkService {
         Studentwork studentwork = studentworkMapper.selectStudentwork(sp);
         if(studentwork != null) {
             hs.setStudentwork(studentwork);
+            hs.setQuestionIndex(questionIndexMapper.selectIndex(studentwork.getId()));
         }
        // hs.setStudentIds(sIds);
         return hs;

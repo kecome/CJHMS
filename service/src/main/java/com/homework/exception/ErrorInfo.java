@@ -11,7 +11,8 @@ public enum ErrorInfo {
     HTTP_CONNECTION_NULL("0002", "cbp请求返回null", ""),
     ClASSID_IS_NULL("0003", "班级id为空", ""),
     YUN_REP_ERROR("0005", "云基础平台数据返回异常", ""),
-    HOMEWORK_PUBLIC("0004", "作业已发布", "");
+    HOMEWORK_PUBLIC("0004", "作业已发布", ""),
+    QUESTION_IS_NULL("006", "作业题目不存在", "");
 
     /**------------------------xxx------------------------**/
 

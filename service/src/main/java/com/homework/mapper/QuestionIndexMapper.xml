@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.homework.mapper.QuestionIndexMapper">
+
+    <update id="updateIndex" parameterType="QuestionIndex">
+        <bind name="sysDate" value="@com.homework.util.Pretreatment@now()"></bind>
+        update questionIndex
+        <trim prefix="set" suffixOverrides="," suffix=" where studentworkId = #{studentworkId}">
+            updated = #{sysDate}
+            <if test="questionId != null">
+                questionId=#{questionId},
+            </if>
+        </trim>
+    </update>
+
+    <insert id="insertIndex" parameterType="com.homework.model.QuestionIndex">
+        <bind name="sysDate" value="@com.homework.util.Pretreatment@now()" />
+        <selectKey keyProperty="id" resultType="Long" order="BEFORE">
+            <bind name="nextId" value="@com.homework.util.Pretreatment@nextId()" />
+            select #{nextId}
+        </selectKey>
+        insert into questionIndex
+        (id,questionId,studentworkId,created, updated)
+        values(#{id},#{questionId},#{studentworkId},#{sysDate},#{sysDate})
+    </insert>
+
+    <select id="selectIndex" parameterType="Long" resultType="QuestionIndex">
+        select * from questionIndex where studentworkId = #{studentworkId} limit 1
+    </select>
+</mapper>

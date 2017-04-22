@@ -1,9 +1,6 @@
 package com.homework.data;
 
-import com.homework.model.Homework;
-import com.homework.model.Question;
-import com.homework.model.Studentanswer;
-import com.homework.model.Studentwork;
+import com.homework.model.*;
 
 import java.util.List;
 
@@ -35,6 +32,10 @@ public class HomeworkStudent {
      * 学生答案
      */
     private List<Studentanswer> answers;
+    /**
+     * 定位当前答题
+     */
+    private QuestionIndex questionIndex;
 
     public List<Question> getQuestions() {
         return questions;
@@ -74,5 +75,13 @@ public class HomeworkStudent {
 
     public void setStudentwork(Studentwork studentwork) {
         this.studentwork = studentwork;
+    }
+
+    public QuestionIndex getQuestionIndex() {
+        return questionIndex;
+    }
+
+    public void setQuestionIndex(QuestionIndex questionIndex) {
+        this.questionIndex = questionIndex;
     }
 }

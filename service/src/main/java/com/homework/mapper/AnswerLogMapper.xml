@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.homework.mapper.AnswerLogMapper">
+    <insert id="insertLog" parameterType="com.homework.model.AnswerLog">
+        <bind name="sysDate" value="@com.homework.util.Pretreatment@now()" />
+        <selectKey keyProperty="id" resultType="Long" order="BEFORE">
+            <bind name="nextId" value="@com.homework.util.Pretreatment@nextId()" />
+            select #{nextId}
+        </selectKey>
+        insert into answerLog
+        (id,questionId,studentId,start,end,created, updated)
+        values(#{id},#{questionId},#{studentId},#{start},#{end},#{sysDate},#{sysDate})
+    </insert>
+</mapper>
