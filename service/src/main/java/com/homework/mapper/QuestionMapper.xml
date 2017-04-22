@@ -7,7 +7,7 @@
         <id property="id" column="id" />
         <result property="homeworkId" column="homeworkId"/>
         <result property="type" column="type"/>
-        <result property="title" column="title"/>
+        <result property="title" column="title" typeHandler="com.homework.typehandlers.BlobTypeHandler" javaType="String" jdbcType="BLOB"/>
         <result property="seq" column="seq"/>
         <result property="answer" column="answer"/>
         <result property="item" column="item"/>
@@ -23,7 +23,7 @@
         </trim>
     </sql>
 
-    <select id="selectQuestionList" parameterType="com.homework.param.QuestionParam" resultType="Question">
+    <select id="selectQuestionList" parameterType="com.homework.param.QuestionParam" resultMap="questionResultMap">
         <bind name="orderSql" value="@com.homework.util.Pretreatment@getOrder(order)"/>
         select * from question
         <include refid="questionList" />

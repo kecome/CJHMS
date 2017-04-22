@@ -24,13 +24,9 @@ public class Studentanswer extends BaseModel {
      */
     private Integer isRight;
     /**
-     * 老师批阅
+     * 批阅内容
      */
     private String comment;
-    /**
-     * 是否批阅 0：未批阅  1：已批阅
-     */
-    private int mark;
 
     public Long getQuestionId() {
         return questionId;
@@ -72,11 +68,4 @@ public class Studentanswer extends BaseModel {
         this.comment = comment;
     }
 
-    public int getMark() {
-        return mark;
-    }
-
-    public void setMark(int mark) {
-        this.mark = mark;
-    }
 }

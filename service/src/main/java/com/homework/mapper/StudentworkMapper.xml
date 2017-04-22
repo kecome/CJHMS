@@ -28,6 +28,9 @@
             <if test="submit != null">
                 and submit = #{submit}
             </if>
+            <if test="mark != null">
+                and mark = #{mark}
+            </if>
             <if test="teacherId != null">
                 and teacherId = #{teacherId}
             </if>

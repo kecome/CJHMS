@@ -62,7 +62,6 @@ create table `studentAnswer` (
     `studentId` bigint unsigned not null comment '学生id号',
     `answer` mediumblob comment '题目答案,主观题为照片url',
     `isRight` tinyint comment '正确与否：【0：正确；1：错误】',
-    `mark` int unsigned comment '是否批阅 0：未批阅  1：已批阅',
     `comment` text comment '老师批阅',
     `created` datetime not null comment '创建时间',
     `updated` datetime not null comment '修改时间',

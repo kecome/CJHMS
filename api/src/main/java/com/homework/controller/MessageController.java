@@ -70,13 +70,13 @@ public class MessageController {
     }
 
 //    public static void main(String[] args) throws Exception{
-//        Message message = new Message();
-//        message.setContent("好消息");
-//        message.setIsRead(0);
-//        message.setStudentId(54545L);
-//        message.setTeacherId(4444L);
-//        message.setType(1);
-//        System.out.println(JsonUtil.beanToJson(message));
+////        Message message = new Message();
+////        message.setContent("好消息");
+////        message.setIsRead(0);
+////        message.setStudentId(54545L);
+////        message.setTeacherId(4444L);
+////        message.setType(1);
+//        System.out.println(JsonUtil.beanToJson(43434L));
 //    }
-
+//
 }

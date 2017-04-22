@@ -25,6 +25,10 @@ public class StudentworkParam extends BaseParam{
      * 0：未提交；1：已提交
      */
     private Integer submit;
+    /**
+     * 老师是否批阅：【0：未批阅；1：已批阅】
+     */
+    private Integer mark;
 
     public Long getHomeworkId() {
         return homeworkId;
@@ -65,5 +69,13 @@ public class StudentworkParam extends BaseParam{
 
     public void setSubmit(Integer submit) {
         this.submit = submit;
+    }
+
+    public Integer getMark() {
+        return mark;
+    }
+
+    public void setMark(Integer mark) {
+        this.mark = mark;
     }
 }
