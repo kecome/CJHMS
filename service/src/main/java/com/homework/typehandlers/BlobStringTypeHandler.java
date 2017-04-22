@@ -2,6 +2,7 @@ package com.homework.typehandlers;
 
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
+import org.apache.ibatis.type.MappedJdbcTypes;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.*;
@@ -10,7 +11,7 @@ import java.sql.*;
  * @author xuke
  * @create 2017-04-22 下午 18:31
  **/
-//@MappedJdbcTypes({JdbcType.BLOB})
+@MappedJdbcTypes({JdbcType.BLOB,JdbcType.LONGVARBINARY})
 public class BlobStringTypeHandler extends BaseTypeHandler<String> {
     //指定字符集
     private static final String DEFAULT_CHARSET = "utf-8";

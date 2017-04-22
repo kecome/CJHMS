@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -108,20 +109,20 @@ public class StudentAnswerController {
         return null;
     }
 
-//    public static void main(String[] args) throws Exception{
-//        List<Studentanswer> list = new ArrayList<>();
-//
-//        Studentanswer studentanswer = new Studentanswer();
-//        studentanswer.setIsRight(1);
-//        studentanswer.setAnswer("答案");
-//        studentanswer.setStudentId(232332L);
-//        studentanswer.setComment("好评");
-//        studentanswer.setQuestionId(5555L);
-//
-//        list.add(studentanswer);
-//
-//        System.out.println(JsonUtil.beanToJson(list));
-//
-//    }
+    public static void main(String[] args) throws Exception{
+        List<Studentanswer> list = new ArrayList<>();
+
+        Studentanswer studentanswer = new Studentanswer();
+        studentanswer.setIsRight(1);
+        studentanswer.setAnswer("答案");
+        studentanswer.setStudentId(232332L);
+        studentanswer.setComment("好评");
+        studentanswer.setQuestionId(5555L);
+
+        list.add(studentanswer);
+
+        System.out.println(JsonUtil.beanToJson(list));
+
+    }
 
 }
