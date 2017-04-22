@@ -6,7 +6,6 @@ import com.homework.data.Page;
 import com.homework.exception.BusinessException;
 import com.homework.exception.ErrorInfo;
 import com.homework.model.Homework;
-import com.homework.model.Question;
 import com.homework.param.HomeworkParam;
 import com.homework.param.StudentanswerParam;
 import com.homework.response.ResponseMsg;
@@ -27,7 +26,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
+import java.util.List;
+import java.util.TreeMap;
 
 /**
  * 作业controller
@@ -141,47 +141,47 @@ public class HomeworkController {
 //    }
 
 
-    private static String buildHomeworkQuestion() throws Exception{
-        HomeworkQuestiion hq = new HomeworkQuestiion();
-        //作业信息
-        Homework homework = new Homework();
-        homework.setTeacherId(65545L);
-        homework.setSubjectId(46565L);
-        homework.setTitle("12-23 数学作业");
-        homework.setKnowledge("数学知识点");
-        homework.setSpentTime(120);
-        homework.setEndTime(new Date());
-        homework.setPublicTime(new Date());
-
-        //班级
-        List<Long> classIds = new ArrayList<>();
-
-        classIds.add(345L);
-        classIds.add(456L);
-        classIds.add(345L);
-
-        List<Question> questions = new ArrayList<>();
-        Question q1 = new Question();
-        q1.setSeq(1);
-        q1.setType(0);
-        q1.setTitle("1+1=?");
-        q1.setAnswer("A");
-        q1.setItem("ABCD");
-        questions.add(q1);
-
-        Question q2 = new Question();
-        q2.setSeq(2);
-        q1.setType(0);
-        q1.setTitle("1+2=?");
-        q1.setAnswer("B");
-        q1.setItem("ABCDEF");
-        questions.add(q2);
-
-        hq.setClassIds(classIds);
-        hq.setHomework(homework);
-        hq.setQuestions(questions);
-
-        return JsonUtil.beanToJson(hq);
-    }
+//    private static String buildHomeworkQuestion() throws Exception{
+//        HomeworkQuestiion hq = new HomeworkQuestiion();
+//        //作业信息
+//        Homework homework = new Homework();
+//        homework.setTeacherId(65545L);
+//        homework.setSubjectId(46565L);
+//        homework.setTitle("12-23 数学作业");
+//        homework.setKnowledge("数学知识点");
+//        homework.setSpentTime(120);
+//        homework.setEndTime(new Date());
+//        homework.setPublicTime(new Date());
+//
+//        //班级
+//        List<Long> classIds = new ArrayList<>();
+//
+//        classIds.add(345L);
+//        classIds.add(456L);
+//        classIds.add(345L);
+//
+//        List<Question> questions = new ArrayList<>();
+//        Question q1 = new Question();
+//        q1.setSeq(1);
+//        q1.setType(0);
+//        q1.setTitle("1+1=?");
+//        q1.setAnswer("A");
+//        q1.setItem("ABCD");
+//        questions.add(q1);
+//
+//        Question q2 = new Question();
+//        q2.setSeq(2);
+//        q1.setType(0);
+//        q1.setTitle("1+2=?");
+//        q1.setAnswer("B");
+//        q1.setItem("ABCDEF");
+//        questions.add(q2);
+//
+//        hq.setClassIds(classIds);
+//        hq.setHomework(homework);
+//        hq.setQuestions(questions);
+//
+//        return JsonUtil.beanToJson(hq);
+//    }
 
 }

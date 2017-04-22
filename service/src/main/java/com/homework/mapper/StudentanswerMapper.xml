@@ -7,7 +7,7 @@
         <id property="id" column="id" />
         <result property="questionId" column="questionId"/>
         <result property="studentId" column="studentId"/>
-        <result property="answer" column="answer" typeHandler="com.homework.typehandlers.BlobTypeHandler"/>
+        <result property="answer" column="answer" typeHandler="com.homework.typehandlers.BlobStringTypeHandler"/>
         <result property="isRight" column="isRight"/>
         <result property="comment" column="comment"/>
         <result property="created" column="created"/>

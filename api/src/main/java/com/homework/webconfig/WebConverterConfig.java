@@ -35,6 +35,7 @@ public class WebConverterConfig extends WebMvcConfigurerAdapter {
     SimpleModule simpleModule = new SimpleModule();
     simpleModule.addSerializer(Long.class, ToStringSerializer.instance);
     simpleModule.addSerializer(Long.TYPE, ToStringSerializer.instance);
+   // simpleModule.addSerializer(Byte[].class, ToStringSerializer.instance);
     objectMapper.registerModule(simpleModule);
     jackson2HttpMessageConverter.setObjectMapper(objectMapper);
     converters.add(jackson2HttpMessageConverter);

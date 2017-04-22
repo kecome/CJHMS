@@ -1,7 +1,6 @@
 package com.homework.controller;
 
 import com.homework.data.Page;
-import com.homework.model.AnswerLog;
 import com.homework.model.Studentanswer;
 import com.homework.param.MarkParam;
 import com.homework.param.QuestionIndexParam;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -110,23 +108,20 @@ public class StudentAnswerController {
         return null;
     }
 
-    public static void main(String[] args) throws Exception{
-        StudentanswerLog answerLog = new StudentanswerLog();
-        Studentanswer studentanswer = new Studentanswer();
-        studentanswer.setStudentId(4343L);
-        studentanswer.setAnswer("答案");
-        studentanswer.setIsRight(1);
-
-        AnswerLog log = new AnswerLog();
-        log.setStudentId(4343L);
-        log.setQuestionId(12323L);
-        log.setStart(new Date());
-        log.setEnd(new Date());
-
-        answerLog.setStudentanswer(studentanswer);
-        answerLog.setAnswerLog(log);
-
-        System.out.println(JsonUtil.beanToJson(answerLog));
-    }
+//    public static void main(String[] args) throws Exception{
+//        List<Studentanswer> list = new ArrayList<>();
+//
+//        Studentanswer studentanswer = new Studentanswer();
+//        studentanswer.setIsRight(1);
+//        studentanswer.setAnswer("答案");
+//        studentanswer.setStudentId(232332L);
+//        studentanswer.setComment("好评");
+//        studentanswer.setQuestionId(5555L);
+//
+//        list.add(studentanswer);
+//
+//        System.out.println(JsonUtil.beanToJson(list));
+//
+//    }
 
 }
