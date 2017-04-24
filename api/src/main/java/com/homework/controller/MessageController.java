@@ -54,8 +54,8 @@ public class MessageController {
         }
         ResponseMsg msg = new ResponseMsg();
         Page<Message> messages = messageService.selectMessageList(param);
-        msg.setData(JsonUtil.beanToJson(messages));
-        logger.info("请求方法getMessageList返回---->" + JsonUtil.beanToJson(messages));
+        msg.setData(messages);
+        logger.info("请求方法getMessageList返回---->" + JsonUtil.beanToJson(msg));
         return msg;
     }
 

@@ -31,6 +31,7 @@ public class Homework extends BaseModel {
     /**
      * 科目名称
      */
+    @NotNull(message = "课目名称不能为空")
     private String subjectName;
     /**
      * 相关知识点

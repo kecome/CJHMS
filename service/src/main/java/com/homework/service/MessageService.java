@@ -1,6 +1,7 @@
 package com.homework.service;
 
 import com.homework.data.Page;
+import com.homework.exception.BusinessException;
 import com.homework.mapper.MessageMapper;
 import com.homework.model.Message;
 import com.homework.param.MessageParam;
@@ -37,6 +38,10 @@ public class MessageService {
     }
 
     public int updateStatus(Long id) {
+        Message message = messageMapper.selectMessage(id);
+        if(message == null) {
+            throw new BusinessException();
+        }
          return messageMapper.updateStatus(id);
     }
 

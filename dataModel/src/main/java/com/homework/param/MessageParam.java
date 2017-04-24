@@ -20,7 +20,7 @@ public class MessageParam extends BaseParam {
     /**
      * 是否已读
      */
-    private Integer isReader;
+    private Integer isRead;
 
     public Long getStudentId() {
         return studentId;
@@ -46,11 +46,11 @@ public class MessageParam extends BaseParam {
         this.type = type;
     }
 
-    public Integer getIsReader() {
-        return isReader;
+    public Integer getIsRead() {
+        return isRead;
     }
 
-    public void setIsReader(Integer isReader) {
-        this.isReader = isReader;
+    public void setIsRead(Integer isRead) {
+        this.isRead = isRead;
     }
 }

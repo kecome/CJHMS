@@ -55,7 +55,7 @@ create table `studentwork` (
      primary key (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 comment = '学生作业表';
 
-drop table if exists studentanswer;
+drop table if exists studentAnswer;
 create table `studentAnswer` (
     `id` bigint unsigned not null comment 'id号',
     `questionId` bigint unsigned not null comment '所属题目id号',

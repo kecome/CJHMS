@@ -71,6 +71,7 @@
           h.updated as updated,
           h.teacherId as teacherId,
  	      (select count(*) from studentwork s where s.homeworkId = hc.homeworkId) as count,
+        (select count(*) from studentwork s where s.homeworkId = hc.homeworkId and s.mark = 1) as markCount,
 	      (select count(*) from studentwork s where s.homeworkId = hc.homeworkId and s.submit = 1) as submitCount
         <include refid="classHomeworkList" />
         <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(orderSql)">

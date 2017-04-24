@@ -1,5 +1,7 @@
 package com.homework.param;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * 学生答题查询
  *
@@ -10,6 +12,7 @@ public class StudentanswerParam extends BaseParam{
     /**
      * 作业id
      */
+    @NotNull(message = "作业id不能为空")
     private Long homeworkId;
     /**
      * 学生id
@@ -17,6 +20,11 @@ public class StudentanswerParam extends BaseParam{
     private Long studentId;
 
     private Boolean show = true;
+
+    /**
+     * 题目类型
+     */
+    private Integer type;
 
     public Long getHomeworkId() {
         return homeworkId;
@@ -40,5 +48,13 @@ public class StudentanswerParam extends BaseParam{
 
     public void setShow(Boolean show) {
         this.show = show;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 }

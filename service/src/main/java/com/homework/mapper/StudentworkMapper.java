@@ -23,5 +23,6 @@ public interface StudentworkMapper {
     long countHomework(StudentworkParam param);
 
     int updateSubmit(Map<String, Long> param);
+    int updateMark(Map<String, Long> param);
     Studentwork selectStudentwork(StudentworkParam param);
 }

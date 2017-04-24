@@ -8,6 +8,7 @@ import com.homework.exception.ErrorInfo;
 import com.homework.mapper.*;
 import com.homework.model.*;
 import com.homework.param.HomeworkParam;
+import com.homework.param.QuestionParam;
 import com.homework.param.StudentanswerParam;
 import com.homework.param.StudentworkParam;
 import com.homework.util.HttpUtil;
@@ -48,6 +49,8 @@ public class HomeworkService {
     private StudentanswerMapper studentanswerMapper;
     @Autowired
     private QuestionIndexMapper questionIndexMapper;
+    @Autowired
+    private AnswerLogMapper answerLogMapper;
     @Value("${cbp_host}")
     private String host;
 
@@ -96,7 +99,7 @@ public class HomeworkService {
         if(homework.getStatus() == null) homework.setStatus(0);
         if(homeworkId != null) {
             Homework hk = homeworkMapper.selectHomework(homeworkId);
-            if(hk == null) return;
+            if(hk == null) throw new BusinessException(ErrorInfo.HOMEWORK_IS_NULL.code, ErrorInfo.HOMEWORK_IS_NULL.desc);
             if(hk.getStatus() == 1) {   //作业已经发布不可以再修改
                 throw new BusinessException(ErrorInfo.HOMEWORK_PUBLIC.code, ErrorInfo.HOMEWORK_PUBLIC.desc);
             }
@@ -148,7 +151,9 @@ public class HomeworkService {
         Homework homework = homeworkMapper.selectHomework(id);
         if(homework == null) return null;
         List<HomeworkClass> homeworkClasses = homeworkClassMapper.selectList(id);
-        List<Question> questiions = questionMapper.selectList(id);
+        QuestionParam param = new QuestionParam();
+        param.setHomeworkId(id);
+        List<Question> questiions = questionMapper.selectList(param);
         HomeworkQuestiion hq = new HomeworkQuestiion();
         hq.setHomework(homework);
         hq.setQuestions(questiions);
@@ -164,10 +169,13 @@ public class HomeworkService {
         HomeworkStudent hs = new HomeworkStudent();
         Long homeworkId;
         Long studentId;
-        if(param.getHomeworkId() == null ) return hs;
+        if(param.getHomeworkId() == null ) throw new BusinessException(ErrorInfo.HOMEWORK_IS_NULL.code, ErrorInfo.HOMEWORK_IS_NULL.desc);
         homeworkId = param.getHomeworkId();
         hs.setHomework(homeworkMapper.selectHomework(homeworkId));
-        List<Question> questions = questionMapper.selectList(homeworkId);
+        QuestionParam qParam = new QuestionParam();
+        qParam.setHomeworkId(homeworkId);
+        if(param.getType() != null) qParam.setType(param.getType());
+        List<Question> questions = questionMapper.selectList(qParam);
         hs.setQuestions(questions);
         if(param.getStudentId() == null ) return hs;
         studentId = param.getStudentId();
@@ -177,7 +185,16 @@ public class HomeworkService {
             StudentanswerParam aParam = new StudentanswerParam();
             aParam.setStudentId(studentId);
             aParam.setHomeworkId(homeworkId);
+            if(param.getType() != null) aParam.setType(param.getType());
             List<Studentanswer> answers = studentanswerMapper.selectStudentanswerList(aParam);
+            if(answers != null && answers.size() > 0) {
+                for(Studentanswer ans : answers) {
+                    Map<String, Long> aMap = new HashMap<>();
+                    aMap.put("studentId",studentId);
+                    aMap.put("questionId", ans.getQuestionId());
+                    ans.setTime(answerLogMapper.selectTime(aMap));
+                }
+            }
             hs.setAnswers(answers);
         }
         StudentworkParam sp = new StudentworkParam();
@@ -189,6 +206,7 @@ public class HomeworkService {
             hs.setQuestionIndex(questionIndexMapper.selectIndex(studentwork.getId()));
         }
        // hs.setStudentIds(sIds);
+        hs.setShow(param.getShow());
         return hs;
     }
 

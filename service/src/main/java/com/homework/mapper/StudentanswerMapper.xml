@@ -17,6 +17,9 @@
     <select id="selectStudentanswerList" parameterType="com.homework.param.StudentanswerParam" resultType="Studentanswer">
         select s.* from studentanswer s LEFT JOIN question q on s.questionId = q.id where q.homeworkId = #{homeworkId}
         and s.studentId = #{studentId}
+        <if test="type != null">
+            and type=#{type}
+        </if>
     </select>
 
     <insert id="insertStudentanswer" parameterType="com.homework.model.Studentanswer">

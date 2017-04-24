@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -105,7 +106,7 @@ public class HomeworkController {
     }
 
     @RequestMapping(value="student", method = RequestMethod.POST)
-    public Object getHomeworkStudent(@RequestBody StudentanswerParam param) throws Exception{
+    public Object getHomeworkStudent(@Validated @RequestBody StudentanswerParam param) throws Exception{
         logger.info("请求方法getHomeworkStudent参数---->" + JsonUtil.beanToJson(param));
         if(UserUtil.getUser().getRole().equals(UserUtil.STUDENT)) {
             param.setStudentId(UserUtil.getUser().getId());
@@ -131,6 +132,21 @@ public class HomeworkController {
         if(StringUtils.isEmpty(json)) {
             throw new BusinessException(ErrorInfo.HTTP_CONNECTION_NULL.code, ErrorInfo.HTTP_CONNECTION_NULL.desc);
         }
+        return json;
+    }
+
+    /**
+     * 根据班级获取学生
+     * @param map
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value="/cs", method = RequestMethod.POST)
+    public Object getClassStudent(@RequestBody Map<String, Long> map) throws Exception{
+        TreeMap<String, Object> param = new TreeMap();
+        param.put("classIds", map.get("classId"));
+        String json = HttpUtil.send(host+"class/queryClassStudent.cbp",param,HttpUtil.POST);
+        System.out.println(json);
         return json;
     }
 

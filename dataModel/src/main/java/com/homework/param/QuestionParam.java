@@ -12,11 +12,21 @@ public class QuestionParam extends BaseParam {
      */
     private Long homeworkId;
 
+    private Integer type;
+
     public Long getHomeworkId() {
         return homeworkId;
     }
 
     public void setHomeworkId(Long homeworkId) {
         this.homeworkId = homeworkId;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 }

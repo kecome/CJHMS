@@ -52,6 +52,10 @@ public class ClassHomework {
      */
     private Integer submitCount;
     /**
+     * 已批阅人数
+     */
+    private Integer markCount;
+    /**
      * 作业发布人数
      */
     private Integer count;
@@ -160,5 +164,13 @@ public class ClassHomework {
 
     public void setClasses(List<HomeworkClass> classes) {
         this.classes = classes;
+    }
+
+    public Integer getMarkCount() {
+        return markCount;
+    }
+
+    public void setMarkCount(Integer markCount) {
+        this.markCount = markCount;
     }
 }

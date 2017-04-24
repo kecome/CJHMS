@@ -1,4 +1,10 @@
+#默认环境配置
 spring:
+  profiles:
+    active: default
+#开发环境配置
+spring:
+    profiles: default
     datasource:
         name: test
 #        url: jdbc:mysql://127.0.0.1:3306/hktest?characterEncoding=utf8&useSSL=false
@@ -29,3 +35,45 @@ mybatis:
    type-handlers-package: com.homework.typehandlers
 server:
     port: 9084
+cbp_host: http://10.0.0.214:8080/cbp/
+logging:
+  file: log.log
+  level: info
+
+---
+
+#测试环境配置
+spring:
+    profiles: test
+    datasource:
+        name: test
+        url: jdbc:mysql://10.0.0.214:56688/homework?characterEncoding=utf8&useSSL=false
+        username: caiji
+        password: caiji1234
+        # 使用druid数据源
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+mybatis:
+   type-aliases-package: com.homework.model
+   mapper-locations: classpath:com/homework/mapper/*.xml
+   type-handlers-package: com.homework.typehandlers
+server:
+    port: 9084
+cbp_host: http://10.0.0.214:8080/cbp/
+logging:
+  file: log.log
+  level: info
+

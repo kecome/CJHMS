@@ -69,7 +69,10 @@
     <delete id="deleteQuestion" parameterType="Long">
         delete from question where homeworkId = #{homeworkId}
     </delete>
-    <select id="selectList" parameterType="Long" resultType="Question">
+    <select id="selectList" parameterType="com.homework.param.QuestionParam" resultType="Question">
         select * from question where homeworkId = #{homeworkId}
+        <if test="type != null">
+            and type = #{type}
+        </if>
     </select>
 </mapper>

@@ -27,6 +27,11 @@ public class Studentanswer extends BaseModel {
      * 批阅内容
      */
     private String comment;
+    /**
+     * 作答耗时
+     * 不需要入库，通过作答日志计算得到
+     */
+    private Integer time;
 
     public Long getQuestionId() {
         return questionId;
@@ -68,4 +73,11 @@ public class Studentanswer extends BaseModel {
         this.comment = comment;
     }
 
+    public Integer getTime() {
+        return time;
+    }
+
+    public void setTime(Integer time) {
+        this.time = time;
+    }
 }

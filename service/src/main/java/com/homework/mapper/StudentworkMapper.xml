@@ -132,12 +132,20 @@
             <if test="time != null">
                 time=#{time},
             </if>
+            <if test="mark != null">
+                mark=#{mark},
+            </if>
         </trim>
     </update>
 
     <update id="updateSubmit" parameterType="map">
         <bind name="sysDate" value="@com.homework.util.Pretreatment@now()"></bind>
         update studentwork set submit = 1, updated = #{sysDate} where studentId=#{studentId} and homeworkId=#{homeworkId}
+    </update>
+
+    <update id="updateMark" parameterType="map">
+        <bind name="sysDate" value="@com.homework.util.Pretreatment@now()"></bind>
+        update studentwork set mark = 1, updated = #{sysDate} where studentId=#{studentId} and homeworkId=#{homeworkId}
     </update>
 
 </mapper>

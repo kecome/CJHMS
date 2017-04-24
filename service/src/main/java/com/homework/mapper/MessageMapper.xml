@@ -25,8 +25,8 @@
             <if test="type != null">
                 and type = #{type}
             </if>
-            <if test="isReader != null">
-                and isReader = #{isReader}
+            <if test="isRead != null">
+                and isRead = #{isRead}
             </if>
         </trim>
     </sql>

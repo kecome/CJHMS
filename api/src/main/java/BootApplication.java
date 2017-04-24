@@ -13,7 +13,7 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan(basePackages={"com.homework"})
-@PropertySource({"classpath:log4j.properties", "classpath:application.properties"})
+@PropertySource({"classpath:application.properties"})
 public class BootApplication {
     public static void main(String[] args) throws Exception {
 

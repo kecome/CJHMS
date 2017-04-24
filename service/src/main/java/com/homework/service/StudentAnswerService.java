@@ -16,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 学生答题service
@@ -106,11 +108,10 @@ public class StudentAnswerService {
     public void updateStudentanswer(List<Studentanswer> studentanswers) {
         if(studentanswers != null && studentanswers.size() > 0) {
             for(Studentanswer answer : studentanswers) {
-                if(answer.getId() == null) {
-                    studentanswerMapper.insertStudentanswer(answer);
-                } else {
-                    studentanswerMapper.updateStudentanswer(answer);
+                if(answer.getId() == null || studentanswerMapper.selectStudentAnswer(answer.getId()) == null) {
+                    throw new BusinessException(ErrorInfo.STUDENTANSAWER_IS_NULL.code, ErrorInfo.STUDENTANSAWER_IS_NULL.desc);
                 }
+                studentanswerMapper.updateStudentanswer(answer);
             }
         }
     }
@@ -134,10 +135,15 @@ public class StudentAnswerService {
     }
 
     public void markSubmit(MarkParam param) {
+        Map<String, Long> map = new HashMap<>();
+        map.put("studentId", param.getStudentId());
+        map.put("homeworkId", param.getHomeworkId());
+        studentworkMapper.updateMark(map);
         Homework homework = homeworkMapper.selectHomework(param.getHomeworkId());
         Message message = new Message();
         message.setTeacherId(UserUtil.getUser().getId());
         message.setType(0);
+        message.setIsRead(0);
         message.setStudentId(param.getStudentId());
         message.setContent("你提交的" + homework.getTitle() + "老师已经批阅啦，快去看看吧");
         message.setResourceId(param.getHomeworkId());

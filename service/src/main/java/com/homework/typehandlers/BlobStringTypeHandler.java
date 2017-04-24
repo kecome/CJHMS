@@ -44,6 +44,7 @@ public class BlobStringTypeHandler extends BaseTypeHandler<String> {
         }
         try {
             //把byte转化成string
+            if(blob == null) return "";
             return new String(returnValue, DEFAULT_CHARSET);
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException("Blob Encoding Error!");

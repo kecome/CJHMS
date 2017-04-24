@@ -17,5 +17,5 @@ public interface QuestionMapper {
     List<Question> selectQuestionList(QuestionParam param);
     Long count(QuestionParam param);
     int deleteQuestion(Long homeworkId);
-    List<Question> selectList(Long homeworkId);
+    List<Question> selectList(QuestionParam param);
 }
