@@ -56,6 +56,7 @@
                 and teacherId = #{teacherId}
             </if>
         </trim>
+        GROUP BY homeworkId
     </sql>
 
     <select id="selectClassHomework" parameterType="com.homework.param.HomeworkClassParam" resultType="com.homework.data.ClassHomework">
