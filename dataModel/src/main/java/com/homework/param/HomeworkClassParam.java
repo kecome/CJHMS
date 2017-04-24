@@ -5,7 +5,7 @@ package com.homework.param;
  **/
 public class HomeworkClassParam extends BaseParam{
     /**
-     * 作业iddfd
+     * 作业id
      */
     private Long homeworkId;
     /**
