@@ -47,9 +47,9 @@ spring:
     profiles: test
     datasource:
         name: test
-        url: jdbc:mysql://10.0.0.214:56688/homework?characterEncoding=utf8&useSSL=false
-        username: caiji
-        password: caiji1234
+        url: jdbc:mysql://rm-wz95c58i9ixyqw206o.mysql.rds.aliyuncs.com:3306/cjhms?characterEncoding=utf8&useSSL=false
+        username: cjyun
+        password: cjyun-TEST
         # 使用druid数据源
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
@@ -72,7 +72,7 @@ mybatis:
    type-handlers-package: com.homework.typehandlers
 server:
     port: 9084
-cbp_host: http://10.0.0.214:8080/cbp/
+cbp_host: http://test-cjyun-api.ecaicn.com/cbp/
 logging:
   file: log.log
   level: info
