@@ -174,9 +174,13 @@ public class HomeworkService {
         hs.setHomework(homeworkMapper.selectHomework(homeworkId));
         QuestionParam qParam = new QuestionParam();
         qParam.setHomeworkId(homeworkId);
+        qParam.setStudentId(param.getStudentId());
         if(param.getType() != null) qParam.setType(param.getType());
-        List<Question> questions = questionMapper.selectList(qParam);
-        hs.setQuestions(questions);
+        if(param.getQuestion() == 1) {  //查询学生做过的题目
+            hs.setQuestions(questionMapper.selectListInnerAnswer(qParam));
+        }else {
+            hs.setQuestions(questionMapper.selectList(qParam));
+        }
         if(param.getStudentId() == null ) return hs;
         studentId = param.getStudentId();
        // List<Long> sIds = studentworkMapper.selectStudentId(param.get("homeworkId"));

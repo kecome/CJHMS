@@ -9,15 +9,8 @@ import java.util.List;
  * @create 2017-03-31 下午 19:24
  **/
 public class Page<T> {
-    private long total;
+    private Integer total;
     private List<T> items;
-
-    public long getTotal() {
-        return total;
-    }
-    public void setTotal(long total) {
-        this.total = total;
-    }
 
     public List<T> getItems() {
         return items;
@@ -27,4 +20,11 @@ public class Page<T> {
         this.items = items;
     }
 
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
 }

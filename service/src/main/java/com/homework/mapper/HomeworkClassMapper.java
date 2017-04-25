@@ -13,9 +13,9 @@ public interface HomeworkClassMapper {
     Long insertHomeworkClass(HomeworkClass homeworkClass);
     int deleteHomeworkClass(Long homeworkId);
     List<HomeworkClass> selectClassList(HomeworkClassParam param);
-    long count(HomeworkClassParam param);
+    Integer count(HomeworkClassParam param);
     List<HomeworkClass> selectList(long id);
     List<Long> selectClassId(long id);
     List<ClassHomework> selectClassHomework(HomeworkClassParam param);
-    long countClassHomework(HomeworkClassParam param);
+    Integer countClassHomework(HomeworkClassParam param);
 }

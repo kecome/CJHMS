@@ -46,7 +46,7 @@
         </if>
     </select>
 
-    <select id="count" parameterType="com.homework.param.HomeworkParam" resultType="Long">
+    <select id="count" parameterType="com.homework.param.HomeworkParam" resultType="Integer">
         select count(id) from homework
         <include refid="homeworkList" />
     </select>

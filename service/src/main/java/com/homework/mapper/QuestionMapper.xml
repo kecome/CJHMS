@@ -36,7 +36,7 @@
         </if>
     </select>
 
-    <select id="count" parameterType="com.homework.param.QuestionParam" resultType="Long">
+    <select id="count" parameterType="com.homework.param.QuestionParam" resultType="Integer">
         select count(id) from question
         <include refid="questionList" />
     </select>
@@ -74,5 +74,15 @@
         <if test="type != null">
             and type = #{type}
         </if>
+    </select>
+    <select id="selectListInnerAnswer" parameterType="com.homework.param.QuestionParam" resultType="Question">
+        SELECT q.* FROM `question` q INNER JOIN studentanswer s on q.id = s.questionId where q.homeworkId = #{homeworkId}
+        <if test="studentId != null">
+            and s.studentId = #{studentId}
+        </if>
+        <if test="type != null">
+            and q.type = #{type}
+        </if>
+        group by q.id
     </select>
 </mapper>

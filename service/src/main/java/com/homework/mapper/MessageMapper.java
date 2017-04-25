@@ -13,7 +13,7 @@ public interface MessageMapper {
     @Select("select * from message where id = #{id}")
     Message selectMessage(Long id);
     List<Message> selectMessageList(MessageParam param);
-    Long count(MessageParam param);
+    Integer count(MessageParam param);
     int updateStatus(Long id);
     int insertMessage(Message message);
 }

@@ -44,7 +44,7 @@
         </if>
     </select>
 
-    <select id="count" parameterType="com.homework.param.MessageParam" resultType="Long">
+    <select id="count" parameterType="com.homework.param.MessageParam" resultType="Integer">
         select count(id) from message
         <include refid="messageList" />
     </select>

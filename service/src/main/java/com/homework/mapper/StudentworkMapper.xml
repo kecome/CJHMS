@@ -61,7 +61,7 @@
         </if>
     </select>
 
-    <select id="count" parameterType="com.homework.param.StudentworkParam" resultType="Long">
+    <select id="count" parameterType="com.homework.param.StudentworkParam" resultType="Integer">
         select count(id) from studentwork
         <include refid="studentworkList" />
     </select>
@@ -86,7 +86,7 @@
     <select id="selectHomework" parameterType="com.homework.param.StudentworkParam" resultType="Homework">
         <bind name="orderSql" value="@com.homework.util.Pretreatment@getOrder(order)"/>
         select h.id, h.teacherId, h.subjectId, h.subjectName, h.title, h.knowledge, h.spentTime,
-        h.status, h.publicTime, h.endTime, h.created, s.updated
+        h.status, h.publicTime, h.endTime, h.created, s.updated, s.mark
         <include refid="homeworkList" />
         <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(orderSql)">
             order by
@@ -96,7 +96,7 @@
             limit #{offset}, #{limit}
         </if>
     </select>
-    <select id="countHomework" parameterType="com.homework.param.StudentworkParam" resultType="long">
+    <select id="countHomework" parameterType="com.homework.param.StudentworkParam" resultType="Integer">
         select count(*)
         <include refid="homeworkList" />
     </select>

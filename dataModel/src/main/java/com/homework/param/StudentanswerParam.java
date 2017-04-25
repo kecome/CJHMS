@@ -18,13 +18,18 @@ public class StudentanswerParam extends BaseParam{
      * 学生id
      */
     private Long studentId;
-
+    /**
+     *是否显示学生答案
+     */
     private Boolean show = true;
-
     /**
      * 题目类型
      */
     private Integer type;
+    /**
+     * 是否显示所有题目  0：是 1：只显示学生作答的题目
+     */
+    private int question;
 
     public Long getHomeworkId() {
         return homeworkId;
@@ -56,5 +61,13 @@ public class StudentanswerParam extends BaseParam{
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public int getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(int question) {
+        this.question = question;
     }
 }

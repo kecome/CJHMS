@@ -38,7 +38,7 @@
         </if>
     </select>
 
-    <select id="count" parameterType="com.homework.param.HomeworkClassParam" resultType="Long">
+    <select id="count" parameterType="com.homework.param.HomeworkClassParam" resultType="Integer">
         select count(id) from homework_class
         <include refid="homeworkClassList" />
     </select>
@@ -54,6 +54,9 @@
             </if>
             <if test="teacherId != null">
                 and teacherId = #{teacherId}
+            </if>
+            <if test="publicTime != null">
+                and date_format(h.publicTime, "%Y-%m-%d") = date_format(#{publicTime}, "%Y-%m-%d")
             </if>
         </trim>
         GROUP BY homeworkId
@@ -74,7 +77,7 @@
  	      (select count(*) from studentwork s where s.homeworkId = hc.homeworkId) as count,
         (select count(*) from studentwork s where s.homeworkId = hc.homeworkId and s.mark = 1) as markCount,
 	      (select count(*) from studentwork s where s.homeworkId = hc.homeworkId and s.submit = 1) as submitCount
-        <include refid="classHomeworkList" />
+        <include refid="classHomeworkList"/>
         <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(orderSql)">
             order by
             ${orderSql}
@@ -84,11 +87,11 @@
         </if>
     </select>
 
-    <select id="countClassHomework" parameterType="com.homework.param.HomeworkClassParam" resultType="long">
-        select count(*)
-        <include refid="classHomeworkList" />
+    <select id="countClassHomework" parameterType="com.homework.param.HomeworkClassParam" resultType="Integer">
+       select count(*) from ( select homeworkId
+        <include refid="classHomeworkList"/>
+        ) t
     </select>
-
 
     <select id="selectList" parameterType="Long" resultType="HomeworkClass">
         select * from homework_class where homeworkId = #{homeworkId}

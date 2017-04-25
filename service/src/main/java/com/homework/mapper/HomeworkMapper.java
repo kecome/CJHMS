@@ -15,7 +15,7 @@ public interface HomeworkMapper {
 
     List<Homework> selectHomeworkList(HomeworkParam param);
 
-    long count(HomeworkParam param);
+    Integer count(HomeworkParam param);
 
     int insertHomework(Homework homework);
 

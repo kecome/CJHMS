@@ -59,6 +59,11 @@ public class Homework extends BaseModel {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss",iso= DateTimeFormat.ISO.DATE_TIME)
     private Date endTime;
 
+    /**
+     * 是否批阅
+     */
+    private Integer mark;
+
     public Long getTeacherId() {
         return teacherId;
     }
@@ -129,5 +134,13 @@ public class Homework extends BaseModel {
 
     public void setSubjectName(String subjectName) {
         this.subjectName = subjectName;
+    }
+
+    public Integer getMark() {
+        return mark;
+    }
+
+    public void setMark(Integer mark) {
+        this.mark = mark;
     }
 }

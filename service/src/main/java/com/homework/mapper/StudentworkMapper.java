@@ -13,14 +13,14 @@ import java.util.Map;
 public interface StudentworkMapper {
     List<Studentwork> selectStudentworkList(StudentworkParam param);
     List<Studentwork> selectList(StudentworkParam param);
-    Long count(StudentworkParam param);
+    Integer count(StudentworkParam param);
     int insertStudentwork(Studentwork studentwork);
     int deleteStudentwork(Long homeworkId);
     int updateStudentwork(Studentwork studentwork);
     List<Long> selectStudentId(Long homeworkId);
 
     List<Homework> selectHomework(StudentworkParam param);
-    long countHomework(StudentworkParam param);
+    Integer countHomework(StudentworkParam param);
 
     int updateSubmit(Map<String, Long> param);
     int updateMark(Map<String, Long> param);
