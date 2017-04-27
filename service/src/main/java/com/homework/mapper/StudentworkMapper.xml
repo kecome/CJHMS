@@ -111,6 +111,7 @@
     </select>
 
     <select id="selectHomeworkRecord" parameterType="com.homework.param.StudentworkParam" resultType="Homework">
+        <bind name="orderSql" value="@com.homework.util.Pretreatment@getOrder(order)"/>
         select h.id, h.teacherId, h.subjectId, h.subjectName, h.title, h.knowledge, h.spentTime,
         h.status, h.publicTime, h.endTime, h.created, s.updated, s.mark
         from studentwork s LEFT JOIN homework h on s.homeworkId = h.id
@@ -122,6 +123,13 @@
                 and (s.submit = 1 or h.endTime < date_format(now(),'%Y-%m-%d %H:%i:%s') )
               ]]>
         </trim>
+        <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(orderSql)">
+            order by
+            ${orderSql}
+        </if>
+        <if test="isPage">
+            limit #{offset}, #{limit}
+        </if>
     </select>
 
     <select id="countHomeworkRecord" parameterType="com.homework.param.StudentworkParam" resultType="Integer">
@@ -132,7 +140,7 @@
                 and s.studentId = #{studentId}
             </if>
             <![CDATA[
-                and (s.submit = 1 or h.endTime <= date_format(now(),'%Y-%m-%d %H:%i:%s') )
+                and (s.submit = 1 or h.endTime < date_format(now(),'%Y-%m-%d %H:%i:%s') )
               ]]>
         </trim>
     </select>
