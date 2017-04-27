@@ -11,6 +11,11 @@ import com.homework.service.QuestionIndexService;
 import com.homework.service.StudentAnswerService;
 import com.homework.util.JsonUtil;
 import com.homework.util.UserUtil;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +33,7 @@ import java.util.List;
  * @author xuke
  * @create 2017-04-10 下午 14:57
  **/
+@Api(value="StudentAnswer-api",description="答案控制器")
 @RestController
 @RequestMapping(value = "/studentanswer",produces="application/json;charset=UTF-8")
 public class StudentAnswerController {
@@ -37,8 +43,9 @@ public class StudentAnswerController {
     @Autowired
     private QuestionIndexService questionIndexService;
 
+    @ApiOperation(value="获取学生答案",notes="根据答案id" , response=ResponseMsg.class)
     @RequestMapping(value="", method = RequestMethod.GET)
-    public Object getStudentAnswer(Long id) throws Exception{
+    public Object getStudentAnswer(@ApiParam("答案id") Long id) throws Exception{
         logger.info("请求方法getStudentAnswer参数---->" + id);
         Page<Studentanswer> page = studentAnswerService.selectStudentAnswerList(id);
         ResponseMsg<Page> msg = new ResponseMsg<>();
@@ -53,8 +60,9 @@ public class StudentAnswerController {
      * @return
      * @throws Exception
      */
+    @ApiOperation(value="学生提交答案",response=ResponseMsg.class)
     @RequestMapping(value="", method = RequestMethod.POST)
-    public Object postStudentAnswer(@RequestBody StudentanswerLog answerLog) throws Exception {
+    public Object postStudentAnswer(@ApiParam("学生答题记录") @RequestBody StudentanswerLog answerLog) throws Exception {
         logger.info("请求方法PostStudentAnswer参数---->" + JsonUtil.beanToJson(answerLog));
         Studentanswer  studentanswer = studentAnswerService.postStudentanswer(answerLog);
         ResponseMsg<Studentanswer> msg = new ResponseMsg();
@@ -69,8 +77,9 @@ public class StudentAnswerController {
      * @return
      * @throws Exception
      */
+    @ApiOperation(value="老师批阅作业",response=ResponseMsg.class)
     @RequestMapping(value="/mark", method = RequestMethod.POST)
-    public Object markAnswer(@RequestBody List<Studentanswer> param) throws Exception{
+    public Object markAnswer(@ApiParam("学生答题实体类") @RequestBody List<Studentanswer> param) throws Exception{
         logger.info("请求方法markAnswer参数---->" + JsonUtil.beanToJson(param));
         ResponseMsg msg = new ResponseMsg();
         studentAnswerService.updateStudentanswer(param);
@@ -84,17 +93,18 @@ public class StudentAnswerController {
      * @return
      * @throws Exception
      */
+    @ApiOperation(value="确认批阅",response=ResponseMsg.class)
     @RequestMapping(value="/markSubmit", method = RequestMethod.POST)
-    public Object markSubmit(@RequestBody MarkParam param) throws Exception{
+    public Object markSubmit(@ApiParam("批阅参数") @RequestBody MarkParam param) throws Exception{
         logger.info("请求方法markSubmit参数---->" + JsonUtil.beanToJson(param));
         studentAnswerService.markSubmit(param);
         ResponseMsg msg = new ResponseMsg();
         logger.info("请求方法markSubmit返回---->" + JsonUtil.beanToJson(msg));
         return msg;
     }
-
+    @ApiOperation(value="更新问题序号" ,response=ResponseMsg.class)
     @RequestMapping(value="/index", method = RequestMethod.POST)
-    public Object index(@RequestBody QuestionIndexParam index) throws Exception {
+    public Object index(@ApiParam("问题序号参数") @RequestBody QuestionIndexParam index) throws Exception {
         logger.info("请求方法index参数---->" + JsonUtil.beanToJson(index));
         if(index.getStudentId() == null) index.setStudentId(UserUtil.getUser().getId());
         Long indexId  = questionIndexService.updateIndex(index);
@@ -103,7 +113,7 @@ public class StudentAnswerController {
         logger.info("请求方法index返回---->" + JsonUtil.beanToJson(msg));
         return msg;
     }
-
+    
     @RequestMapping(value="homework", method = RequestMethod.POST)
     public Object getStudentAnswerWork(@RequestBody StudentanswerParam param) {
         return null;

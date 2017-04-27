@@ -21,8 +21,22 @@
 
     <properties>
         <homework-version>1.0-SNAPSHOT</homework-version>
+        <swagger-ui.version>2.6.1</swagger-ui.version>
+        <swagger2.version>2.6.1</swagger2.version>
     </properties>
 
+    <dependencies>
+        <!--springfox-swagger需要的最小依赖 start-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger-ui.version}</version>
+        </dependency>
     <dependencyManagement>
         <dependencies>
             <!--springfox-swagger需要的最小依赖 start-->
@@ -46,6 +60,7 @@
             <artifactId>hibernate-validator</artifactId>
         </dependency>
     </dependencies>
+
 
     <!-- Additional lines to be added here... -->
 

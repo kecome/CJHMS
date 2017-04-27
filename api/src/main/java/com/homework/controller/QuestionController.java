@@ -6,6 +6,11 @@ import com.homework.param.QuestionParam;
 import com.homework.response.ResponseMsg;
 import com.homework.service.QuestionService;
 import com.homework.util.JsonUtil;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author xuke
  * @create 2017-04-10 下午 14:00
  **/
+@Api(value="Question-api",description="题目控制器")
 @RestController
 @RequestMapping(value = "/question",produces="application/json;charset=UTF-8")
 public class QuestionController {
@@ -33,8 +39,9 @@ public class QuestionController {
      * @return
      * @throws Exception
      */
+    @ApiOperation(value="获取题目列表" ,response=ResponseMsg.class)
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public Object getQuestionList( @RequestBody QuestionParam param) throws Exception{
+    public Object getQuestionList(@ApiParam("题目参数") @RequestBody QuestionParam param) throws Exception{
         logger.info("请求方法getQuestionList参数---->" + JsonUtil.beanToJson(param));
         Page<Question> page = questionService.selectQuestionList(param);
         ResponseMsg<Page> msg = new ResponseMsg<>();
@@ -42,9 +49,9 @@ public class QuestionController {
         logger.info("请求方法getQuestionList返回---->" + JsonUtil.beanToJson(msg));
         return msg;
     }
-
+    @ApiOperation(value="根据题目id获取题目" ,response=ResponseMsg.class)
     @RequestMapping(value="", method = RequestMethod.GET)
-    public Object getQuestion(Long id) throws Exception{
+    public Object getQuestion(@ApiParam("题目id") Long id) throws Exception{
         logger.info("请求方法getQuestion参数---->" + id);
         Question question = questionService.selectQuestion(id);
         ResponseMsg<Question> msg = new ResponseMsg<>();
@@ -56,7 +63,7 @@ public class QuestionController {
 //    public static void main(String[] args) throws Exception {
 //        QuestionParam param = new QuestionParam();
 //        param.setHomeworkId(43434L);
-//        Map<String, String> order = new HashMap<>();
+//        Map<String, String> order = new jjHashMap<>();
 //        order.put("created", "desc");
 //        param.setOrder(order);
 //        System.out.println(JsonUtil.beanToJson(param));

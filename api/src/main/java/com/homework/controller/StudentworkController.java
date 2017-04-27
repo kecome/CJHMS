@@ -8,6 +8,11 @@ import com.homework.response.ResponseMsg;
 import com.homework.service.StudentworkService;
 import com.homework.util.JsonUtil;
 import com.homework.util.UserUtil;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author xuke
  * @create 2017-04-14 下午 15:29
  **/
+@Api(value="Studentwork-api",description="学生作业控制器")
 @RestController
 @RequestMapping(value = "/student",produces="application/json;charset=UTF-8")
 public class StudentworkController {
@@ -33,8 +39,9 @@ public class StudentworkController {
      * @return
      * @throws Exception
      */
+    @ApiOperation(value="获取我的作业",response=ResponseMsg.class)
     @RequestMapping(value="", method = RequestMethod.POST)
-    public Object getStudentwork(@RequestBody StudentworkParam param) throws Exception{
+    public Object getStudentwork(@ApiParam("学生作业参数") @RequestBody StudentworkParam param) throws Exception{
         logger.info("请求方法getStudents参数---->" + JsonUtil.beanToJson(param));
         if(param.getStudentId() == null && UserUtil.getUser().getRole().equals(UserUtil.STUDENT)) {   //当前登录人是学生
             param.setStudentId(UserUtil.getUser().getId());
@@ -48,9 +55,9 @@ public class StudentworkController {
         logger.info("请求方法getStudents返回---->" + JsonUtil.beanToJson(msg));
         return msg;
     }
-
+    @ApiOperation(value="获取作业列表",response=ResponseMsg.class)
     @RequestMapping(value="list", method = RequestMethod.POST)
-    public Object getHomework(@RequestBody StudentworkParam param) throws Exception{
+    public Object getHomework(@ApiParam("学生作业参数") @RequestBody StudentworkParam param) throws Exception{
         logger.info("请求方法getHomework参数---->" + JsonUtil.beanToJson(param));
         if(param.getStudentId() == null) param.setStudentId(UserUtil.getUser().getId());
         Page<Homework> page = studentworkService.selectHomework(param);
@@ -60,9 +67,9 @@ public class StudentworkController {
         return msg;
     }
 
-
+    @ApiOperation(value="提交学生作业",response=ResponseMsg.class)
     @RequestMapping(value="submit", method = RequestMethod.POST)
-    public Object submitHomework(@RequestBody Studentwork studentwork) throws Exception {
+    public Object submitHomework(@ApiParam("学生作业实体") @RequestBody Studentwork studentwork) throws Exception {
         if(studentwork.getStudentId() == null) studentwork.setStudentId(UserUtil.getUser().getId());
         logger.info("请求方法submitHomework参数---->" + JsonUtil.beanToJson(studentwork));
         ResponseMsg msg = new ResponseMsg();
