@@ -44,39 +44,28 @@
     </select>
 
     <sql id="classHomeworkList">
-        from `homework_class` hc left join homework h on hc.homeworkId = h.id
+        from homework h LEFT JOIN homework_class c on h.id = c.homeworkId
         <trim prefix="where" prefixOverrides="and | or">
             <if test="homeworkId != null">
-                and homeworkId = #{homeworkId}
+                and h.id = #{homeworkId}
             </if>
             <if test="classId != null">
-                and classId = #{classId}
+                and c.classId = #{classId}
             </if>
             <if test="teacherId != null">
-                and teacherId = #{teacherId}
+                and h.teacherId = #{teacherId}
             </if>
             <if test="publicTime != null">
                 and date_format(h.publicTime, "%Y-%m-%d") = date_format(#{publicTime}, "%Y-%m-%d")
             </if>
         </trim>
-        GROUP BY homeworkId
+        GROUP BY h.id
     </sql>
 
     <select id="selectClassHomework" parameterType="com.homework.param.HomeworkClassParam" resultType="com.homework.data.ClassHomework">
         <bind name="orderSql" value="@com.homework.util.Pretreatment@getOrder(order)"/>
         select
-          h.id as homeworkId,
-	      hc.classId classId,
-	      h.`status` as status,
-	      h.title as title,
-	      h.publicTime as publicTime,
-	      h.endTime as endTime,
-          h.created as created,
-          h.updated as updated,
-          h.teacherId as teacherId,
- 	      (select count(*) from studentwork s where s.homeworkId = hc.homeworkId) as count,
-        (select count(*) from studentwork s where s.homeworkId = hc.homeworkId and s.mark = 1) as markCount,
-	      (select count(*) from studentwork s where s.homeworkId = hc.homeworkId and s.submit = 1) as submitCount
+          h.*
         <include refid="classHomeworkList"/>
         <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(orderSql)">
             order by
@@ -88,13 +77,18 @@
     </select>
 
     <select id="countClassHomework" parameterType="com.homework.param.HomeworkClassParam" resultType="Integer">
-       select count(*) from ( select homeworkId
+       select count(*) from ( select h.id
         <include refid="classHomeworkList"/>
         ) t
     </select>
 
     <select id="selectList" parameterType="Long" resultType="HomeworkClass">
-        select * from homework_class where homeworkId = #{homeworkId}
+    select
+	   h.*,
+	  (select count(*) from studentwork s where s.classId = h.classId and h.homeworkId=s.homeworkId and s.submit = 1) as submitCount,
+	  (select count(*) from studentwork s where s.classId = h.classId and h.homeworkId=s.homeworkId and s.mark = 1) as markCount,
+	  (select count(*) from studentwork s where s.classId = h.classId and h.homeworkId=s.homeworkId) as count
+    from homework_class h where homeworkId = #{id}
     </select>
 
     <select id="selectClassId" parameterType="Long" resultType="Long">

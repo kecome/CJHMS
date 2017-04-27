@@ -19,6 +19,18 @@ public class HomeworkClass extends BaseModel {
      * 班级名称
      */
     private String className;
+    /**
+     * 作业提交人数
+     */
+    private Integer submitCount;
+    /**
+     * 已批阅人数
+     */
+    private Integer markCount;
+    /**
+     * 作业发布人数
+     */
+    private Integer count;
 
     public Long getHomeworkId() {
         return homeworkId;
@@ -42,5 +54,29 @@ public class HomeworkClass extends BaseModel {
 
     public void setClassName(String className) {
         this.className = className;
+    }
+
+    public Integer getSubmitCount() {
+        return submitCount;
+    }
+
+    public void setSubmitCount(Integer submitCount) {
+        this.submitCount = submitCount;
+    }
+
+    public Integer getMarkCount() {
+        return markCount;
+    }
+
+    public void setMarkCount(Integer markCount) {
+        this.markCount = markCount;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 }

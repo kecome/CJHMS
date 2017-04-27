@@ -12,7 +12,7 @@ public class ResponseMsg<T> {
     /**
      * 请求响应码
      */
-    private String code = "0";
+    private int code = 0;
     /**
      * 响应码描述
      */
@@ -21,14 +21,6 @@ public class ResponseMsg<T> {
      * 响应数据
      */
     private T data;
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
 
     public String getMessage() {
         return message;
@@ -44,5 +36,13 @@ public class ResponseMsg<T> {
 
     public void setData(T data) {
         this.data = data;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
     }
 }

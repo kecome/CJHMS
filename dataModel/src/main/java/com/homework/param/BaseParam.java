@@ -12,7 +12,7 @@ public class BaseParam {
     /**
      * 记录开始位置
      */
-    private int offset = 1;
+    private int offset = 0;
     /**
      * 查询记录数
      */

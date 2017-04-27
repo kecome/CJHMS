@@ -11,7 +11,7 @@ public class BusinessException extends RuntimeException{
     /**
      * 异常码
      */
-    private String code;
+    private int code;
     /**
      * 异常提示信息
      */
@@ -25,13 +25,13 @@ public class BusinessException extends RuntimeException{
         super();
     }
 
-    public BusinessException(String code, String msg){
+    public BusinessException(int code, String msg){
         super();
         this.code = code;
         this.msg = msg;
     }
 
-    public BusinessException(String code, String msg, String param){
+    public BusinessException(int code, String msg, String param){
         super();
         this.code = code;
         this.msg = msg;
@@ -45,13 +45,6 @@ public class BusinessException extends RuntimeException{
     public void setMsg(String msg) {
         this.msg = msg;
     }
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
 
     public String getParam() {
         return param;
@@ -61,4 +54,11 @@ public class BusinessException extends RuntimeException{
         this.param = param;
     }
 
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
 }

@@ -70,7 +70,7 @@ public class HomeworkController {
      * @return
      * @throws Exception
      */
-    @ApiOperation(value = "获取作业列表",notes = "直接请求")
+    @ApiOperation(value = "获取作业列表",notes = "暂时没用到")
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     public Object getHomeworkList(@RequestBody HomeworkParam param) throws Exception{
         logger.info("请求方法getHomeworkList参数---->" + JsonUtil.beanToJson(param));
