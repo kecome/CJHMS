@@ -45,6 +45,18 @@ public class StudentworkService {
         return page;
     }
 
+    public Page<Homework> selectHomeworkRecord(StudentworkParam param) {
+        Page<Homework> page = new Page<>();
+        List<Homework> list = studentworkMapper.selectHomeworkRecord(param);
+        page.setItems(list);
+        if(param.getIsPage()) {
+            page.setTotal(studentworkMapper.countHomeworkRecord(param));
+            return page;
+        }
+        page.setTotal(list.size());
+        return page;
+    }
+
     public void submitHomework(Studentwork studentwork) {
         studentworkMapper.updateStudentwork(studentwork);
     }

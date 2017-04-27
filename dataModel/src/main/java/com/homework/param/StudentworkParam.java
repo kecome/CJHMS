@@ -34,12 +34,12 @@ public class StudentworkParam extends BaseParam{
      */
     private Integer mark;
     /**
-     * 提交截止时间开始
+     * 提交截止时间开始 (endTime > )
      */
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date endTimeS;
     /**
-     * 提交截止时间结束
+     * 提交截止时间结束 （entTime < ）
      */
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date endTimeE;

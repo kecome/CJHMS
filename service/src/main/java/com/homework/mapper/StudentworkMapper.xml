@@ -72,7 +72,6 @@
 
     <sql id="homeworkList">
         from studentwork s LEFT JOIN homework h on s.homeworkId = h.id
-
         <trim prefix="where" prefixOverrides="and | or">
             <if test="studentId != null">
                 and s.studentId = #{studentId}
@@ -109,6 +108,33 @@
     <select id="countHomework" parameterType="com.homework.param.StudentworkParam" resultType="Integer">
         select count(*)
         <include refid="homeworkList" />
+    </select>
+
+    <select id="selectHomeworkRecord" parameterType="com.homework.param.StudentworkParam" resultType="Homework">
+        select h.id, h.teacherId, h.subjectId, h.subjectName, h.title, h.knowledge, h.spentTime,
+        h.status, h.publicTime, h.endTime, h.created, s.updated, s.mark
+        from studentwork s LEFT JOIN homework h on s.homeworkId = h.id
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="studentId != null">
+                and s.studentId = #{studentId}
+            </if>
+              <![CDATA[
+                and (s.submit = 1 or h.endTime < date_format(now(),'%Y-%m-%d %H:%i:%s') )
+              ]]>
+        </trim>
+    </select>
+
+    <select id="countHomeworkRecord" parameterType="com.homework.param.StudentworkParam" resultType="Integer">
+        select count(*)
+        from studentwork s LEFT JOIN homework h on s.homeworkId = h.id
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="studentId != null">
+                and s.studentId = #{studentId}
+            </if>
+            <![CDATA[
+                and (s.submit = 1 or h.endTime <= date_format(now(),'%Y-%m-%d %H:%i:%s') )
+              ]]>
+        </trim>
     </select>
 
     <select id="selectStudentwork" parameterType="com.homework.param.StudentworkParam" resultType="Studentwork">

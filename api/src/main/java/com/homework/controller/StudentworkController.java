@@ -67,6 +67,18 @@ public class StudentworkController {
         return msg;
     }
 
+    @ApiOperation(value="获取作业记录",response=ResponseMsg.class)
+    @RequestMapping(value="record", method = RequestMethod.POST)
+    public Object getHomeworkRecord(@ApiParam("作业记录参数") @RequestBody StudentworkParam param) throws Exception{
+        logger.info("请求方法getHomework参数---->" + JsonUtil.beanToJson(param));
+        if(param.getStudentId() == null) param.setStudentId(UserUtil.getUser().getId());
+        Page<Homework> page = studentworkService.selectHomeworkRecord(param);
+        ResponseMsg<Page> msg = new ResponseMsg<>();
+        msg.setData(page);
+        logger.info("请求方法getHomework返回---->" + JsonUtil.beanToJson(msg));
+        return msg;
+    }
+
     @ApiOperation(value="提交学生作业",response=ResponseMsg.class)
     @RequestMapping(value="submit", method = RequestMethod.POST)
     public Object submitHomework(@ApiParam("学生作业实体") @RequestBody Studentwork studentwork) throws Exception {
