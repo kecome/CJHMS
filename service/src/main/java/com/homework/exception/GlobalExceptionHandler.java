@@ -27,6 +27,7 @@ public class GlobalExceptionHandler {
         //发生异常时清除当前会话信息
         UserUtil.removeUser();
         logger.error(e.getStackTrace()+"");
+        e.printStackTrace();
         ResponseMsg resp = new ResponseMsg();
         if(e instanceof MethodArgumentNotValidException) {
             MethodArgumentNotValidException me = (MethodArgumentNotValidException) e;

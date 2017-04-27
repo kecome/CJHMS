@@ -25,6 +25,6 @@ public class SchedulingConfig {
     @Scheduled(cron = "0/30 * * * * ?")
     public void scheduler() {
         homeworkService.updateStatus();
-        logger.info(">>>>>>>>>>>>> 每30秒更新一次homework表，将预发布时间到期的作业进行发布 ");
+       // logger.info(">>>>>>>>>>>>> 每30秒更新一次homework表，将预发布时间到期的作业进行发布 ");
     }
 }
