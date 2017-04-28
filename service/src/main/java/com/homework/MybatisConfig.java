@@ -4,7 +4,6 @@ package com.homework; /**
 
 /**
  * 示例
- *
  * @author
  * @create 2017-03-30 下午 16:03
  **/
@@ -43,6 +42,16 @@ public class MybatisConfig {
         props.put("url", env.getProperty("spring.datasource.url"));
         props.put("username", env.getProperty("spring.datasource.username"));
         props.put("password", env.getProperty("spring.datasource.password"));
+        props.put("filters", env.getProperty("spring.datasource.filters"));
+        props.put("maxActive", env.getProperty("spring.datasource.maxActive"));
+        props.put("initialSize", env.getProperty("spring.datasource.initialSize"));
+        props.put("maxWait", env.getProperty("spring.datasource.maxWait"));
+        props.put("minIdle", env.getProperty("spring.datasource.minIdle"));
+        props.put("timeBetweenEvictionRunsMillis", env.getProperty("spring.datasource.timeBetweenEvictionRunsMillis"));
+        props.put("minEvictableIdleTimeMillis", env.getProperty("spring.datasource.minEvictableIdleTimeMillis"));
+        props.put("validationQuery", env.getProperty("spring.datasource.validationQuery"));
+        props.put("poolPreparedStatements", env.getProperty("spring.datasource.poolPreparedStatements"));
+        props.put("maxOpenPreparedStatements", env.getProperty("spring.datasource.maxOpenPreparedStatements"));
         return DruidDataSourceFactory.createDataSource(props);
     }
 
