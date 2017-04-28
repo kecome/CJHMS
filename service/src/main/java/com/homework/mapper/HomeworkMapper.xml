@@ -74,6 +74,9 @@
             <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(knowledge)">
                 knowledge=#{knowledge},
             </if>
+            <if test="status != null">
+                status=#{status},
+            </if>
         </trim>
     </update>
 

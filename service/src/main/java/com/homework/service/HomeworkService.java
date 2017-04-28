@@ -1,5 +1,6 @@
 package com.homework.service;
 
+import com.homework.constant.MarkType;
 import com.homework.data.HomeworkQuestiion;
 import com.homework.data.HomeworkStudent;
 import com.homework.data.Page;
@@ -185,7 +186,7 @@ public class HomeworkService {
         studentId = param.getStudentId();
        // List<Long> sIds = studentworkMapper.selectStudentId(param.get("homeworkId"));
 
-        if(param.getShow()){
+        if(param.getShow()){  //显示学生答案
             StudentanswerParam aParam = new StudentanswerParam();
             aParam.setStudentId(studentId);
             aParam.setHomeworkId(homeworkId);
@@ -208,6 +209,12 @@ public class HomeworkService {
         if(studentwork != null) {
             hs.setStudentwork(studentwork);
             hs.setQuestionIndex(questionIndexMapper.selectIndex(studentwork.getId()));
+            //学生端，学生作业没批阅，屏蔽题目正确答案
+            if(UserUtil.getUser().getRole().equals(UserUtil.STUDENT) && studentwork.getMark() != null && studentwork.getMark().intValue() == MarkType.NO.value) {
+                for(Question q : hs.getQuestions()) {
+                    q.setAnswer(null);
+                }
+            }
         }
        // hs.setStudentIds(sIds);
         hs.setShow(param.getShow());

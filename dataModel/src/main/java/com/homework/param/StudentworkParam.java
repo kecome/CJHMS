@@ -43,6 +43,10 @@ public class StudentworkParam extends BaseParam{
      */
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date endTimeE;
+    /**
+     * 作业发布状态0：未发布；1：已发布
+     */
+    private Integer status;
 
     public Long getHomeworkId() {
         return homeworkId;
@@ -107,5 +111,13 @@ public class StudentworkParam extends BaseParam{
 
     public void setEndTimeE(Date endTimeE) {
         this.endTimeE = endTimeE;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

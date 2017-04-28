@@ -79,6 +79,9 @@
             <if test="submit != null">
                 and s.submit = #{submit}
             </if>
+            <if test="status != null">
+                and h.status = #{status}
+            </if>
             <if test="endTimeS != null">
                 <![CDATA[
                 and h.endTime >= date_format(#{endTimeS},'%Y-%m-%d %H:%i:%s')

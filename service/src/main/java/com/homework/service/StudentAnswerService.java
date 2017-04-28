@@ -1,13 +1,12 @@
 package com.homework.service;
 
+import com.homework.constant.AnswerResult;
+import com.homework.constant.QuestionType;
 import com.homework.data.Page;
 import com.homework.exception.BusinessException;
 import com.homework.exception.ErrorInfo;
 import com.homework.mapper.*;
-import com.homework.model.AnswerLog;
-import com.homework.model.Homework;
-import com.homework.model.Message;
-import com.homework.model.Studentanswer;
+import com.homework.model.*;
 import com.homework.param.MarkParam;
 import com.homework.param.StudentanswerLog;
 import com.homework.param.StudentanswerParam;
@@ -64,11 +63,19 @@ public class StudentAnswerService {
         if(studentanswer == null) {
             return null;
         }
+        Question q = questionMapper.selectQuestion(studentanswer.getQuestionId());
         //题目不存在
-        if(questionMapper.selectQuestion(studentanswer.getQuestionId()) == null){
+        if(q == null){
             throw new BusinessException(ErrorInfo.QUESTION_IS_NULL.code, ErrorInfo.QUESTION_IS_NULL.desc);
         }
         if(studentanswer.getStudentId() == null)studentanswer.setStudentId(UserUtil.getUser().getId());
+            if(q.getType().intValue() == QuestionType.SINGLE.value || q.getType().intValue() == QuestionType.MULTIPLE.value ) {  //客观题，自观批阅答题
+                if(studentanswer.getAnswer() != null && studentanswer.getAnswer().equals(q.getAnswer())) {
+                    studentanswer.setIsRight(AnswerResult.RIGHT.value);  //正确
+                }else {
+                    studentanswer.setIsRight(AnswerResult.ERROR.value);  //错误
+                }
+            }
         if(studentanswer.getId() == null) {
             studentanswerMapper.insertStudentanswer(studentanswer);
         }else {
@@ -79,6 +86,7 @@ public class StudentAnswerService {
             answerLog.setQuestionId(studentanswer.getQuestionId());
             answerLogMapper.insertLog(answerLog);
         }
+
 //        if(studentanswers != null && studentanswers.size() > 0) {
 //            for(Studentanswer answer : studentanswers) {
 //                if(UserUtil.getUser().getRole().equals(UserUtil.STUDENT) && answer.getStudentId() == null) {
