@@ -11,10 +11,12 @@ import com.homework.param.MarkParam;
 import com.homework.param.StudentanswerLog;
 import com.homework.param.StudentanswerParam;
 import com.homework.util.UserUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,8 +72,16 @@ public class StudentAnswerService {
         }
         if(studentanswer.getStudentId() == null)studentanswer.setStudentId(UserUtil.getUser().getId());
             if(q.getType().intValue() == QuestionType.SINGLE.value || q.getType().intValue() == QuestionType.MULTIPLE.value ) {  //客观题，自观批阅答题
-                if(studentanswer.getAnswer() != null && studentanswer.getAnswer().equals(q.getAnswer())) {
-                    studentanswer.setIsRight(AnswerResult.RIGHT.value);  //正确
+                if(StringUtils.isNotEmpty(studentanswer.getAnswer())) {
+                    char[] sAnswer = studentanswer.getAnswer().toUpperCase().toCharArray();
+                    char[] qAnswer = q.getAnswer().toUpperCase().toCharArray();
+                    Arrays.sort(sAnswer);
+                    Arrays.sort(qAnswer);
+                    if(String.valueOf(sAnswer).equals(String.valueOf(qAnswer))) {
+                        studentanswer.setIsRight(AnswerResult.RIGHT.value);  //正确
+                    } else {
+                        studentanswer.setIsRight(AnswerResult.ERROR.value);  //错误
+                    }
                 }else {
                     studentanswer.setIsRight(AnswerResult.ERROR.value);  //错误
                 }
@@ -156,5 +166,20 @@ public class StudentAnswerService {
         message.setContent("你提交的" + homework.getTitle() + "老师已经批阅啦，快去看看吧");
         message.setResourceId(param.getHomeworkId());
         messageMapper.insertMessage(message);
+    }
+
+    public static void main(String[] args) {
+        String str1 = "adcb";
+        String str2 = "cabd";
+        char[] s1 = str1.toUpperCase().toCharArray();
+        Arrays.sort(s1);
+        System.out.println(s1);
+
+        char[] s2 = str2.toUpperCase().toCharArray();
+        Arrays.sort(s2);
+
+        System.out.println(s2);
+        System.out.println(String.valueOf(s1).equals(String.valueOf(s2)));
+
     }
 }

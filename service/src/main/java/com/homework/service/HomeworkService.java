@@ -98,6 +98,8 @@ public class HomeworkService {
         homework.setTeacherId(user.getId());
         Long homeworkId = homework.getId();
         if(homework.getStatus() == null) homework.setStatus(0);
+        //立即发布的作业，publicTime设置为当前时间
+        if(homework.getStatus() == 1) homework.setPublicTime(new Date());
         if(homeworkId != null) {
             Homework hk = homeworkMapper.selectHomework(homeworkId);
             if(hk == null) throw new BusinessException(ErrorInfo.HOMEWORK_IS_NULL.code, ErrorInfo.HOMEWORK_IS_NULL.desc);
