@@ -49,9 +49,9 @@ public class MessageController {
         msg.setData(JsonUtil.beanToJson(message));
         return msg;
     }
-    @ApiOperation(value="根据消息参数获取消息列表",response=ResponseMsg.class)
+    @ApiOperation(value="根据消息参数获取消息列表")
     @RequestMapping(value="/list", method = RequestMethod.POST)
-    public Object getMessageList(@ApiParam("消息参数") @RequestBody MessageParam param) throws Exception {
+    public ResponseMsg<Page<Message>> getMessageList(@ApiParam("消息参数") @RequestBody MessageParam param) throws Exception {
         logger.info("请求方法getMessageList参数---->" + JsonUtil.beanToJson(param));
         if(param.getStudentId() == null && UserUtil.getUser().getRole().equals(UserUtil.STUDENT)) {   //当前登录人是学生
             param.setStudentId(UserUtil.getUser().getId());
@@ -59,7 +59,7 @@ public class MessageController {
         if(param.getTeacherId() == null && UserUtil.getUser().getRole().equals(UserUtil.TEACHER)) {   //当前登录人是老师
             param.setTeacherId(UserUtil.getUser().getId());
         }
-        ResponseMsg msg = new ResponseMsg();
+        ResponseMsg<Page<Message>> msg = new ResponseMsg<>();
         Page<Message> messages = messageService.selectMessageList(param);
         msg.setData(messages);
         logger.info("请求方法getMessageList返回---->" + JsonUtil.beanToJson(msg));

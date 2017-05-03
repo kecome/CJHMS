@@ -39,22 +39,23 @@ public class HomeworkClassController {
      * 获取作业设定班级
      * @return
      */
-    @ApiOperation(value = "根据作业班级参数获取作业设定班级", notes = "返回作业班级信息" , authorizations = @Authorization(value = "token"), response = ResponseMsg.class)
+    @ApiOperation(value = "根据作业班级参数获取作业设定班级", notes = "返回作业班级信息" , authorizations = @Authorization(value = "token"))
     @RequestMapping(value="", method = RequestMethod.POST)
-    public Object getClasses(@ApiParam("作业班级参数")  @RequestBody HomeworkClassParam param) throws Exception{
+    public ResponseMsg<Page<HomeworkClass>> getClasses(@ApiParam("作业班级参数")  @RequestBody HomeworkClassParam param) throws Exception{
         logger.info("请求方法getClasses参数----->" + JsonUtil.beanToJson(param));
-        ResponseMsg<Page> msg = new ResponseMsg<>();
+        ResponseMsg<Page<HomeworkClass>> msg = new ResponseMsg<>();
         if(param.getTeacherId() == null) param.setTeacherId(UserUtil.getUser().getId());
         Page<HomeworkClass> page = homeworkClassService.selectList(param);
         msg.setData(page);
         logger.info("请求方法getClasses返回---->" + JsonUtil.beanToJson(msg));
         return msg;
+
     }
     @ApiOperation(value = "根据作业班级参数获取作业信息", notes = "返回作业信息", authorizations = @Authorization(value = "token"), response = ResponseMsg.class)
     @RequestMapping(value="/classHomework", method = RequestMethod.POST)
-    public Object getClassHomework(@ApiParam("作业班级参数") @RequestBody HomeworkClassParam param) throws Exception{
+    public ResponseMsg<Page<ClassHomework>> getClassHomework(@ApiParam("作业班级参数") @RequestBody HomeworkClassParam param) throws Exception{
         logger.info("请求方法getClassHomework参数----->" + JsonUtil.beanToJson(param));
-        ResponseMsg<Page> msg = new ResponseMsg<>();
+        ResponseMsg<Page<ClassHomework>> msg = new ResponseMsg<>();
         if(param.getTeacherId() == null) param.setTeacherId(UserUtil.getUser().getId());
         Page<ClassHomework> page = homeworkClassService.selectClassHomework(param);
         msg.setData(page);
