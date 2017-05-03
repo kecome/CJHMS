@@ -17,7 +17,6 @@ public class BlobStringTypeHandler extends BaseTypeHandler<String> {
     private static final String DEFAULT_CHARSET = "utf-8";
 
     public BlobStringTypeHandler() {
-        System.out.println("................-----------.................ewfwfwsfdsfd");
     }
 
     @Override

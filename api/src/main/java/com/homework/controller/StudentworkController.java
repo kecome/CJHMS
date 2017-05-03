@@ -39,9 +39,9 @@ public class StudentworkController {
      * @return
      * @throws Exception
      */
-    @ApiOperation(value="获取我的作业",response=ResponseMsg.class)
+    @ApiOperation(value="获取我的作业")
     @RequestMapping(value="", method = RequestMethod.POST)
-    public Object getStudentwork(@ApiParam("学生作业参数") @RequestBody StudentworkParam param) throws Exception{
+    public ResponseMsg<Page<Studentwork>> getStudentwork(@ApiParam("学生作业参数") @RequestBody StudentworkParam param) throws Exception{
         logger.info("请求方法getStudents参数---->" + JsonUtil.beanToJson(param));
         if(param.getStudentId() == null && UserUtil.getUser().getRole().equals(UserUtil.STUDENT)) {   //当前登录人是学生
             param.setStudentId(UserUtil.getUser().getId());
@@ -50,30 +50,30 @@ public class StudentworkController {
             param.setTeacherId(UserUtil.getUser().getId());
         }
         Page<Studentwork> page = studentworkService.selectList(param);
-        ResponseMsg<Page> msg = new ResponseMsg<>();
+        ResponseMsg<Page<Studentwork>> msg = new ResponseMsg<>();
         msg.setData(page);
         logger.info("请求方法getStudents返回---->" + JsonUtil.beanToJson(msg));
         return msg;
     }
-    @ApiOperation(value="获取作业列表",response=ResponseMsg.class)
+    @ApiOperation(value="获取作业列表")
     @RequestMapping(value="list", method = RequestMethod.POST)
-    public Object getHomework(@ApiParam("学生作业参数") @RequestBody StudentworkParam param) throws Exception{
+    public ResponseMsg<Page<Homework>> getHomework(@ApiParam("学生作业参数") @RequestBody StudentworkParam param) throws Exception{
         logger.info("请求方法getHomework参数---->" + JsonUtil.beanToJson(param));
         if(param.getStudentId() == null) param.setStudentId(UserUtil.getUser().getId());
         Page<Homework> page = studentworkService.selectHomework(param);
-        ResponseMsg<Page> msg = new ResponseMsg<>();
+        ResponseMsg<Page<Homework>> msg = new ResponseMsg<>();
         msg.setData(page);
         logger.info("请求方法getHomework返回---->" + JsonUtil.beanToJson(msg));
         return msg;
     }
 
-    @ApiOperation(value="获取作业记录",response=ResponseMsg.class)
+    @ApiOperation(value="获取作业记录")
     @RequestMapping(value="record", method = RequestMethod.POST)
-    public Object getHomeworkRecord(@ApiParam("作业记录参数") @RequestBody StudentworkParam param) throws Exception{
+    public ResponseMsg<Page<Homework>> getHomeworkRecord(@ApiParam("作业记录参数") @RequestBody StudentworkParam param) throws Exception{
         logger.info("请求方法getHomework参数---->" + JsonUtil.beanToJson(param));
         if(param.getStudentId() == null) param.setStudentId(UserUtil.getUser().getId());
         Page<Homework> page = studentworkService.selectHomeworkRecord(param);
-        ResponseMsg<Page> msg = new ResponseMsg<>();
+        ResponseMsg<Page<Homework>> msg = new ResponseMsg<>();
         msg.setData(page);
         logger.info("请求方法getHomework返回---->" + JsonUtil.beanToJson(msg));
         return msg;

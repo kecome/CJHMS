@@ -39,19 +39,19 @@ public class QuestionController {
      * @return
      * @throws Exception
      */
-    @ApiOperation(value="获取题目列表" ,response=ResponseMsg.class)
+    @ApiOperation(value="获取题目列表")
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public Object getQuestionList(@ApiParam("题目参数") @RequestBody QuestionParam param) throws Exception{
+    public ResponseMsg<Page<Question>> getQuestionList(@ApiParam("题目参数") @RequestBody QuestionParam param) throws Exception{
         logger.info("请求方法getQuestionList参数---->" + JsonUtil.beanToJson(param));
         Page<Question> page = questionService.selectQuestionList(param);
-        ResponseMsg<Page> msg = new ResponseMsg<>();
+        ResponseMsg<Page<Question>> msg = new ResponseMsg<>();
         msg.setData(page);
         logger.info("请求方法getQuestionList返回---->" + JsonUtil.beanToJson(msg));
         return msg;
     }
-    @ApiOperation(value="根据题目id获取题目" ,response=ResponseMsg.class)
+    @ApiOperation(value="根据题目id获取题目")
     @RequestMapping(value="", method = RequestMethod.GET)
-    public Object getQuestion(@ApiParam("题目id") Long id) throws Exception{
+    public ResponseMsg<Question> getQuestion(@ApiParam("题目id") Long id) throws Exception{
         logger.info("请求方法getQuestion参数---->" + id);
         Question question = questionService.selectQuestion(id);
         ResponseMsg<Question> msg = new ResponseMsg<>();

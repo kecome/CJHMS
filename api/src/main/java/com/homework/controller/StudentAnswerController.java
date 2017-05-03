@@ -15,6 +15,7 @@ import com.homework.util.UserUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import springfox.documentation.annotations.ApiIgnore;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,12 +44,12 @@ public class StudentAnswerController {
     @Autowired
     private QuestionIndexService questionIndexService;
 
-    @ApiOperation(value="获取学生答案",notes="根据答案id" , response=ResponseMsg.class)
+    @ApiOperation(value="获取学生答案",notes="根据答案id")
     @RequestMapping(value="", method = RequestMethod.GET)
-    public Object getStudentAnswer(@ApiParam("答案id") Long id) throws Exception{
+    public ResponseMsg<Page<Studentanswer>> getStudentAnswer(@ApiParam("答案id") Long id) throws Exception{
         logger.info("请求方法getStudentAnswer参数---->" + id);
         Page<Studentanswer> page = studentAnswerService.selectStudentAnswerList(id);
-        ResponseMsg<Page> msg = new ResponseMsg<>();
+        ResponseMsg<Page<Studentanswer>> msg = new ResponseMsg<>();
         msg.setData(page);
         logger.info("请求方法getStudentAnswer返回---->" + JsonUtil.beanToJson(msg));
         return msg;
@@ -60,11 +61,11 @@ public class StudentAnswerController {
      * @return
      * @throws Exception
      */
-    @ApiOperation(value="学生提交答案",response=ResponseMsg.class)
+    @ApiOperation(value="学生提交答案")
     @RequestMapping(value="", method = RequestMethod.POST)
-    public Object postStudentAnswer(@ApiParam("学生答题记录") @RequestBody StudentanswerLog answerLog) throws Exception {
+    public ResponseMsg<Studentanswer> postStudentAnswer(@ApiParam("学生答题记录") @RequestBody StudentanswerLog answerLog) throws Exception {
         logger.info("请求方法PostStudentAnswer参数---->" + JsonUtil.beanToJson(answerLog));
-        Studentanswer  studentanswer = studentAnswerService.postStudentanswer(answerLog);
+        Studentanswer studentanswer = studentAnswerService.postStudentanswer(answerLog);
         ResponseMsg<Studentanswer> msg = new ResponseMsg();
         msg.setData(studentanswer);
         logger.info("请求方法PostStudentAnswer返回---->" + JsonUtil.beanToJson(msg));
@@ -102,9 +103,9 @@ public class StudentAnswerController {
         logger.info("请求方法markSubmit返回---->" + JsonUtil.beanToJson(msg));
         return msg;
     }
-    @ApiOperation(value="更新问题序号" ,response=ResponseMsg.class)
+    @ApiOperation(value="更新问题序号")
     @RequestMapping(value="/index", method = RequestMethod.POST)
-    public Object index(@ApiParam("问题序号参数") @RequestBody QuestionIndexParam index) throws Exception {
+    public ResponseMsg<Long> index(@ApiParam("问题序号参数") @RequestBody QuestionIndexParam index) throws Exception {
         logger.info("请求方法index参数---->" + JsonUtil.beanToJson(index));
         if(index.getStudentId() == null) index.setStudentId(UserUtil.getUser().getId());
         Long indexId  = questionIndexService.updateIndex(index);
@@ -113,7 +114,8 @@ public class StudentAnswerController {
         logger.info("请求方法index返回---->" + JsonUtil.beanToJson(msg));
         return msg;
     }
-    
+
+    @ApiIgnore
     @RequestMapping(value="homework", method = RequestMethod.POST)
     public Object getStudentAnswerWork(@RequestBody StudentanswerParam param) {
         return null;
