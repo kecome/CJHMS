@@ -99,7 +99,7 @@ public class HomeworkController {
 
     @ApiOperation(value = "根据id获取作业", httpMethod = "GET" ,notes = "携带作业id", authorizations = @Authorization(value = "token"))
     @RequestMapping(value="", method = RequestMethod.GET)
-    public ResponseMsg<HomeworkQuestiion> getHomework(@ApiParam("作业id") @RequestParam Long id) throws Exception{
+    public ResponseMsg<HomeworkQuestiion> getHomework(@ApiParam(value = "作业id", required = true) @RequestParam Long id) throws Exception{
         logger.info("请求方法getHomework参数---->" + id);
         if(id == null || id < 0) {
             throw new BusinessException(ErrorInfo.ID_IS_NULL.code, ErrorInfo.ID_IS_NULL.desc);

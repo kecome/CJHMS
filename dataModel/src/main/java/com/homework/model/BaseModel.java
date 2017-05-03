@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * model公共属性类
  *
@@ -14,6 +16,7 @@ public class BaseModel {
     /**
      * id号
      */
+    @ApiModelProperty(value = "记录ID", required = true)
     private Long id;
     /**
      * 创建时间

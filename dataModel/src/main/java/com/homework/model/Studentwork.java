@@ -1,5 +1,7 @@
 package com.homework.model;
 
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * 学生作业实体类
  *
@@ -10,6 +12,7 @@ public class Studentwork extends BaseModel {
     /**
      * 作业id
      */
+    @ApiModelProperty(value = "作业ID，教师布置作业时生成", required = true)
     private Long homeworkId;
     /**
      * 学生id号
