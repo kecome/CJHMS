@@ -162,8 +162,8 @@ public class HomeworkService {
         hq.setHomework(homework);
         hq.setQuestions(questiions);
         List<Map<String,String>> classes = new ArrayList<>();
-        Map<String,String> classMap=new HashMap<>();
         for(HomeworkClass cla : homeworkClasses) {
+        	Map<String,String> classMap=new HashMap<>();
         	classMap.put("classId", cla.getClassId().toString());
         	classMap.put("className", cla.getClassName());
         	classes.add(classMap);
