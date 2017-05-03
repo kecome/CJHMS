@@ -1,4 +1,4 @@
-package com.homework.data;
+package com.homework.param;
 
 import com.homework.model.Homework;
 import com.homework.model.Question;
@@ -12,15 +12,15 @@ import java.util.Map;
  * @author xuke
  * @create 2017-04-01 下午 18:46
  **/
-public class HomeworkQuestiion {
+public class HomeworkQuestiionParam {
     /**
      * 作业信息
      */
     private Homework homework;
     /**
-     * 班级id,name信息
+     * 班级学生id
      */
-    private List<Map<String,String>> classes;
+    private List<Long> classIds;
     /**
      * 题目信息
      */
@@ -43,13 +43,11 @@ public class HomeworkQuestiion {
         this.questions = questions;
     }
 
-	public List<Map<String, String>> getClasses() {
-		return classes;
-	}
+    public List<Long> getClassIds() {
+        return classIds;
+    }
 
-	public void setClasses(List<Map<String, String>> classes) {
-		this.classes = classes;
-	}
-
-   
+    public void setClassIds(List<Long> classIds) {
+        this.classIds = classIds;
+    }
 }

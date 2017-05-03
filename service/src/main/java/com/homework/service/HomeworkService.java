@@ -9,6 +9,7 @@ import com.homework.exception.ErrorInfo;
 import com.homework.mapper.*;
 import com.homework.model.*;
 import com.homework.param.HomeworkParam;
+import com.homework.param.HomeworkQuestiionParam;
 import com.homework.param.QuestionParam;
 import com.homework.param.StudentanswerParam;
 import com.homework.param.StudentworkParam;
@@ -59,7 +60,7 @@ public class HomeworkService {
      * 发布作业
      * @param hq
      */
-    public void postHomework(HomeworkQuestiion hq) throws Exception{
+    public void postHomework(HomeworkQuestiionParam hq) throws Exception{
         List<Long> classIds = hq.getClassIds();
         TreeMap<String, Object> param = new TreeMap();
         param.put("classIds", StringUtils.join(classIds,"~"));
@@ -160,11 +161,14 @@ public class HomeworkService {
         HomeworkQuestiion hq = new HomeworkQuestiion();
         hq.setHomework(homework);
         hq.setQuestions(questiions);
-        List<Long> classIds = new ArrayList<>();
+        List<Map<String,String>> classes = new ArrayList<>();
+        Map<String,String> classMap=new HashMap<>();
         for(HomeworkClass cla : homeworkClasses) {
-            classIds.add(cla.getClassId());
+        	classMap.put("classId", cla.getClassId().toString());
+        	classMap.put("className", cla.getClassName());
+        	classes.add(classMap);
         }
-        hq.setClassIds(classIds);
+        hq.setClasses(classes);
         return hq;
     }
 

@@ -7,6 +7,7 @@ import com.homework.exception.BusinessException;
 import com.homework.exception.ErrorInfo;
 import com.homework.model.Homework;
 import com.homework.param.HomeworkParam;
+import com.homework.param.HomeworkQuestiionParam;
 import com.homework.param.StudentanswerParam;
 import com.homework.response.ResponseMsg;
 import com.homework.service.HomeworkService;
@@ -16,6 +17,7 @@ import com.homework.util.UserUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.Authorization;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -26,6 +28,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -56,7 +59,7 @@ public class HomeworkController {
      */
     @ApiOperation(value = "布置作业", notes = "根据作业，题目数据模型布置作业" , response = ResponseMsg.class)
     @RequestMapping(value="", method = RequestMethod.POST)
-    public Object postHomework(@ApiParam(value = "作业，题目数据模型", required = true) @Validated @RequestBody HomeworkQuestiion hq) throws Exception {
+    public Object postHomework(@ApiParam(value = "作业，题目数据模型", required = true) @Validated @RequestBody HomeworkQuestiionParam hq) throws Exception {
         if(hq.getClassIds() == null || hq.getClassIds().size() == 0 ) {
             throw new BusinessException(ErrorInfo.ClASSID_IS_NULL.code, ErrorInfo.ClASSID_IS_NULL.desc);
         }
@@ -93,9 +96,9 @@ public class HomeworkController {
      * @return
      * @throws Exception
      */
-    @ApiOperation(value = "根据id获取作业", httpMethod = "GET" ,notes = "携带作业id", response = ResponseMsg.class)
+    @ApiOperation(value = "根据id获取作业", httpMethod = "GET" ,notes = "携带作业id", authorizations = @Authorization(value = "token"))
     @RequestMapping(value="", method = RequestMethod.GET)
-    public Object getHomework(@ApiParam("作业id") Long id) throws Exception{
+    public ResponseMsg<HomeworkQuestiion> getHomework(@ApiParam("作业id") @RequestParam Long id) throws Exception{
         logger.info("请求方法getHomework参数---->" + id);
         if(id == null || id < 0) {
             throw new BusinessException(ErrorInfo.ID_IS_NULL.code, ErrorInfo.ID_IS_NULL.desc);
@@ -107,6 +110,8 @@ public class HomeworkController {
         logger.info("请求方法getHomework返回---->" + JsonUtil.beanToJson(msg));
         return msg;
     }
+    
+    
     @ApiOperation(value = "获取学生答题信息", notes = "返回学生答题信息", response = ResponseMsg.class)
     @RequestMapping(value="student", method = RequestMethod.POST)
     public Object getHomeworkStudent(@ApiParam(value = "学生答题参数" ,required=true) @Validated @RequestBody StudentanswerParam param) throws Exception{
