@@ -20,4 +20,6 @@ public interface QuestionMapper {
     List<Question> selectList(QuestionParam param);
 
     List<Question> selectListInnerAnswer(QuestionParam param);
+
+    List<Question> selectQuestionNoAnswer(QuestionParam param);
 }

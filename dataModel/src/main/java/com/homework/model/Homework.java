@@ -2,6 +2,7 @@ package com.homework.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.Date;
  * @author
  * @create 2017-03-31 上午 10:48
  **/
+@Validated
 public class Homework extends BaseModel {
     /**
      * 教师id号
