@@ -85,4 +85,8 @@
         </if>
         group by q.id
     </select>
+    <select id="selectQuestionNoAnswer" parameterType="com.homework.param.QuestionParam" resultType="Question">
+        select * from question q where q.homeworkId = #{homeworkId} and q.id not in
+        (select s.questionId as id from studentanswer s left join question q on s.questionId=q.id where s.studentId = #{studentId} and q.homeworkId = #{homeworkId})
+    </select>
 </mapper>
