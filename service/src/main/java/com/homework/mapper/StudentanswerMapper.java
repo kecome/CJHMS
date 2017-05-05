@@ -17,4 +17,6 @@ public interface StudentanswerMapper {
     int insertStudentanswer(Studentanswer studentanswer);
     int updateStudentanswer(Studentanswer studentanswer);
     int markStudentanswer(MarkParam param);
+    int updateAnswer(Studentanswer studentanswer);
+    Studentanswer selectAnswer(StudentanswerParam param);
 }

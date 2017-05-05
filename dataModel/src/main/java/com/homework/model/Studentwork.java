@@ -1,6 +1,9 @@
 package com.homework.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.util.Date;
 
 /**
  * 学生作业实体类
@@ -44,6 +47,11 @@ public class Studentwork extends BaseModel {
      */
     @ApiModelProperty("老师是否批阅：【0：未批阅；1：已批阅】")
     private Integer mark;
+    /**
+     * 作业提交时间
+     */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    private Date submitTime;
 
     public Long getHomeworkId() {
         return homeworkId;
@@ -99,5 +107,13 @@ public class Studentwork extends BaseModel {
 
     public void setTime(int time) {
         this.time = time;
+    }
+
+    public Date getSubmitTime() {
+        return submitTime;
+    }
+
+    public void setSubmitTime(Date submitTime) {
+        this.submitTime = submitTime;
     }
 }

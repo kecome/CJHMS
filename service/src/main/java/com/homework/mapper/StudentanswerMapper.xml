@@ -22,6 +22,10 @@
         </if>
     </select>
 
+    <select id="selectAnswer" parameterType="com.homework.param.StudentanswerParam" resultType="Studentanswer">
+        select * from studentanswer where questionId = #{questionId} and studentId = #{studentId} limit 1
+    </select>
+
     <insert id="insertStudentanswer" parameterType="com.homework.model.Studentanswer">
         <bind name="sysDate" value="@com.homework.util.Pretreatment@now()" />
         <selectKey keyProperty="id" resultType="Long" order="BEFORE">
@@ -37,6 +41,23 @@
         <bind name="sysDate" value="@com.homework.util.Pretreatment@now()"></bind>
         update studentanswer
         <trim prefix="set" suffixOverrides="," suffix=" where id = #{id} ">
+            updated = #{sysDate},
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(answer)">
+                answer=#{answer},
+            </if>
+            <if test="isRight != null">
+                isRight=#{isRight},
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(comment)">
+                comment=#{comment},
+            </if>
+        </trim>
+    </update>
+
+    <update id="updateAnswer" parameterType="Studentanswer">
+        <bind name="sysDate" value="@com.homework.util.Pretreatment@now()"></bind>
+        update studentanswer
+        <trim prefix="set" suffixOverrides="," suffix=" where questionId = #{questionId} and studentId = #{studentId} ">
             updated = #{sysDate},
             <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(answer)">
                 answer=#{answer},

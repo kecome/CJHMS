@@ -14,6 +14,8 @@ public class StudentanswerParam extends BaseParam{
      */
     @NotNull(message = "作业id不能为空")
     private Long homeworkId;
+
+    private Long questionId;
     /**
      * 学生id
      */
@@ -69,5 +71,13 @@ public class StudentanswerParam extends BaseParam{
 
     public void setQuestion(int question) {
         this.question = question;
+    }
+
+    public Long getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(Long questionId) {
+        this.questionId = questionId;
     }
 }

@@ -21,6 +21,7 @@ public enum ErrorInfo {
     HOMEWORK_NOT_PUBLIC(10009, "作业未发布", ""),
     HOMEWORK_IS_NULL(10007, "作业不存在", ""),
     STUDENTANSAWER_IS_NULL(10008, "学生作答不存在", ""),
+    HOMEWORK_SUBMIT(10010, "作业已提交", ""),
     QUESTION_IS_NULL(10006, "作业题目不存在", "");
 
     /**------------------------xxx------------------------**/

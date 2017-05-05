@@ -10,6 +10,7 @@ import com.homework.model.*;
 import com.homework.param.MarkParam;
 import com.homework.param.StudentanswerLog;
 import com.homework.param.StudentanswerParam;
+import com.homework.param.StudentworkParam;
 import com.homework.util.UserUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,26 +72,42 @@ public class StudentAnswerService {
             throw new BusinessException(ErrorInfo.QUESTION_IS_NULL.code, ErrorInfo.QUESTION_IS_NULL.desc);
         }
         if(studentanswer.getStudentId() == null)studentanswer.setStudentId(UserUtil.getUser().getId());
-            if(q.getType().intValue() == QuestionType.SINGLE.value || q.getType().intValue() == QuestionType.MULTIPLE.value ) {  //客观题，自观批阅答题
-                if(StringUtils.isNotEmpty(studentanswer.getAnswer())) {
-                    char[] sAnswer = studentanswer.getAnswer().toUpperCase().toCharArray();
-                    char[] qAnswer = q.getAnswer().toUpperCase().toCharArray();
-                    Arrays.sort(sAnswer);
-                    Arrays.sort(qAnswer);
-                    if(String.valueOf(sAnswer).equals(String.valueOf(qAnswer))) {
-                        studentanswer.setIsRight(AnswerResult.RIGHT.value);  //正确
-                    } else {
-                        studentanswer.setIsRight(AnswerResult.ERROR.value);  //错误
-                    }
-                }else {
+        StudentworkParam sParam = new StudentworkParam();
+        sParam.setStudentId(studentanswer.getStudentId());
+        sParam.setHomeworkId(q.getHomeworkId());
+        Studentwork work = studentworkMapper.selectStudentwork(sParam);
+        if(work.getSubmit() != null && work.getSubmit().intValue() == 1) {
+            throw new BusinessException(ErrorInfo.HOMEWORK_SUBMIT.code, ErrorInfo.HOMEWORK_SUBMIT.desc);
+        }
+        if(q.getType().intValue() == QuestionType.SINGLE.value || q.getType().intValue() == QuestionType.MULTIPLE.value ) {  //客观题，自动批阅
+            if(StringUtils.isNotEmpty(studentanswer.getAnswer())) {
+                char[] sAnswer = studentanswer.getAnswer().toUpperCase().toCharArray();
+                char[] qAnswer = q.getAnswer().toUpperCase().toCharArray();
+                Arrays.sort(sAnswer);
+                Arrays.sort(qAnswer);
+                if(String.valueOf(sAnswer).equals(String.valueOf(qAnswer))) {
+                    studentanswer.setIsRight(AnswerResult.RIGHT.value);  //正确
+                } else {
                     studentanswer.setIsRight(AnswerResult.ERROR.value);  //错误
                 }
+            }else {
+                studentanswer.setIsRight(AnswerResult.ERROR.value);  //错误
             }
-        if(studentanswer.getId() == null) {
+        }
+
+        StudentanswerParam p = new StudentanswerParam();
+        p.setQuestionId(studentanswer.getQuestionId());
+        p.setStudentId(studentanswer.getStudentId());
+        if(studentanswerMapper.selectAnswer(p) == null) {
             studentanswerMapper.insertStudentanswer(studentanswer);
         }else {
-            studentanswerMapper.updateStudentanswer(studentanswer);
+            studentanswerMapper.updateAnswer(studentanswer);
         }
+//        if(studentanswer.getId() == null) {
+//            studentanswerMapper.insertStudentanswer(studentanswer);
+//        }else {
+//            studentanswerMapper.updateStudentanswer(studentanswer);
+//        }
         if(answerLog != null) {
             if(answerLog.getStudentId() == null) answerLog.setStudentId(UserUtil.getUser().getId());
             answerLog.setQuestionId(studentanswer.getQuestionId());

@@ -8,11 +8,7 @@ import com.homework.exception.BusinessException;
 import com.homework.exception.ErrorInfo;
 import com.homework.mapper.*;
 import com.homework.model.*;
-import com.homework.param.HomeworkParam;
-import com.homework.param.HomeworkQuestiionParam;
-import com.homework.param.QuestionParam;
-import com.homework.param.StudentanswerParam;
-import com.homework.param.StudentworkParam;
+import com.homework.param.*;
 import com.homework.util.HttpUtil;
 import com.homework.util.JsonUtil;
 import com.homework.util.User;
@@ -75,7 +71,6 @@ public class HomeworkService {
             throw new BusinessException(ErrorInfo.YUN_REP_ERROR.code, ErrorInfo.YUN_REP_ERROR.desc);
         }
         JSONArray data = obj.getJSONArray("data");
-
         Map<Long, List<Long>> classId = new HashMap<>();
         Map<Long, String> sMap = new HashMap<>();
         Map<Long, String> cMap = new HashMap<>();

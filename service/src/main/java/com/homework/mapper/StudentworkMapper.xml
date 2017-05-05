@@ -98,7 +98,7 @@
     <select id="selectHomework" parameterType="com.homework.param.StudentworkParam" resultType="Homework">
         <bind name="orderSql" value="@com.homework.util.Pretreatment@getOrder(order)"/>
         select h.id, h.teacherId, h.subjectId, h.subjectName, h.title, h.knowledge, h.spentTime,
-        h.status, h.publicTime, h.endTime, h.created, s.updated, s.mark
+        h.status, h.publicTime, h.endTime, h.created,h.updated, s.submitTime, s.mark
         <include refid="homeworkList" />
         <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(orderSql)">
             order by
@@ -116,7 +116,7 @@
     <select id="selectHomeworkRecord" parameterType="com.homework.param.StudentworkParam" resultType="Homework">
         <bind name="orderSql" value="@com.homework.util.Pretreatment@getOrder(order)"/>
         select h.id, h.teacherId, h.subjectId, h.subjectName, h.title, h.knowledge, h.spentTime,
-        h.status, h.publicTime, h.endTime, h.created, s.updated, s.mark
+        h.status, h.publicTime, h.endTime, h.created, h.updated, s.submitTime, s.mark
         from studentwork s LEFT JOIN homework h on s.homeworkId = h.id
         <trim prefix="where" prefixOverrides="and | or">
             <if test="studentId != null">
@@ -181,6 +181,9 @@
             </if>
             <if test="mark != null">
                 mark=#{mark},
+            </if>
+            <if test="submitTime != null">
+                submitTime=#{submitTime},
             </if>
         </trim>
     </update>

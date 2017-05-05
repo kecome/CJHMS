@@ -14,7 +14,7 @@
         values(#{id},#{questionId},#{studentId},#{start},#{end},#{sysDate},#{sysDate})
     </insert>
 
-    <select id="selectTime" parameterType="Map" resultType="int">
+    <select id="selectTime" parameterType="Map" resultType="Integer">
         select sum((UNIX_TIMESTAMP(`end`) - UNIX_TIMESTAMP(`start`)))from answerlog
         where questionId =#{questionId} and studentId = #{studentId}
     </select>

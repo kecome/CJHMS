@@ -50,6 +50,7 @@ create table `studentwork` (
     `time` int unsigned comment '学生作业计时',
     `submit` tinyint not null default 0 comment '学生是否提交：【0：未提交；1：已提交】',
     `mark` tinyint not null default 0 comment '老师是否批阅：【0：未批阅；1：已批阅】',
+    `submitTime` datetime comment '提交时间',
     `created` datetime not null comment '创建时间',
     `updated` datetime not null comment '修改时间',
      primary key (`id`)

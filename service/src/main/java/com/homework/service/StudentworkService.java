@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -86,9 +87,12 @@ public class StudentworkService {
                 answer.setIsRight(AnswerResult.ERROR.value);
                 answer.setQuestionId(q.getId());
                 answer.setComment("未作答");
+                answer.setStudentId(param.getStudentId());
                 studentanswerMapper.insertStudentanswer(answer);
             }
         }
+        //设置学生作业提交时间
+        studentwork.setSubmitTime(new Date());
         studentworkMapper.updateStudentwork(studentwork);
 
         //如果全部是客观题，由前端自动批阅，发送已批阅消息

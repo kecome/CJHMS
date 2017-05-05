@@ -1,10 +1,7 @@
 package com.homework.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import io.swagger.annotations.ApiModelProperty;
-import springfox.documentation.annotations.ApiIgnore;
-
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
 
@@ -79,6 +76,12 @@ public class Homework extends BaseModel {
      */
 	@ApiModelProperty("是否批阅")
     private Integer mark;
+
+    /**
+     * 作业提交时间
+     */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    private Date submitTime;
 
     public Long getTeacherId() {
         return teacherId;
@@ -158,5 +161,13 @@ public class Homework extends BaseModel {
 
     public void setMark(Integer mark) {
         this.mark = mark;
+    }
+
+    public Date getSubmitTime() {
+        return submitTime;
+    }
+
+    public void setSubmitTime(Date submitTime) {
+        this.submitTime = submitTime;
     }
 }

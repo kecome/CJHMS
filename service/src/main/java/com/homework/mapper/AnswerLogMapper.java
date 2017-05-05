@@ -9,5 +9,5 @@ import java.util.Map;
  */
 public interface AnswerLogMapper {
     Long insertLog(AnswerLog log);
-    int selectTime(Map<String,Long> param);
+    Integer selectTime(Map<String,Long> param);
 }
