@@ -41,7 +41,8 @@ import java.util.TreeMap;
  * @author xuke
  * @create 2017-03-30 下午 19:22
  **/
-@Api(value = "Homework-api", description = "作业控制器")
+
+@Api(value = "Homework-api", description = "作业和答题相关操作")
 @RestController
 @RequestMapping(value = "/homework",produces="application/json;charset=UTF-8")
 public class HomeworkController {
@@ -96,7 +97,7 @@ public class HomeworkController {
      * @return
      * @throws Exception
      */
-
+    
     @ApiOperation(value = "根据id获取作业", httpMethod = "GET" ,notes = "携带作业id", authorizations = @Authorization(value = "token"))
     @RequestMapping(value="", method = RequestMethod.GET)
     public ResponseMsg<HomeworkQuestiion> getHomework(@ApiParam(value = "作业id", required = true) @RequestParam Long id) throws Exception{

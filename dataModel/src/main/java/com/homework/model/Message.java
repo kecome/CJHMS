@@ -1,5 +1,7 @@
 package com.homework.model;
 
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * 消息类
  *
@@ -10,24 +12,29 @@ public class Message extends BaseModel {
     /**
      * 消息接收者id号，学生
      */
+	@ApiModelProperty("消息接收者id号，学生")
     private Long studentId;
     /**
      * 消息发送者id号，老师
      */
+	@ApiModelProperty("消息发送者id号，老师")
     private Long teacherId;
-
+	
     private Long resourceId;
     /**
      * 消息类型：【0：作业批阅消息】
      */
+    @ApiModelProperty("消息类型：【0：作业批阅消息】")
     private Integer type;
     /**
      * 消息内容
      */
+    @ApiModelProperty("消息内容")
     private String content;
     /**
      * 是否查看：【0：未查看；1：已查看】
      */
+    @ApiModelProperty("是否查看：【0：未查看；1：已查看】")
     private Integer isRead;
 
     public Long getStudentId() {

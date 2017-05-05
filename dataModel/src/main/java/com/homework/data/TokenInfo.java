@@ -1,5 +1,7 @@
 package com.homework.data;
 
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * 用户token信息
  *

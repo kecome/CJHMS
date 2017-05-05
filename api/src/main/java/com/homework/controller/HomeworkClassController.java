@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author xuke
  * @create 2017-04-14 下午 15:23
  **/
-@Api(value = "HomeworkClass-api", description = "作业班级控制器")
+@Api(value = "HomeworkClass-api", description = "获取作业班级相关操作")
 @RestController
 @RequestMapping(value = "/class",produces="application/json;charset=UTF-8")
 public class HomeworkClassController {
@@ -39,7 +39,7 @@ public class HomeworkClassController {
      * 获取作业设定班级
      * @return
      */
-    @ApiOperation(value = "根据作业班级参数获取作业设定班级", notes = "返回作业班级信息" , authorizations = @Authorization(value = "token"))
+    @ApiOperation(value = "根据作业班级参数获取作业设定班级", notes = "返回作业班级关联信息" , authorizations = @Authorization(value = "token"))
     @RequestMapping(value="", method = RequestMethod.POST)
     public ResponseMsg<Page<HomeworkClass>> getClasses(@ApiParam("作业班级参数")  @RequestBody HomeworkClassParam param) throws Exception{
         logger.info("请求方法getClasses参数----->" + JsonUtil.beanToJson(param));
@@ -51,7 +51,7 @@ public class HomeworkClassController {
         return msg;
 
     }
-    @ApiOperation(value = "根据作业班级参数获取作业信息", notes = "返回作业信息", authorizations = @Authorization(value = "token"), response = ResponseMsg.class)
+    @ApiOperation(value = "根据作业班级参数获取作业信息", notes = "返回作业班级信息", authorizations = @Authorization(value = "token"), response = ResponseMsg.class)
     @RequestMapping(value="/classHomework", method = RequestMethod.POST)
     public ResponseMsg<Page<ClassHomework>> getClassHomework(@ApiParam("作业班级参数") @RequestBody HomeworkClassParam param) throws Exception{
         logger.info("请求方法getClassHomework参数----->" + JsonUtil.beanToJson(param));

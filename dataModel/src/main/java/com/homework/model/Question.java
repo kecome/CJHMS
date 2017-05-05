@@ -1,5 +1,7 @@
 package com.homework.model;
 
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * 题目实体类
  *
@@ -10,27 +12,33 @@ public class Question extends BaseModel {
     /**
      * 作业id
      */
+	@ApiModelProperty("作业id")
     private Long homeworkId;
     /**
      * 题型：【0：选择题；1：主观题】
      */
+	@ApiModelProperty("题型：【0：选择题；1：主观题】")
     private Integer type;
     /**
      * 题干
      */
+	@ApiModelProperty("题干")
     private String title;
     /**
      * 题目序号，作业展示时用于排序
      */
+	@ApiModelProperty("题目序号，作业展示时用于排序")
     private Integer seq;
     /**
      * 题目答案
      */
+	@ApiModelProperty("题目答案")
     private String answer;
 
     /**
      * 答案选项
      */
+	@ApiModelProperty("答案选项")
     private String item;
 
     public Long getHomeworkId() {

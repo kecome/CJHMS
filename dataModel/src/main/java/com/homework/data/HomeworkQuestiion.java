@@ -3,6 +3,8 @@ package com.homework.data;
 import com.homework.model.Homework;
 import com.homework.model.Question;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.List;
 import java.util.Map;
 
@@ -16,14 +18,17 @@ public class HomeworkQuestiion {
     /**
      * 作业信息
      */
+	@ApiModelProperty("作业信息")
     private Homework homework;
     /**
      * 班级id,name信息
      */
+	@ApiModelProperty("班级id,name信息")
     private List<Map<String,String>> classes;
     /**
      * 题目信息
      */
+	@ApiModelProperty("题目信息")
     private List<Question> questions;
 
 	public Homework getHomework() {

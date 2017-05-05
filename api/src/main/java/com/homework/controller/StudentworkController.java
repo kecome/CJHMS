@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author xuke
  * @create 2017-04-14 下午 15:29
  **/
-@Api(value="Studentwork-api",description="学生作业控制器")
+@Api(value="Studentwork-api",description="学生作业相关操作")
 @RestController
 @RequestMapping(value = "/student",produces="application/json;charset=UTF-8")
 public class StudentworkController {

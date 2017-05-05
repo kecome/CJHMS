@@ -1,5 +1,7 @@
 package com.homework.model;
 
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * 作业班级关联表
  *
@@ -10,26 +12,33 @@ public class HomeworkClass extends BaseModel {
     /**
      *作业id
      */
+	@ApiModelProperty("作业id")
     private Long homeworkId;
     /**
      * 所属班级id
      */
+	@ApiModelProperty("所属班级id")
     private Long classId;
     /**
      * 班级名称
      */
+	@ApiModelProperty("班级名称")
     private String className;
     /**
      * 作业提交人数
      */
+	
+	@ApiModelProperty("作业提交人数")
     private Integer submitCount;
     /**
      * 已批阅人数
      */
+	@ApiModelProperty("已批阅人数")
     private Integer markCount;
     /**
      * 作业发布人数
      */
+	@ApiModelProperty("作业发布人数")
     private Integer count;
 
     public Long getHomeworkId() {

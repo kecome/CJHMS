@@ -17,26 +17,32 @@ public class Studentwork extends BaseModel {
     /**
      * 学生id号
      */
+    @ApiModelProperty("学生id号")
     private Long studentId;
     /**
      * 学生名称
      */
+    @ApiModelProperty("学生名称")
     private String studentName;
     /**
      * 班级id号
      */
+    @ApiModelProperty("班级id号")
     private Long classId;
     /**
      * 学生作业计时
      */
+    @ApiModelProperty("学生作业计时")
     private int time;
     /**
      * 学生是否提交：【0：未提交；1：已提交】
      */
+    @ApiModelProperty("学生是否提交：【0：未提交；1：已提交】")
     private Integer submit;
     /**
      * 老师是否批阅：【0：未批阅；1：已批阅】
      */
+    @ApiModelProperty("老师是否批阅：【0：未批阅；1：已批阅】")
     private Integer mark;
 
     public Long getHomeworkId() {

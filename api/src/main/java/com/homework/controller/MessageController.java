@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author xuke
  * @create 2017-04-14 下午 16:48
  **/
-@Api(value="Message-api", description="消息控制器")
+@Api(value="Message-api", description="发送与获取消息相关操作")
 @RestController
 @RequestMapping(value = "/message",produces="application/json;charset=UTF-8")
 public class MessageController {

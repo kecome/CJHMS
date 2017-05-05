@@ -3,6 +3,8 @@ package com.homework.data;
 import com.homework.model.Homework;
 import com.homework.model.HomeworkClass;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.List;
 
 /**
@@ -15,6 +17,7 @@ public class ClassHomework extends Homework{
     /**
      * 设定班级
      */
+	@ApiModelProperty("设定班级")
     private List<HomeworkClass> classes;
 
     public List<HomeworkClass> getClasses() {

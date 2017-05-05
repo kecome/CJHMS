@@ -2,6 +2,8 @@ package com.homework.data;
 
 import com.homework.model.*;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.List;
 
 /**
@@ -16,14 +18,17 @@ public class HomeworkStudent {
     /**
      * 作业
      */
+	@ApiModelProperty("作业")
     private Homework homework;
     /**
      * 作业题目
      */
+	@ApiModelProperty("作业题目")
     private List<Question> questions;
     /**
      * 是否显示学生作业答案
      */
+	@ApiModelProperty("是否显示学生作业答案")
     private boolean show = false;
 
     private Studentwork studentwork;

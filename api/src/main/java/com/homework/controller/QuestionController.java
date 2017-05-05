@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author xuke
  * @create 2017-04-10 下午 14:00
  **/
-@Api(value="Question-api",description="题目控制器")
+@Api(value="Question-api",description="获取题目相关操作")
 @RestController
 @RequestMapping(value = "/question",produces="application/json;charset=UTF-8")
 public class QuestionController {

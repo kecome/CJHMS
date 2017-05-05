@@ -34,7 +34,7 @@ import java.util.List;
  * @author xuke
  * @create 2017-04-10 下午 14:57
  **/
-@Api(value="StudentAnswer-api",description="答案控制器")
+@Api(value="StudentAnswer-api",description="与答案相关操作")
 @RestController
 @RequestMapping(value = "/studentanswer",produces="application/json;charset=UTF-8")
 public class StudentAnswerController {

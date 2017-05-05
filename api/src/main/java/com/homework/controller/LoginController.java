@@ -27,7 +27,7 @@ import java.util.TreeMap;
  * @author xuke
  * @create 2017-04-11 下午 13:47
  **/
-@Api(value="Login-api" ,description="登录控制器")
+@Api(value="Login-api" ,description="登录相关操作")
 @RestController
 @RequestMapping(value = "/login",produces="application/json;charset=UTF-8")
 public class LoginController {

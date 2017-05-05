@@ -1,6 +1,9 @@
 package com.homework.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import io.swagger.annotations.ApiModelProperty;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
