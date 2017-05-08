@@ -87,6 +87,7 @@ public class StudentworkService {
                 answer.setIsRight(AnswerResult.ERROR.value);
                 answer.setQuestionId(q.getId());
                 answer.setComment("未作答");
+                answer.setTime(0);
                 answer.setStudentId(param.getStudentId());
                 studentanswerMapper.insertStudentanswer(answer);
             }

@@ -156,6 +156,7 @@ public class StudentAnswerService {
             for(MarkParam p : param) {
                 studentanswerMapper.markStudentanswer(p);
             }
+
             Long studentId = param.get(0).getStudentId();
             Long homeworkId = param.get(0).getHomeworkId();
             Homework homework = homeworkMapper.selectHomework(homeworkId);

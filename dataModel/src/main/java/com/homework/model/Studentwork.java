@@ -36,7 +36,7 @@ public class Studentwork extends BaseModel {
      * 学生作业计时
      */
     @ApiModelProperty("学生作业计时")
-    private int time;
+    private Integer time;
     /**
      * 学生是否提交：【0：未提交；1：已提交】
      */
@@ -101,19 +101,19 @@ public class Studentwork extends BaseModel {
         this.studentName = studentName;
     }
 
-    public int getTime() {
-        return time;
-    }
-
-    public void setTime(int time) {
-        this.time = time;
-    }
-
     public Date getSubmitTime() {
         return submitTime;
     }
 
     public void setSubmitTime(Date submitTime) {
         this.submitTime = submitTime;
+    }
+
+    public Integer getTime() {
+        return time;
+    }
+
+    public void setTime(Integer time) {
+        this.time = time;
     }
 }
