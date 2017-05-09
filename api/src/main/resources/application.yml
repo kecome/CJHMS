@@ -34,6 +34,7 @@ server:
     port: 9084
 cbp_host: http://10.0.0.214:8080/cbp/
 
+
 ---
 
 #测试环境配置

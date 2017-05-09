@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="true">
     <appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>log/cjhms.txt</File>
+        <!--<File>log/cjhms.txt</File>-->
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <FileNamePattern>log/cjhms-%d{yyyy-MM-dd}.%i.txt</FileNamePattern>
             <!-- each file should be at most 300MB, keep 60 days worth of history, but at most 20GB -->
@@ -21,7 +21,19 @@
         </encoder>
     </appender>
 
-    <root level="INFO">
-        <appender-ref ref="logfile" />
-    </root>
+    <springProfile name="default">
+        <root level="INFO">
+            <appender-ref ref="logfile" />
+        </root>
+    </springProfile>
+    <springProfile name="test">
+        <root level="INFO">
+            <appender-ref ref="logfile" />
+        </root>
+    </springProfile>
+    <springProfile name="local">
+        <root level="INFO">
+            <appender-ref ref="STDOUT" />
+        </root>
+    </springProfile>
 </configuration>
