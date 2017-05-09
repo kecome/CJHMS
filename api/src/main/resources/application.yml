@@ -33,9 +33,6 @@ spring:
 server:
     port: 9084
 cbp_host: http://10.0.0.214:8080/cbp/
-logging:
-  file: log/log.log
-  level: info
 
 ---
 
@@ -66,9 +63,6 @@ spring:
 server:
     port: 9084
 cbp_host: http://test-cjyun-api.ecaicn.com/cbp/
-logging:
-  file: log/log.log
-  level: info
 
 ---
 
@@ -99,7 +93,4 @@ spring:
 server:
     port: 9084
 cbp_host: http://10.0.0.214:8080/cbp/
-logging:
-  file: log/log.log
-  level: info
 
