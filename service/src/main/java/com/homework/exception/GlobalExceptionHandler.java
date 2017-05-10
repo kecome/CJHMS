@@ -26,8 +26,6 @@ public class GlobalExceptionHandler {
         User user = UserUtil.getUser();
         //发生异常时清除当前会话信息
         UserUtil.removeUser();
-        logger.error(e.getStackTrace()+"");
-        e.printStackTrace();
         ResponseMsg resp = new ResponseMsg();
         if(e instanceof MethodArgumentNotValidException) {
             MethodArgumentNotValidException me = (MethodArgumentNotValidException) e;
@@ -36,28 +34,33 @@ public class GlobalExceptionHandler {
             String error = result.getFieldError().getDefaultMessage();
             resp.setCode(ErrorInfo.ARGUMENT_NOT_VALID.code);
             resp.setMessage("[" + field + "]" + error);
+            logger.error("参数较验异常["+ErrorInfo.ARGUMENT_NOT_VALID.code+"]:" + "[" + field + "]" + error, e);
             return resp;
         }
         if(e instanceof BusinessException) {
             BusinessException businessException = (BusinessException) e;
             resp.setCode(businessException.getCode());
             resp.setMessage(businessException.getMsg());
+            logger.error("自定义异常["+businessException.getCode()+"]:" + businessException.getMsg(), e);
             return resp;
         }
         if(e instanceof RuntimeException) {
             RuntimeException runtimeException = (RuntimeException) e;
             resp.setCode(ErrorInfo.RUNTIME_EXCEPTIOON.code);
             resp.setMessage(ErrorInfo.RUNTIME_EXCEPTIOON.desc);
+            logger.error("[" + ErrorInfo.RUNTIME_EXCEPTIOON.code + "]" + ErrorInfo.RUNTIME_EXCEPTIOON.desc + ":", e);
             return resp;
         }
         if(e instanceof Exception) {
             Exception exception = (Exception) e;
             resp.setCode(ErrorInfo.RUNTIME_EXCEPTIOON.code);
             resp.setMessage(ErrorInfo.RUNTIME_EXCEPTIOON.desc);
+            logger.error("[" + ErrorInfo.RUNTIME_EXCEPTIOON.code + "]" + ErrorInfo.RUNTIME_EXCEPTIOON.desc + ":", e);
             return resp;
         }
         resp.setCode(ErrorInfo.UNKNOW_EXCEPTION.code);
         resp.setMessage(ErrorInfo.UNKNOW_EXCEPTION.desc);
+        logger.error("[" + ErrorInfo.RUNTIME_EXCEPTIOON.code + "]" + ErrorInfo.RUNTIME_EXCEPTIOON.desc + ":", e);
         return resp;
     }
 }

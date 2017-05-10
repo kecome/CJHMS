@@ -1,5 +1,7 @@
 package com.homework.util;
 
+import org.slf4j.MDC;
+
 /**
  * 会话工具类
  *
@@ -16,6 +18,9 @@ public final class UserUtil {
 
     public static final void putUser(User user) {
         userLocal.set(user);
+        MDC.put("id", user.getId() + "");
+        MDC.put("name", user.getUsername() + "");
+        MDC.put("role", user.getRole() + "");
     }
 
     public static final User getUser() {
@@ -30,5 +35,6 @@ public final class UserUtil {
 
     public static final void removeUser() {
         userLocal.remove();
+        MDC.clear();
     }
 }
