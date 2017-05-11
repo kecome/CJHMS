@@ -6,6 +6,8 @@ spring:
 #开发环境配置
 spring:
     profiles: default
+    name: 开发环境
+    mailTo: 741919791@qq.com
     datasource:
         name: test
 #        url: jdbc:mysql://127.0.0.1:3306/hktest?characterEncoding=utf8&useSSL=false
@@ -40,6 +42,8 @@ cbp_host: http://10.0.0.214:8080/cbp/
 #测试环境配置
 spring:
     profiles: test
+    name: 测试环境
+    mailTo: 741919791@qq.com,550425613@qq.com
     datasource:
         name: test
         url: jdbc:mysql://rm-wz95c58i9ixyqw206.mysql.rds.aliyuncs.com:3306/cjhms?characterEncoding=utf8&useSSL=false
@@ -70,6 +74,8 @@ cbp_host: http://test-cjyun-api.ecaicn.com/cbp/
 #本地环境配置
 spring:
     profiles: local
+    name: 本地环境
+    mailTo: 741919791@qq.com
     datasource:
         name: test
         url: jdbc:mysql://127.0.0.1:3306/homework?characterEncoding=utf8&useSSL=false

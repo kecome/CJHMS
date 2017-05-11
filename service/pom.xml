@@ -65,6 +65,11 @@
             <artifactId>activation</artifactId>
             <version>1.1.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.codehaus.janino</groupId>
+            <artifactId>janino</artifactId>
+            <version>3.0.0</version>
+        </dependency>
     </dependencies>
 
     <!-- 如果不添加此节点mybatis的mapper.xml文件都会被漏掉。 -->

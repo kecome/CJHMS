@@ -22,6 +22,7 @@ public enum ErrorInfo {
     HOMEWORK_IS_NULL(10007, "作业不存在", ""),
     STUDENTANSAWER_IS_NULL(10008, "学生作答不存在", ""),
     HOMEWORK_SUBMIT(10010, "作业已提交", ""),
+   // PUBLICTIME_ERROR(10011, "作业预约发布时间不正确", ""),
     QUESTION_IS_NULL(10006, "作业题目不存在", "");
 
     /**------------------------xxx------------------------**/

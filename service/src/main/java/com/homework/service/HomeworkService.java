@@ -94,6 +94,9 @@ public class HomeworkService {
         homework.setTeacherId(user.getId());
         Long homeworkId = homework.getId();
         if(homework.getStatus() == null) homework.setStatus(0);
+//        if(homework.getStatus().intValue() == 0 && homework.getPublicTime().before(new Date())) { //预约发布作业
+//            throw new BusinessException(ErrorInfo.PUBLICTIME_ERROR.code, ErrorInfo.PUBLICTIME_ERROR.desc);
+//        }
         //立即发布的作业，publicTime设置为当前时间
         if(homework.getStatus() == 1) homework.setPublicTime(new Date());
         if(homeworkId != null) {

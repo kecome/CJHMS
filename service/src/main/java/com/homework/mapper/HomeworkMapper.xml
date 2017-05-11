@@ -83,7 +83,10 @@
     <update id="updateStatus">
         <!--  update homework set updated = now(),status=1 where date_format(publicTime, '%Y-%m-%d %H:%i')=date_format(NOW(), '%Y-%m-%d %H:%i')-->
         <bind name="sysDate" value="@com.homework.util.Pretreatment@now()"></bind>
-        update homework set updated = #{sysDate},status=1 where date_format(publicTime, '%Y-%m-%d %H:%i')=date_format(#{sysDate}, '%Y-%m-%d %H:%i')
+        update homework set updated = #{sysDate},status=1 where status = 0 and
+        <![CDATA[
+        date_format(publicTime, '%Y-%m-%d %H:%i')<= date_format(#{sysDate}, '%Y-%m-%d %H:%i')
+        ]]>
     </update>
 
     <insert id="insertHomework" parameterType="com.homework.model.Homework">
