@@ -47,7 +47,7 @@
         </layout>
         <cyclicBufferTracker class="ch.qos.logback.core.spi.CyclicBufferTracker">
             <!-- send just 5 log entry per email -->
-            <bufferSize>5</bufferSize>
+            <bufferSize>10</bufferSize>
         </cyclicBufferTracker>
     </appender>
     <logger name="com.homework" level="INFO" additivity="true">

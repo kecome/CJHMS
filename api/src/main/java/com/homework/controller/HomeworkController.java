@@ -38,10 +38,7 @@ import java.util.TreeMap;
  * @author xuke
  * @create 2017-03-30 下午 19:22
  **/
-
-
 @Api(value = "Homework-api", description = "作业和答题相关操作")
-
 @RestController
 @RequestMapping(value = "/homework",produces="application/json;charset=UTF-8")
 public class HomeworkController {
@@ -158,55 +155,5 @@ public class HomeworkController {
         System.out.println(json);
         return json;
     }
-
-//    public static void main(String[] args) throws  Exception {
-//
-//       System.out.println(buildHomeworkQuestion());
-//
-//    }
-
-
-//    private static String buildHomeworkQuestion() throws Exception{
-//        HomeworkQuestiion hq = new HomeworkQuestiion();
-//        //作业信息
-//        Homework homework = new Homework();
-//        homework.setTeacherId(65545L);
-//        homework.setSubjectId(46565L);
-//        homework.setTitle("12-23 数学作业");
-//        homework.setKnowledge("数学知识点");
-//        homework.setSpentTime(120);
-//        homework.setEndTime(new Date());
-//        homework.setPublicTime(new Date());
-//
-//        //班级
-//        List<Long> classIds = new ArrayList<>();
-//
-//        classIds.add(345L);
-//        classIds.add(456L);
-//        classIds.add(345L);
-//
-//        List<Question> questions = new ArrayList<>();
-//        Question q1 = new Question();
-//        q1.setSeq(1);
-//        q1.setType(0);
-//        q1.setTitle("1+1=?");
-//        q1.setAnswer("A");
-//        q1.setItem("ABCD");
-//        questions.add(q1);
-//
-//        Question q2 = new Question();
-//        q2.setSeq(2);
-//        q1.setType(0);
-//        q1.setTitle("1+2=?");
-//        q1.setAnswer("B");
-//        q1.setItem("ABCDEF");
-//        questions.add(q2);
-//
-//        hq.setClassIds(classIds);
-//        hq.setHomework(homework);
-//        hq.setQuestions(questions);
-//
-//        return JsonUtil.beanToJson(hq);
-//    }
 
 }
